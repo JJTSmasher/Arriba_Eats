@@ -1,4 +1,4 @@
-namespace Arriba_Eats{
+namespace Arriba_Eats {
     class User 
     {
         public string name = "";

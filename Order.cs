@@ -1,5 +1,4 @@
-namespace Arriba_Eats
-{
+namespace Arriba_Eats {
     class Order : Customer 
     {
         public int orderID = 0;

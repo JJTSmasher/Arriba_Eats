@@ -1,5 +1,4 @@
-namespace Arriba_Eats
-{
+namespace Arriba_Eats {
     class Client : User 
     {
         public string restaurantName = "";
