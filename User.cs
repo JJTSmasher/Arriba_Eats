@@ -6,6 +6,5 @@ namespace Arriba_Eats {
         public string email = "";
         public int phone = 0;
         public string password = "";
-
     }
 }
