@@ -20,7 +20,8 @@ namespace Arriba_Eats {
             string restaurantStyle = styles[styleChoice - 1];
 
             string location = GetInput("Please enter your location (in the form of X,Y):");
-            Console.WriteLine($"You have been successfully registered as a client with restaurant '{restaurantName}' ({restaurantStyle}) at location {location}!");
+            Console.WriteLine($"You have been successfully registered as a client, {name}");
+            LoginMenu.ShowMenu();
         }
     }
 }

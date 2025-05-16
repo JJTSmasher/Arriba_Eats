@@ -59,6 +59,17 @@ namespace Arriba_Eats {
             }
         }
 
+        protected string GetValidatedPhone() {
+            while (true) {
+                Console.WriteLine("Please enter your mobile phone number:");
+                string phone = Console.ReadLine();
+                if (Regex.IsMatch(phone, @"^\+?\d{10,15}$")) {
+                    return phone;
+                }
+                Console.WriteLine("Invalid phone number. Please try again.");
+            }
+        }
+
         protected string GetValidatedPassword() {
             while (true) {
                 Console.WriteLine("Your password must:");
@@ -84,13 +95,12 @@ namespace Arriba_Eats {
             }
         }
 
+        protected string name;
         public virtual void Register() {
             string name = GetInput("Please enter your name:");
             int age = GetValidatedAge();
             string email = GetValidatedEmail();
             string password = GetValidatedPassword();
-
-            Console.WriteLine($"Registration complete! Welcome, {name}.");
         }
     }
 }

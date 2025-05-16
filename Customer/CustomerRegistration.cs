@@ -3,7 +3,8 @@ namespace Arriba_Eats {
             public override void Register() {
                 base.Register();
                 string location = GetInput("Please enter your location (in the form of X,Y):");
-                Console.WriteLine($"You have been successfully registered as a customer, {location}!");
+                Console.WriteLine($"You have been successfully registered as a customer, {name}!");
+                LoginMenu.ShowMenu();
             }
     }
 }
