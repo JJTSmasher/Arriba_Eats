@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Arriba_Eats {
     class Registration {
-        public static void ShowMenu() { // Renamed from Main to ShowMenu
+        public static void ShowMenu() {
             while (true) {
                 Console.WriteLine("1: Customer");
                 Console.WriteLine("2: Deliverer");
@@ -91,47 +91,6 @@ namespace Arriba_Eats {
             string password = GetValidatedPassword();
 
             Console.WriteLine($"Registration complete! Welcome, {name}.");
-        }
-    }
-
-    class Customer_Registration : Registration {
-        public override void Register() {
-            base.Register();
-            string location = GetInput("Please enter your location (in the form of X,Y):");
-            Console.WriteLine($"You have been successfully registered as a customer, {location}!");
-        }
-    }
-
-    class Deliverer_Registration : Registration {
-        public override void Register() {
-            base.Register();
-            string licencePlate = GetInput("Please enter your licence plate:");
-            Console.WriteLine($"You have been successfully registered as a deliverer with licence plate {licencePlate}!");
-        }
-    }
-
-    class Client_Registration : Registration {
-        public override void Register() {
-            base.Register();
-            string restaurantName = GetInput("Please enter your restaurant's name:");
-            Console.WriteLine("Please select your restaurant's style:");
-            Console.WriteLine("1: Italian");
-            Console.WriteLine("2: French");
-            Console.WriteLine("3: Chinese");
-            Console.WriteLine("4: Japanese");
-            Console.WriteLine("5: American");
-            Console.WriteLine("6: Australian");
-
-            int styleChoice;
-            while (!int.TryParse(Console.ReadLine(), out styleChoice) || styleChoice < 1 || styleChoice > 6) {
-                Console.WriteLine("Invalid choice. Please try again.");
-            }
-
-            string[] styles = { "Italian", "French", "Chinese", "Japanese", "American", "Australian" };
-            string restaurantStyle = styles[styleChoice - 1];
-
-            string location = GetInput("Please enter your location (in the form of X,Y):");
-            Console.WriteLine($"You have been successfully registered as a client with restaurant '{restaurantName}' ({restaurantStyle}) at location {location}!");
         }
     }
 }
