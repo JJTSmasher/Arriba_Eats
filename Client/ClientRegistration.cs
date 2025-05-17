@@ -3,6 +3,7 @@ namespace Arriba_Eats {
         public override void Register() {
             base.Register();
             string restaurantName = GetInput("Please enter your restaurant's name:");
+
             Console.WriteLine("Please select your restaurant's style:");
             Console.WriteLine("1: Italian");
             Console.WriteLine("2: French");
@@ -16,6 +17,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Invalid choice. Please try again.");
             }
 
+            string restaurantStyle;
             string[] styles = { "Italian", "French", "Chinese", "Japanese", "American", "Australian" };
             string restaurantStyle = styles[styleChoice - 1];
 

@@ -63,7 +63,7 @@ namespace Arriba_Eats {
             while (true) {
                 Console.WriteLine("Please enter your mobile phone number:");
                 string phone = Console.ReadLine();
-                if (Regex.IsMatch(phone, @"^\+?\d{10,15}$")) {
+                if (Regex.IsMatch(phone, @"^0\d{9}$")) {
                     return phone;
                 }
                 Console.WriteLine("Invalid phone number. Please try again.");
@@ -95,7 +95,10 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string name;
+        string name;
+        string email;
+        string password;
+
         public virtual void Register() {
             string name = GetInput("Please enter your name:");
             int age = GetValidatedAge();
