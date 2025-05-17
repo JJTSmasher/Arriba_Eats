@@ -1,6 +1,7 @@
 namespace Arriba_Eats {
-    class Customer : DefaultUser 
+    class Customer : User 
     {
+        public Customer(string email, string password, string role) : base(email, password, role) {}
         public struct CustomerLocation 
         {
             public int x;

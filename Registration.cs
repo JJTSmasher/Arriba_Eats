@@ -8,7 +8,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("1: Customer");
                 Console.WriteLine("2: Deliverer");
                 Console.WriteLine("3: Client");
-                Console.WriteLine("4: Return to previous menu");
+                Console.WriteLine("4: Return to the previous menu");
                 Console.WriteLine("Please enter a choice between 1 and 4:");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 4) {
@@ -104,6 +104,12 @@ namespace Arriba_Eats {
             int age = GetValidatedAge();
             string email = GetValidatedEmail();
             string password = GetValidatedPassword();
+
+            Login.AddUser(new User(email, password, GetRole()));
+        }
+        
+        protected virtual string GetRole() {
+            return "user";
         }
     }
 }

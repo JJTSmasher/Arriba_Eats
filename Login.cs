@@ -2,18 +2,6 @@ using System;
 using System.Collections.Generic;
 
 namespace Arriba_Eats {
-    class User {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }  // Optional: "customer", "client", "deliverer"
-
-        public User(string email, string password, string role) {
-            Email = email;
-            Password = password;
-            Role = role;
-        }
-    }
-
     class Login {
         // Simulated in-memory user store
         private static List<User> users = new List<User> {
@@ -27,6 +15,11 @@ namespace Arriba_Eats {
             string email = Console.ReadLine();
             Console.WriteLine("Password:");
             string password = Console.ReadLine();
+            
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) {
+                Console.WriteLine("Email or password cannot be empty. Returning to the login menu...");
+                return;
+            }
 
             User user = IsValidUser(email, password);
             if (user != null) {
@@ -44,6 +37,10 @@ namespace Arriba_Eats {
                 }
             }
             return null;
+        }
+        
+        public static void AddUser(User user) {
+            users.Add(user);
         }
     }
 }

@@ -12,13 +12,16 @@ namespace Arriba_Eats {
         private string GetValidatedLicencePlate() {
             while (true) {
                 Console.WriteLine("Please enter your licence plate (1-8 characters, uppercase letters, numbers, and spaces only):");
-                string licencePlate = Console.ReadLine();
-                // Regex to validate the licence plate
-                if (Regex.IsMatch(licencePlate, @"^(?!\s*$)[A-Z0-9 ]{1,8}$")) {
+                string? licencePlate = Console.ReadLine();
+                if (!string.IsNullOrEmpty(licencePlate) && Regex.IsMatch(licencePlate, @"^(?!\s*$)[A-Z0-9 ]{1,8}$")) {
                     return licencePlate;
                 }
                 Console.WriteLine("Invalid licence plate. Please try again.");
             }
+        }
+
+        protected override string GetRole() {
+            return "deliverer";
         }
     }
 }

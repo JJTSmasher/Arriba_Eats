@@ -1,9 +1,12 @@
 namespace Arriba_Eats {
-    class Order : Customer 
-    {
+    class Order : Customer {
         public int orderID = 0;
-        public string order = ""; // NEEDS TO BE SOMETHING ELSE
+        public string order = ""; // Placeholder for order details
         public Dictionary<int, string> orderCookStatus = new Dictionary<int, string>();
-        public bool orderTaken; // if order claimed by driver
+        public bool orderTaken; // Indicates if the order is claimed by a driver
+
+        // Constructor for the Order class
+        public Order(string email, string password, string role) : base(email, password, role) {
+        }
     }
 }

@@ -1,10 +1,13 @@
 namespace Arriba_Eats {
-    class DefaultUser 
-    {
-        public string name = "";
-        public int age = 0;
-        public string email = "";
-        public int phone = 0;
-        public string password = "";
+    class User {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }  // Optional: "customer", "client", "deliverer"
+
+        public User(string email, string password, string role) {
+            Email = email;
+            Password = password;
+            Role = role;
+        }
     }
 }

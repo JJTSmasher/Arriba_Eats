@@ -9,6 +9,12 @@ namespace Arriba_Eats {
         public struct DelivererLocation {
             public int x;
             public int y;
+
+            // Constructor for DelivererLocation
+            public DelivererLocation(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
         }
         public int travelDistance = 0;
     }
