@@ -1,7 +1,8 @@
 namespace Arriba_Eats {
     class Client : User
     {
-        public Client(string email, string password, string role) : base(email, password, role) {}
+        public Client(string email, string password, string role, string name, int phone, int age)
+            : base(email, password, role, name, phone, age) {}
         public string restaurantName = "";
         public Dictionary<int, string> restaurantStyles = new Dictionary<int, string>(); // 1-6 as resturaunt styles
         public struct RestaurantLocation 

@@ -142,7 +142,7 @@ namespace Arriba_Eats {
             int phone = GetValidatedPhone();
             string password = GetValidatedPassword();
 
-            Login.AddUser(new User(name, age, email, phone, password, GetRole()));
+            Login.AddUser(new User(email, password, GetRole(), name, phone, age));
             
         }
         

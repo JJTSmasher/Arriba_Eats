@@ -22,7 +22,7 @@ namespace Arriba_Eats {
             string restaurantStyle = styles[styleChoice - 1];
 
             string restaurantLocation = GetValidatedLocation();
-            Console.WriteLine($"You have been successfully registered as a client, {user.Name}");
+            Console.WriteLine($"You have been successfully registered as a client, {name}");
 
             Login.ShowMenu();
         }

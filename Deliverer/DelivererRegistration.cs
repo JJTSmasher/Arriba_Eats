@@ -5,7 +5,7 @@ namespace Arriba_Eats {
         public override void Register() {
             base.Register();
             string licencePlate = GetValidatedLicencePlate();
-            Console.WriteLine($"You have been successfully registered as a deliverer, {user.Name}!");
+            Console.WriteLine($"You have been successfully registered as a deliverer, {name}!");
 
             Login.ShowMenu();
         }

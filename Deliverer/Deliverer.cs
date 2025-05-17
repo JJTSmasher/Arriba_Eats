@@ -1,7 +1,7 @@
 namespace Arriba_Eats {
     class Deliverer : User {
-        public Deliverer(string email, string password, string role) : base(email, password, role) {
-        }
+        public Deliverer(string email, string password, string role, string name, int phone, int age)
+            : base(email, password, role, name, phone, age) {}
 
         public string licensePlate = "";
         public Dictionary<int, string> orderDeliverStatus = new Dictionary<int, string>();

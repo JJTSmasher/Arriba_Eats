@@ -33,9 +33,9 @@ namespace Arriba_Eats {
         }
         // Simulated in-memory user store
         private static List<User> users = new List<User> {
-            new User("test@arribaeats.com", "Password123", "customer"),
-            new User("alice@arribaeats.com", "AlicePass", "client"),
-            new User("bob@arribaeats.com", "BobPass", "deliverer")
+            new User("test@arribaeats.com", "Password123", "customer", "Test User", 0123456789, 25),
+            new User("alice@arribaeats.com", "AlicePass", "client", "Alice", 0987654321, 30),
+            new User("bob@arribaeats.com", "BobPass", "deliverer", "Bob", 0123454321, 35)
         };
 
         public static bool IsEmailInUse(string email) {
