@@ -4,6 +4,7 @@ namespace Arriba_Eats {
     class Client_Registration : Registration {
         public override void Register() {
             base.Register();
+
             string restaurantName = GetValidatedRName();
 
             Console.WriteLine("Please select your restaurant's style:");
@@ -23,11 +24,23 @@ namespace Arriba_Eats {
             string[] styles = { "Italian", "French", "Chinese", "Japanese", "American", "Australian" };
             string restaurantStyle = styles[styleChoice - 1];
 
-            string restaurantLocation = GetValidatedLocation();
+            string locationInput = GetValidatedLocation();
+            string[] coordinates = locationInput.Split(',');
+            int x = int.Parse(coordinates[0]);
+            int y = int.Parse(coordinates[1]);
+
+            Client client = new Client(email, password, GetRole(), name, phone, age) {
+                restaurantName = restaurantName,
+                restaurantStyles = { { styleChoice, restaurantStyle } },
+                Location = new Client.RestaurantLocation { x = x, y = y }
+            };
+
             Console.WriteLine($"You have been successfully registered as a client, {name}!");
+            Login.AddUser(client);
 
             Login.ShowMenu();
         }
+
         protected override string GetRole() {
             return "client";
         }

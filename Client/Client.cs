@@ -1,9 +1,8 @@
 namespace Arriba_Eats {
-    class Client : User
-    {
+    class Client : User {
         public Client(string email, string password, string role, string name, string phone, int age)
             : base(email, password, role, name, phone, age) {}
-        
+
         public static void ClientMenu(Client client) {
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
@@ -55,6 +54,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"Mobile: {Phone}");
             Console.WriteLine($"Restaurant Name: {restaurantName}");
             Console.WriteLine($"Restaurant Rating: {restaurantRating:F1}");
+            Console.WriteLine($"Location: {Location.x}, {Location.y}");
 
             if (restaurantStyles.Count > 0) {
                 Console.WriteLine("Restaurant Styles:");
@@ -65,15 +65,21 @@ namespace Arriba_Eats {
                 Console.WriteLine("No restaurant styles defined.");
             }
         }
-        
-        public string restaurantName = "";
-        public Dictionary<int, string> restaurantStyles = new Dictionary<int, string>(); // 1-6 as resturaunt styles
-        public struct RestaurantLocation 
-        {
+
+        public struct RestaurantLocation {
             public int x;
             public int y;
+
+            public RestaurantLocation(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
         }
+
+        public RestaurantLocation Location { get; set; }
+
+        public string restaurantName = "";
+        public Dictionary<int, string> restaurantStyles = new Dictionary<int, string>(); // 1-6 as restaurant styles
         public decimal restaurantRating = 0;
-        
     }
 }
