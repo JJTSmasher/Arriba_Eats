@@ -45,8 +45,6 @@ namespace Arriba_Eats {
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
             Console.WriteLine($"Licence Plate: {licensePlate}");
-            Console.WriteLine($"Delivery Status: {(delivererStatus ? "At restaurant" : "Available for delivery")}");
-            Console.WriteLine($"Travel Distance: {travelDistance} km");
 
             if (orderDeliverStatus.Count > 0) {
                 Console.WriteLine("Current Delivery Status:");

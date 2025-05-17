@@ -13,7 +13,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("4: Start cooking order");
                 Console.WriteLine("5: Finish cooking order");
                 Console.WriteLine("6: Handle deliverers who have arrived");
-                Console.WriteLine("6: Handle deliverers who have arrived");
+                Console.WriteLine("7: Log out");
                 Console.WriteLine("Please enter a choice between 1 and 7:");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 7) {

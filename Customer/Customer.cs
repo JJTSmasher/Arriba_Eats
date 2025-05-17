@@ -45,22 +45,23 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {customer.Age}");
             Console.WriteLine($"Email: {customer.Email}");
             Console.WriteLine($"Mobile: {customer.Phone}");
-            Console.WriteLine($"You've made {customer.ordersMade} orders and spent a total of ${customer.moneySpent:F2} here.");
+            Console.WriteLine($"Location: {customer.Location.x}, {customer.Location.y}");
+            Console.WriteLine($"You've made {customer.ordersMade} order(s) and spent a total of ${customer.moneySpent:F2} here.");
         }
 
-        public struct CustomerLocation 
-        {
+        public struct CustomerLocation {
             public int x;
             public int y;
+
+            public CustomerLocation(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
         }
-        public struct OrginalLocation 
-        {
-            public int x;
-            public int y;
-        }
+
+        public CustomerLocation Location { get; set; } // Add this property to represent the customer's current location
+
         public int ordersMade = 0;
         public decimal moneySpent = 0;
-
-        
     }
 }

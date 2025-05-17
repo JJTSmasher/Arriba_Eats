@@ -1,8 +1,10 @@
+using System.Text.RegularExpressions;
+
 namespace Arriba_Eats {
     class Client_Registration : Registration {
         public override void Register() {
             base.Register();
-            string restaurantName = GetInput("Please enter your restaurant's name:");
+            string restaurantName = GetValidatedRName();
 
             Console.WriteLine("Please select your restaurant's style:");
             Console.WriteLine("1: Italian");
@@ -22,12 +24,26 @@ namespace Arriba_Eats {
             string restaurantStyle = styles[styleChoice - 1];
 
             string restaurantLocation = GetValidatedLocation();
-            Console.WriteLine($"You have been successfully registered as a client, {name}");
+            Console.WriteLine($"You have been successfully registered as a client, {name}!");
 
             Login.ShowMenu();
         }
         protected override string GetRole() {
             return "client";
+        }
+
+        protected string GetValidatedRName() {
+            while (true) {
+                Console.WriteLine("Please enter your restaurant's name:");
+                string RestaurantName = Console.ReadLine();
+
+                // Regex to validate the name
+                if (!string.IsNullOrEmpty(RestaurantName)) {
+                    return RestaurantName;
+                }
+
+                Console.WriteLine("Invalid restaurant name.");
+            }
         }
     }
 }
