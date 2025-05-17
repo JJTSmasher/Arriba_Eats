@@ -46,8 +46,8 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            Console.WriteLine($"Location: {}");
-            Console.WriteLine($"You've made {} order(s) and spent a total of ${} here.");
+            //Console.WriteLine($"Location: {}");
+            //Console.WriteLine($"You've made {} order(s) and spent a total of ${} here.");
         }
 
         public struct CustomerLocation 

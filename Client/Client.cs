@@ -54,9 +54,9 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            Console.WriteLine($"Restaurant name: {}");
-            Console.WriteLine($"Restaurant style: {}");
-            Console.WriteLine($"Restaurant location: {}");
+            //Console.WriteLine($"Restaurant name: {}");
+            //Console.WriteLine($"Restaurant style: {}");
+            //Console.WriteLine($"Restaurant location: {}");
         }
         
         public string restaurantName = "";

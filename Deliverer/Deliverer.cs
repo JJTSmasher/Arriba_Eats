@@ -45,10 +45,10 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            Console.WriteLine($"Licence plate: {}");
-            Console.WriteLine($"Current delivery:");
-            Console.WriteLine($"Order {} from {} at {}");
-            Console.WriteLine($"To be delivered to {} at {}");
+            //Console.WriteLine($"Licence plate: {}");
+            //Console.WriteLine($"Current delivery:");
+            //Console.WriteLine($"Order {} from {} at {}");
+            //Console.WriteLine($"To be delivered to {} at {}");
 
         }
         
