@@ -11,6 +11,7 @@ namespace Arriba_Eats {
             Console.WriteLine("4: Japanese");
             Console.WriteLine("5: American");
             Console.WriteLine("6: Australian");
+            Console.WriteLine("Please enter a choice between 1 and 6:");
 
             int styleChoice;
             while (!int.TryParse(Console.ReadLine(), out styleChoice) || styleChoice < 1 || styleChoice > 6) {
@@ -21,7 +22,7 @@ namespace Arriba_Eats {
             string restaurantStyle = styles[styleChoice - 1];
 
             string restaurantLocation = GetValidatedLocation();
-            Console.WriteLine($"You have been successfully registered as a client, {name}");
+            Console.WriteLine($"You have been successfully registered as a client, {user.Name}");
 
             Login.ShowMenu();
         }

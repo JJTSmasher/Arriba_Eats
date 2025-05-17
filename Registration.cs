@@ -76,7 +76,7 @@ namespace Arriba_Eats {
                     }
                     Console.WriteLine("This email address is already in use.");
                 } else {
-                    Console.WriteLine("Invalid email.");
+                    Console.WriteLine("Invalid email address.");
                 }
             }
         }
@@ -110,7 +110,7 @@ namespace Arriba_Eats {
                     if (Console.ReadLine() == password) {
                         return password;
                     }
-                    Console.WriteLine("Passwords do not match. Please try again.");
+                    Console.WriteLine("Passwords do not match.");
                 } else {
                     Console.WriteLine("Invalid password.");
                 }
@@ -142,7 +142,7 @@ namespace Arriba_Eats {
             int phone = GetValidatedPhone();
             string password = GetValidatedPassword();
 
-            Login.AddUser(new User(email, password, GetRole()));
+            Login.AddUser(new User(name, age, email, phone, password, GetRole()));
             
         }
         

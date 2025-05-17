@@ -6,7 +6,7 @@ namespace Arriba_Eats {
             base.Register();
             
             string location = GetValidatedLocation();
-            Console.WriteLine($"You have been successfully registered as a customer, {name}!");
+            Console.WriteLine($"You have been successfully registered as a customer, {user.Name}!");
 
             Login.ShowMenu();
         }

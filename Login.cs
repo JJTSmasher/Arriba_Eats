@@ -5,7 +5,7 @@ using System.Linq;
 namespace Arriba_Eats {
     class Login {
         public static void ShowMenu() { // Renamed from Main to ShowMenu
-            Console.WriteLine("Welcome to Arriba Eats!");
+            
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Login as a registered user");
@@ -59,7 +59,7 @@ namespace Arriba_Eats {
 
             User user = IsValidUser(email, password);
             if (user != null) {
-                Console.WriteLine($"Login successful! Welcome back, {user.Role}.");
+                Console.WriteLine($"Welcome back, {user.Name}!");
                 // Proceed to role-specific menu ---------------
             } else {
                 Console.WriteLine("Invalid email or password. Returning to the login menu...");
