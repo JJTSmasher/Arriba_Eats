@@ -54,7 +54,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"Mobile: {Phone}");
             Console.WriteLine($"Restaurant Name: {restaurantName}");
             Console.WriteLine($"Restaurant Rating: {restaurantRating:F1}");
-            Console.WriteLine($"Location: {Location.x}, {Location.y}");
+            Console.WriteLine($"Location: {Location.x},{Location.y}");
 
             if (restaurantStyles.Count > 0) {
                 Console.WriteLine("Restaurant Styles:");

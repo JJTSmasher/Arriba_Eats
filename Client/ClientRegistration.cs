@@ -3,7 +3,11 @@ using System.Text.RegularExpressions;
 namespace Arriba_Eats {
     class Client_Registration : Registration {
         public override void Register() {
-            base.Register();
+            name = GetValidatedName();
+            age = GetValidatedAge();
+            email = GetValidatedEmail();
+            phone = GetValidatedPhone();
+            password = GetValidatedPassword();
 
             string restaurantName = GetValidatedRName();
 
@@ -25,19 +29,19 @@ namespace Arriba_Eats {
             string restaurantStyle = styles[styleChoice - 1];
 
             string locationInput = GetValidatedLocation();
-            string[] coordinates = locationInput.Split(',');
-            int x = int.Parse(coordinates[0]);
-            int y = int.Parse(coordinates[1]);
+            string[] coords = locationInput.Split(',');
+            int x = int.Parse(coords[0]);
+            int y = int.Parse(coords[1]);
 
             Client client = new Client(email, password, GetRole(), name, phone, age) {
                 restaurantName = restaurantName,
-                restaurantStyles = { { styleChoice, restaurantStyle } },
-                Location = new Client.RestaurantLocation { x = x, y = y }
+                Location = new Client.RestaurantLocation(x, y)
             };
+            client.restaurantStyles.Add(styleChoice, restaurantStyle);
 
-            Console.WriteLine($"You have been successfully registered as a client, {name}!");
             Login.AddUser(client);
 
+            Console.WriteLine($"You have been successfully registered as a client, {name}!");
             Login.ShowMenu();
         }
 
@@ -50,8 +54,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter your restaurant's name:");
                 string RestaurantName = Console.ReadLine();
 
-                // Regex to validate the name
-                if (!string.IsNullOrEmpty(RestaurantName)) {
+                if (!string.IsNullOrEmpty(RestaurantName) && Regex.IsMatch(RestaurantName, @"^[a-zA-Z][a-zA-Z\s'-]*$")) {
                     return RestaurantName;
                 }
 

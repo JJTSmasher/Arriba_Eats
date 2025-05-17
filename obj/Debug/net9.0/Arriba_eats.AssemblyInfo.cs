@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Arriba_eats")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+874799fa9d8dbbf6e5816d1d87d47d4a2d93f9c4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c10de4b1bb708709fa9060c06a79e7d8282e516f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Arriba_eats")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Arriba_eats")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,6 +5,11 @@ namespace Arriba_Eats {
         public override void Register() {
             base.Register();
             string licencePlate = GetValidatedLicencePlate();
+
+            Deliverer deliverer = new Deliverer(email, password, GetRole(), name, phone, age) {
+                licencePlate = licencePlate
+            };
+            Login.AddUser(deliverer);
             Console.WriteLine($"You have been successfully registered as a deliverer, {name}!");
 
             Login.ShowMenu();

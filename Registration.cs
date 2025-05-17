@@ -143,8 +143,6 @@ namespace Arriba_Eats {
             email = GetValidatedEmail();
             phone = GetValidatedPhone();
             password = GetValidatedPassword();
-
-            Login.AddUser(new User(email, password, GetRole(), name, phone, age));
             
         }
         

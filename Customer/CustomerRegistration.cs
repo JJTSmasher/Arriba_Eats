@@ -13,9 +13,9 @@ namespace Arriba_Eats {
             Customer customer = new Customer(email, password, GetRole(), name, phone, age) {
                 Location = new Customer.CustomerLocation(x, y)
             };
+            Login.AddUser(customer);
 
             Console.WriteLine($"You have been successfully registered as a customer, {name}!");
-            Login.AddUser(customer);
 
             Login.ShowMenu();
         }

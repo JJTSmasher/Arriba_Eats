@@ -1,5 +1,6 @@
 namespace Arriba_Eats {
     class Deliverer : User {
+        public string licencePlate { get; set; }
         public Deliverer(string email, string password, string role, string name, string phone, int age)
             : base(email, password, role, name, phone, age) {}
 
