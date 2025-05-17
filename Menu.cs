@@ -2,7 +2,6 @@ namespace Arriba_Eats {
     class LoginMenu {
         public static void ShowMenu() { // Renamed from Main to ShowMenu
             while (true) {
-                Console.WriteLine("Welcome to Arriba Eats!");
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Login as a registered user");
                 Console.WriteLine("2: Register as a new user");

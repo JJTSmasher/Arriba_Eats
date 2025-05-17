@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Arriba_Eats {
     class Login {
@@ -9,6 +10,14 @@ namespace Arriba_Eats {
             new User("alice@arribaeats.com", "AlicePass", "client"),
             new User("bob@arribaeats.com", "BobPass", "deliverer")
         };
+
+        public static bool IsEmailInUse(string email) {
+            return users.Any(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static void AddUser(User user) {
+            users.Add(user);
+        }
 
         public static void Authenticate() {
             Console.WriteLine("Email:");
@@ -31,16 +40,7 @@ namespace Arriba_Eats {
         }
 
         private static User IsValidUser(string email, string password) {
-            foreach (User user in users) {
-                if (user.Email == email && user.Password == password) {
-                    return user;
-                }
-            }
-            return null;
-        }
-        
-        public static void AddUser(User user) {
-            users.Add(user);
+            return users.FirstOrDefault(user => user.Email == email && user.Password == password);
         }
     }
 }

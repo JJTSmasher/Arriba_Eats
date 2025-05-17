@@ -34,9 +34,18 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetInput(string prompt) {
-            Console.WriteLine(prompt);
-            return Console.ReadLine();
+        protected string GetValidatedName() {
+            while (true) {
+                Console.WriteLine("Please enter your name (letters, spaces, apostrophes, and hyphens only):");
+                string name = Console.ReadLine();
+
+                // Regex to validate the name
+                if (!string.IsNullOrEmpty(name) && Regex.IsMatch(name, @"^[a-zA-Z][a-zA-Z\s'-]*$")) {
+                    return name;
+                }
+
+                Console.WriteLine("Invalid name.");
+            }
         }
 
         protected int GetValidatedAge() {
@@ -45,7 +54,7 @@ namespace Arriba_Eats {
                 if (int.TryParse(Console.ReadLine(), out int age) && age >= 18 && age <= 100) {
                     return age;
                 }
-                Console.WriteLine("Invalid age. Please try again.");
+                Console.WriteLine("Invalid age.");
             }
         }
 
@@ -53,10 +62,17 @@ namespace Arriba_Eats {
             while (true) {
                 Console.WriteLine("Please enter your email address:");
                 string email = Console.ReadLine();
-                if (Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) {
-                    return email;
+
+                // Validate email format
+                if (!string.IsNullOrEmpty(email) && Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) {
+                    // Check if the email is already in use
+                    if (!Login.IsEmailInUse(email)) {
+                        return email;
+                    }
+                    Console.WriteLine("This email address is already in use.");
+                } else {
+                    Console.WriteLine("Invalid email.");
                 }
-                Console.WriteLine("Invalid email. Please try again.");
             }
         }
 
@@ -67,7 +83,7 @@ namespace Arriba_Eats {
                 if (Regex.IsMatch(phone, @"^0\d{9}$")) {
                     return int.Parse(phone); // Parse phone number as integer
                 }
-                Console.WriteLine("Invalid phone number. Please try again.");
+                Console.WriteLine("Invalid phone number.");
             }
         }
 
@@ -91,7 +107,7 @@ namespace Arriba_Eats {
                     }
                     Console.WriteLine("Passwords do not match. Please try again.");
                 } else {
-                    Console.WriteLine("Password does not meet the requirements. Please try again.");
+                    Console.WriteLine("Invalid password.");
                 }
             }
         }
@@ -101,7 +117,7 @@ namespace Arriba_Eats {
         protected string password = string.Empty;
 
         public virtual void Register() {
-            string name = GetInput("Please enter your name:");
+            string name = GetValidatedName();
             int age = GetValidatedAge();
             string email = GetValidatedEmail();
             int phone = GetValidatedPhone(); // Phone is now an integer
