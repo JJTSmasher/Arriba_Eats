@@ -4,8 +4,8 @@ namespace Arriba_Eats {
         public Customer(string email, string password, string role, string name, int phone, int age)
             : base(email, password, role, name, phone, age) {}
 
-        public static void CustomerMenu(string name) {
-            Console.WriteLine($"Welcome back, {name}!");
+        public static void CustomerMenu(Customer customer) {
+            Console.WriteLine($"Welcome back, {customer.Name}!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Display your user information");
@@ -16,23 +16,23 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter a choice between 1 and 5:");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 5) {
-                    Console.WriteLine("Invalid choice. Please try again.");
+                    Console.WriteLine("Invalid choice.");
                     continue;
                 }
 
                 switch (choice) {
                     case 1:
-                        ShowData();
-                        return;
+                        Customer.ShowData(customer);
+                        break;
                     case 2:
 
-                        return;
+                        break;
                     case 3:
 
-                        return;
+                        break;
                     case 4:
 
-                        return;
+                        break;
                     case 5:
                         Console.WriteLine("You are now logged out.");
                         return;
@@ -40,14 +40,14 @@ namespace Arriba_Eats {
             }
         }
 
-        private string ShowData() {
+        private static void ShowData(Customer customer) {
             Console.WriteLine("Your user details are as follows:");
-            Console.WriteLine($"Name: {Name}");
-            Console.WriteLine($"Age: {Age}");
-            Console.WriteLine($"Email: {Email}");
-            Console.WriteLine($"Mobile: {Phone}");
-            //Console.WriteLine($"Location: {}");
-            //Console.WriteLine($"You've made {} order(s) and spent a total of ${} here.");
+            Console.WriteLine($"Name: {customer.Name}");
+            Console.WriteLine($"Age: {customer.Age}");
+            Console.WriteLine($"Email: {customer.Email}");
+            Console.WriteLine($"Mobile: {customer.Phone}");
+            Console.WriteLine($"Orders Made: {customer.ordersMade}");
+            Console.WriteLine($"Money Spent: ${customer.moneySpent:F2}");
         }
 
         public struct CustomerLocation 

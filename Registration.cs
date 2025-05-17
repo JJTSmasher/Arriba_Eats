@@ -13,7 +13,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter a choice between 1 and 4:");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 4) {
-                    Console.WriteLine("Invalid choice. Please try again.");
+                    Console.WriteLine("Invalid choice.");
                     continue;
                 }
 

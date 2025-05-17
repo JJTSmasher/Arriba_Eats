@@ -3,8 +3,8 @@ namespace Arriba_Eats {
         public Deliverer(string email, string password, string role, string name, int phone, int age)
             : base(email, password, role, name, phone, age) {}
 
-        public static void DelivererMenu(string name) {
-            Console.WriteLine($"Welcome back, {name}!");
+        public static void DelivererMenu(Deliverer deliverer) {
+            Console.WriteLine($"Welcome back, {deliverer.Name}!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Display your user information");
@@ -15,14 +15,14 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter a choice between 1 and 5:");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 5) {
-                    Console.WriteLine("Invalid choice. Please try again.");
+                    Console.WriteLine("Invalid choice.");
                     continue;
                 }
 
                 switch (choice) {
                     case 1:
-
-                        return;
+                        deliverer.ShowData();
+                        break;
                     case 2:
 
                         return;
@@ -39,17 +39,24 @@ namespace Arriba_Eats {
             }
         }
 
-        private string ShowData() {
+        private void ShowData() {
             Console.WriteLine("Your user details are as follows:");
             Console.WriteLine($"Name: {Name}");
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            //Console.WriteLine($"Licence plate: {}");
-            //Console.WriteLine($"Current delivery:");
-            //Console.WriteLine($"Order {} from {} at {}");
-            //Console.WriteLine($"To be delivered to {} at {}");
+            Console.WriteLine($"Licence Plate: {licensePlate}");
+            Console.WriteLine($"Delivery Status: {(delivererStatus ? "At restaurant" : "Available for delivery")}");
+            Console.WriteLine($"Travel Distance: {travelDistance} km");
 
+            if (orderDeliverStatus.Count > 0) {
+                Console.WriteLine("Current Delivery Status:");
+                foreach (var order in orderDeliverStatus) {
+                    Console.WriteLine($"Order ID: {order.Key}, Status: {order.Value}");
+                }
+            } else {
+                Console.WriteLine("No current deliveries.");
+            }
         }
         
         public string licensePlate = "";

@@ -14,7 +14,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter a choice between 1 and 3:");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 3) {
-                    Console.WriteLine("Invalid choice. Please try again.");
+                    Console.WriteLine("Invalid choice.");
                     continue;
                 }
 
@@ -60,18 +60,23 @@ namespace Arriba_Eats {
             User user = IsValidUser(email, password);
             if (user != null) {
                 Console.WriteLine($"Welcome back, {user.Name}!");
+
+                // Navigate to the role-specific menu
                 switch (user.Role.ToLower()) {
                     case "customer":
-                        Customer.CustomerMenu(user.Name);
+                        Customer customer = new Customer(user.Email, user.Password, user.Role, user.Name, user.Phone, user.Age);
+                        Customer.CustomerMenu(customer); // Pass the Customer instance
                         return;
                     case "deliverer":
-                        Deliverer.DelivererMenu();
+                        Deliverer deliverer = new Deliverer(user.Email, user.Password, user.Role, user.Name, user.Phone, user.Age);
+                        Deliverer.DelivererMenu(deliverer); // Pass the Deliverer instance
                         return;
                     case "client":
-                        Client.ClientMenu();
+                        Client client = new Client(user.Email, user.Password, user.Role, user.Name, user.Phone, user.Age);
+                        Client.ClientMenu(client); // Pass the Client instance
                         return;
                     default:
-                        Console.WriteLine("No role");
+                        Console.WriteLine("Unknown role. Returning to the main menu.");
                         return;
                 }
             } else {
