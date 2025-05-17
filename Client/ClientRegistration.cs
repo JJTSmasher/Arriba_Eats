@@ -31,7 +31,7 @@ namespace Arriba_Eats {
 
             Client client = new Client(email, password, GetRole(), name, phone, age) {
                 restaurantName = restaurantName,
-                Location = new Client.RestaurantLocation(x, y) // Parse the string into a RestaurantLocation struct
+                Location = new Client.RestaurantLocation(x, y)
             };
             client.restaurantStyles.Add(styleChoice, restaurantStyle);
 
@@ -50,7 +50,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter your restaurant's name:");
                 string RestaurantName = Console.ReadLine();
 
-                if (!string.IsNullOrEmpty(RestaurantName) && Regex.IsMatch(RestaurantName, @"^[a-zA-Z][a-zA-Z\s'-]*$")) {
+                if (!string.IsNullOrEmpty(RestaurantName)) {
                     return RestaurantName;
                 }
 
