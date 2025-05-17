@@ -44,15 +44,13 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            Console.WriteLine($"Licence Plate: {licensePlate}");
+            Console.WriteLine($"Licence plate: {licensePlate}");
 
             if (orderDeliverStatus.Count > 0) {
                 Console.WriteLine("Current Delivery Status:");
                 foreach (var order in orderDeliverStatus) {
                     Console.WriteLine($"Order ID: {order.Key}, Status: {order.Value}");
                 }
-            } else {
-                Console.WriteLine("No current deliveries.");
             }
         }
         

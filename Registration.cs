@@ -120,11 +120,11 @@ namespace Arriba_Eats {
         protected string GetValidatedLocation() {
             while (true) {
                 Console.WriteLine("Please enter your location (in the form of X,Y) :");
-                string location = Console.ReadLine();
+                string locationInput = Console.ReadLine();
 
                 // Regex to validate the location format
-                if (!string.IsNullOrEmpty(location) && Regex.IsMatch(location, @"^-?\d+,-?\d+$")) {
-                    return location;
+                if (!string.IsNullOrEmpty(locationInput) && Regex.IsMatch(locationInput, @"^-?\d+,-?\d+$")) {
+                    return locationInput;
                 }
 
                 Console.WriteLine("Invalid location.");

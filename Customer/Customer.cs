@@ -45,7 +45,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {customer.Age}");
             Console.WriteLine($"Email: {customer.Email}");
             Console.WriteLine($"Mobile: {customer.Phone}");
-            Console.WriteLine($"Location: {customer.Location.x}, {customer.Location.y}");
+            Console.WriteLine($"Location: {customer.Location.x},{customer.Location.y}");
             Console.WriteLine($"You've made {customer.ordersMade} order(s) and spent a total of ${customer.moneySpent:F2} here.");
         }
 
@@ -59,7 +59,7 @@ namespace Arriba_Eats {
             }
         }
 
-        public CustomerLocation Location { get; set; } // Add this property to represent the customer's current location
+        public CustomerLocation Location { get; set; }
 
         public int ordersMade = 0;
         public decimal moneySpent = 0;

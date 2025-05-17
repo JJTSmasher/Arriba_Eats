@@ -15,7 +15,7 @@ namespace Arriba_Eats {
             };
 
             Console.WriteLine($"You have been successfully registered as a customer, {name}!");
-            Login.AddUser(customer); // Add the customer to the user list
+            Login.AddUser(customer);
 
             Login.ShowMenu();
         }
