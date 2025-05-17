@@ -28,7 +28,7 @@ namespace Arriba_Eats {
                         new Client_Registration().Register();
                         return;
                     case 4:
-                        Console.WriteLine("Returning to the previous menu...");
+                        Console.WriteLine("Returning to the previous menu.");
                         return;
                 }
             }
@@ -81,12 +81,12 @@ namespace Arriba_Eats {
             }
         }
 
-        protected int GetValidatedPhone() {
+        protected string GetValidatedPhone() {
             while (true) {
                 Console.WriteLine("Please enter your mobile phone number:");
                 string phone = Console.ReadLine();
-                if (Regex.IsMatch(phone, @"^0\d{9}$")) {
-                    return int.Parse(phone); // Parse phone number as integer
+                if (!string.IsNullOrEmpty(phone) && Regex.IsMatch(phone, @"^0\d{9}$")) {
+                    return phone;
                 }
                 Console.WriteLine("Invalid phone number.");
             }
@@ -134,7 +134,7 @@ namespace Arriba_Eats {
         protected string name = string.Empty;
         protected string email = string.Empty;
         protected string password = string.Empty;
-        protected int phone;
+        protected string phone;
         protected int age;
 
         public virtual void Register() {

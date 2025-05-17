@@ -1,11 +1,10 @@
 namespace Arriba_Eats {
     class Customer : User 
     {
-        public Customer(string email, string password, string role, string name, int phone, int age)
+        public Customer(string email, string password, string role, string name, string phone, int age)
             : base(email, password, role, name, phone, age) {}
 
         public static void CustomerMenu(Customer customer) {
-            Console.WriteLine($"Welcome back, {customer.Name}!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Display your user information");
@@ -46,8 +45,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {customer.Age}");
             Console.WriteLine($"Email: {customer.Email}");
             Console.WriteLine($"Mobile: {customer.Phone}");
-            Console.WriteLine($"Orders Made: {customer.ordersMade}");
-            Console.WriteLine($"Money Spent: ${customer.moneySpent:F2}");
+            Console.WriteLine($"You've made {customer.ordersMade} orders and spent a total of ${customer.moneySpent:F2} here.");
         }
 
         public struct CustomerLocation 

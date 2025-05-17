@@ -1,10 +1,9 @@
 namespace Arriba_Eats {
     class Deliverer : User {
-        public Deliverer(string email, string password, string role, string name, int phone, int age)
+        public Deliverer(string email, string password, string role, string name, string phone, int age)
             : base(email, password, role, name, phone, age) {}
 
         public static void DelivererMenu(Deliverer deliverer) {
-            Console.WriteLine($"Welcome back, {deliverer.Name}!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Display your user information");

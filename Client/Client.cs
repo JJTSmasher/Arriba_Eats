@@ -1,11 +1,10 @@
 namespace Arriba_Eats {
     class Client : User
     {
-        public Client(string email, string password, string role, string name, int phone, int age)
+        public Client(string email, string password, string role, string name, string phone, int age)
             : base(email, password, role, name, phone, age) {}
         
         public static void ClientMenu(Client client) {
-            Console.WriteLine($"Welcome back, {client.Name}!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Display your user information");
