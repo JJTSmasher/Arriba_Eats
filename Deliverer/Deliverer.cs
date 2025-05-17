@@ -45,7 +45,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            Console.WriteLine($"Licence plate: {licensePlate}");
+            Console.WriteLine($"Licence plate: {licencePlate}");
 
             if (orderDeliverStatus.Count > 0) {
                 Console.WriteLine("Current Delivery Status:");
@@ -55,8 +55,7 @@ namespace Arriba_Eats {
             }
         }
         
-        public string licensePlate = "";
         public Dictionary<int, string> orderDeliverStatus = new Dictionary<int, string>();
-        public bool delivererStatus; // at restaurant or not
+        public bool delivererStatus;
     }
 }

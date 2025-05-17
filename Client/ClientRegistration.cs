@@ -50,7 +50,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter your restaurant's name:");
                 string RestaurantName = Console.ReadLine();
 
-                if (!string.IsNullOrEmpty(RestaurantName)) {
+                if (!string.IsNullOrWhiteSpace(RestaurantName)) {
                     return RestaurantName;
                 }
 

@@ -52,15 +52,17 @@ namespace Arriba_Eats {
             Console.WriteLine($"Age: {Age}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Mobile: {Phone}");
-            Console.WriteLine($"Restaurant Name: {restaurantName}");
-            Console.WriteLine($"Restaurant Rating: {restaurantRating:F1}");
-            Console.WriteLine($"Location: {Location.x},{Location.y}");
+            Console.WriteLine($"Restaurant name: {restaurantName}");
+            //Console.WriteLine($"Restaurant Rating: {restaurantRating:F1}");
+            
 
             if (restaurantStyles.Count > 0) {
-                Console.WriteLine($"Restaurant Style: {restaurantStyles.Values.First()}");
+                Console.WriteLine($"Restaurant style: {restaurantStyles.Values.First()}");
             } else {
                 Console.WriteLine("No restaurant style defined.");
             }
+
+            Console.WriteLine($"Restaurant location: {Location.x},{Location.y}");
         }
         public struct RestaurantLocation {
             public int x;
