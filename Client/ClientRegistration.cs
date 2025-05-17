@@ -22,6 +22,8 @@ namespace Arriba_Eats {
 
             string restaurantLocation = GetValidatedLocation();
             Console.WriteLine($"You have been successfully registered as a client, {name}");
+
+            Login.ShowMenu();
         }
         protected override string GetRole() {
             return "client";

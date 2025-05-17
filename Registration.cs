@@ -20,13 +20,13 @@ namespace Arriba_Eats {
                 switch (choice) {
                     case 1:
                         new Customer_Registration().Register();
-                        break;
+                        return;
                     case 2:
                         new Deliverer_Registration().Register();
-                        break;
+                        return;
                     case 3:
                         new Client_Registration().Register();
-                        break;
+                        return;
                     case 4:
                         Console.WriteLine("Returning to the previous menu...");
                         return;
@@ -41,7 +41,7 @@ namespace Arriba_Eats {
 
         protected string GetValidatedName() {
             while (true) {
-                Console.WriteLine("Please enter your name (letters, spaces, apostrophes, and hyphens only):");
+                Console.WriteLine("Please enter your name:");
                 string name = Console.ReadLine();
 
                 // Regex to validate the name
@@ -139,10 +139,11 @@ namespace Arriba_Eats {
             string name = GetValidatedName();
             int age = GetValidatedAge();
             string email = GetValidatedEmail();
-            int phone = GetValidatedPhone(); // Phone is now an integer
+            int phone = GetValidatedPhone();
             string password = GetValidatedPassword();
 
             Login.AddUser(new User(email, password, GetRole()));
+            
         }
         
         protected virtual string GetRole() {

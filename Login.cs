@@ -5,6 +5,7 @@ using System.Linq;
 namespace Arriba_Eats {
     class Login {
         public static void ShowMenu() { // Renamed from Main to ShowMenu
+            Console.WriteLine("Welcome to Arriba Eats!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");
                 Console.WriteLine("1: Login as a registered user");
@@ -19,11 +20,11 @@ namespace Arriba_Eats {
 
                 switch (choice) {
                     case 1:
-                        Login.Authenticate();
+                        Authenticate();
                         break;
                     case 2:
                         Registration.ShowMenu(); // Call the Registration menu
-                        break;
+                        return;
                     case 3:
                         Console.WriteLine("Thank you for using Arriba Eats!");
                         return; // Exit the program

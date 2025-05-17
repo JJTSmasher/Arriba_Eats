@@ -6,6 +6,8 @@ namespace Arriba_Eats {
             base.Register();
             string licencePlate = GetValidatedLicencePlate();
             Console.WriteLine($"You have been successfully registered as a deliverer with licence plate {licencePlate}!");
+
+            Login.ShowMenu();
         }
 
         private string GetValidatedLicencePlate() {

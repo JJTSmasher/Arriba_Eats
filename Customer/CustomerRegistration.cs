@@ -7,6 +7,8 @@ namespace Arriba_Eats {
             
             string location = GetValidatedLocation();
             Console.WriteLine($"You have been successfully registered as a customer, {name}!");
+
+            Login.ShowMenu();
         }
         
         protected override string GetRole() {
