@@ -12,19 +12,5 @@ namespace Arriba_Eats {
         protected override string GetRole() {
             return "customer";
         }
-
-        private string GetValidatedLocation() {
-            while (true) {
-                Console.WriteLine("Please enter your location (in the form of X,Y) :");
-                string location = Console.ReadLine();
-
-                // Regex to validate the location format
-                if (!string.IsNullOrEmpty(location) && Regex.IsMatch(location, @"^-?\d+,-?\d+$")) {
-                    return location;
-                }
-
-                Console.WriteLine("Invalid location.");
-            }
-        }
     }
 }

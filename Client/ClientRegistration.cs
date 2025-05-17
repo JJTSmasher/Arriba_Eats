@@ -20,7 +20,7 @@ namespace Arriba_Eats {
             string[] styles = { "Italian", "French", "Chinese", "Japanese", "American", "Australian" };
             string restaurantStyle = styles[styleChoice - 1];
 
-            string location = GetInput("Please enter your location (in the form of X,Y):");
+            string restaurantLocation = GetValidatedLocation();
             Console.WriteLine($"You have been successfully registered as a client, {name}");
         }
         protected override string GetRole() {

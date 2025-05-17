@@ -34,6 +34,11 @@ namespace Arriba_Eats {
             }
         }
 
+        protected string GetInput(string prompt) {
+            Console.WriteLine(prompt);
+            return Console.ReadLine();
+        }
+
         protected string GetValidatedName() {
             while (true) {
                 Console.WriteLine("Please enter your name (letters, spaces, apostrophes, and hyphens only):");
@@ -109,6 +114,20 @@ namespace Arriba_Eats {
                 } else {
                     Console.WriteLine("Invalid password.");
                 }
+            }
+        }
+
+        protected string GetValidatedLocation() {
+            while (true) {
+                Console.WriteLine("Please enter your location (in the form of X,Y) :");
+                string location = Console.ReadLine();
+
+                // Regex to validate the location format
+                if (!string.IsNullOrEmpty(location) && Regex.IsMatch(location, @"^-?\d+,-?\d+$")) {
+                    return location;
+                }
+
+                Console.WriteLine("Invalid location.");
             }
         }
 
