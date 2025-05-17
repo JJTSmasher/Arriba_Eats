@@ -22,7 +22,6 @@ namespace Arriba_Eats {
 
             string location = GetInput("Please enter your location (in the form of X,Y):");
             Console.WriteLine($"You have been successfully registered as a client, {name}");
-            LoginMenu.ShowMenu();
         }
         protected override string GetRole() {
             return "client";
