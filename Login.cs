@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Arriba_Eats {
     class Login {
+        private static List<User> users = new List<User>();
         public static void ShowMenu() {
             
             while (true) {
@@ -31,12 +32,6 @@ namespace Arriba_Eats {
                 }
             }
         }
-        // Simulated in-memory user store
-        private static List<User> users = new List<User> {
-            new User("test@arribaeats.com", "Password123", "customer", "Test User", "0123456789", 25),
-            new User("alice@arribaeats.com", "AlicePass", "client", "Alice", "0987654321", 30),
-            new User("bob@arribaeats.com", "BobPass", "deliverer", "Bob", "0123454321", 35)
-        };
 
         public static bool IsEmailInUse(string email) {
             return users.Any(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
@@ -60,20 +55,15 @@ namespace Arriba_Eats {
             User user = IsValidUser(email, password);
             if (user != null) {
                 Console.WriteLine($"Welcome back, {user.Name}!");
-
-                // Navigate to the role-specific menu
                 switch (user.Role.ToLower()) {
                     case "customer":
-                        Customer customer = new Customer(user.Email, user.Password, user.Role, user.Name, user.Phone, user.Age);
-                        Customer.CustomerMenu(customer); // Pass the Customer instance
-                        return;
-                    case "deliverer":
-                        Deliverer deliverer = new Deliverer(user.Email, user.Password, user.Role, user.Name, user.Phone, user.Age);
-                        Deliverer.DelivererMenu(deliverer); // Pass the Deliverer instance
+                        Customer.CustomerMenu((Customer)user); // cast to Customer
                         return;
                     case "client":
-                        Client client = new Client(user.Email, user.Password, user.Role, user.Name, user.Phone, user.Age);
-                        Client.ClientMenu(client); // Pass the Client instance
+                        Client.ClientMenu((Client)user); // cast to Client
+                        return;
+                    case "deliverer":
+                        Deliverer.DelivererMenu((Deliverer)user); // cast to Deliverer
                         return;
                     default:
                         Console.WriteLine("Unknown role. Returning to the main menu.");

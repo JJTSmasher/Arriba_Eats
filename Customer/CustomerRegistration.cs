@@ -11,8 +11,9 @@ namespace Arriba_Eats {
             int y = int.Parse(coordinates[1]);
 
             Customer customer = new Customer(email, password, GetRole(), name, phone, age) {
-                Location = new Customer.CustomerLocation(x, y)
+                Location = new Customer.CustomerLocation(x, y) // Parse the string into a CustomerLocation struct
             };
+
             Login.AddUser(customer);
 
             Console.WriteLine($"You have been successfully registered as a customer, {name}!");

@@ -61,6 +61,7 @@ namespace Arriba_Eats {
 
         public CustomerLocation Location { get; set; }
 
+
         public int ordersMade = 0;
         public decimal moneySpent = 0;
     }

@@ -3,11 +3,7 @@ using System.Text.RegularExpressions;
 namespace Arriba_Eats {
     class Client_Registration : Registration {
         public override void Register() {
-            name = GetValidatedName();
-            age = GetValidatedAge();
-            email = GetValidatedEmail();
-            phone = GetValidatedPhone();
-            password = GetValidatedPassword();
+            base.Register();
 
             string restaurantName = GetValidatedRName();
 
@@ -29,13 +25,13 @@ namespace Arriba_Eats {
             string restaurantStyle = styles[styleChoice - 1];
 
             string locationInput = GetValidatedLocation();
-            string[] coords = locationInput.Split(',');
-            int x = int.Parse(coords[0]);
-            int y = int.Parse(coords[1]);
+            string[] coordinates = locationInput.Split(',');
+            int x = int.Parse(coordinates[0]);
+            int y = int.Parse(coordinates[1]);
 
             Client client = new Client(email, password, GetRole(), name, phone, age) {
                 restaurantName = restaurantName,
-                Location = new Client.RestaurantLocation(x, y)
+                Location = new Client.RestaurantLocation(x, y) // Parse the string into a RestaurantLocation struct
             };
             client.restaurantStyles.Add(styleChoice, restaurantStyle);
 

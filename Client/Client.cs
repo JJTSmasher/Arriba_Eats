@@ -57,19 +57,14 @@ namespace Arriba_Eats {
             Console.WriteLine($"Location: {Location.x},{Location.y}");
 
             if (restaurantStyles.Count > 0) {
-                Console.WriteLine("Restaurant Styles:");
-                foreach (var style in restaurantStyles) {
-                    Console.WriteLine($"Style ID: {style.Key}, Style: {style.Value}");
-                }
+                Console.WriteLine($"Restaurant Style: {restaurantStyles.Values.First()}");
             } else {
-                Console.WriteLine("No restaurant styles defined.");
+                Console.WriteLine("No restaurant style defined.");
             }
         }
-
         public struct RestaurantLocation {
             public int x;
             public int y;
-
             public RestaurantLocation(int x, int y) {
                 this.x = x;
                 this.y = y;
