@@ -24,7 +24,7 @@ namespace Arriba_Eats {
             User user = IsValidUser(email, password);
             if (user != null) {
                 Console.WriteLine($"Login successful! Welcome back, {user.Role}.");
-                // Proceed to role-specific menu if needed
+                // Proceed to role-specific menu ---------------
             } else {
                 Console.WriteLine("Invalid email or password. Returning to the login menu...");
             }

@@ -5,6 +5,7 @@ namespace Arriba_Eats {
     class Registration {
         public static void ShowMenu() {
             while (true) {
+                Console.WriteLine("Which type of user would you like to register as?");
                 Console.WriteLine("1: Customer");
                 Console.WriteLine("2: Deliverer");
                 Console.WriteLine("3: Client");
@@ -59,12 +60,12 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetValidatedPhone() {
+        protected int GetValidatedPhone() {
             while (true) {
                 Console.WriteLine("Please enter your mobile phone number:");
                 string phone = Console.ReadLine();
                 if (Regex.IsMatch(phone, @"^0\d{9}$")) {
-                    return phone;
+                    return int.Parse(phone); // Parse phone number as integer
                 }
                 Console.WriteLine("Invalid phone number. Please try again.");
             }
@@ -103,6 +104,7 @@ namespace Arriba_Eats {
             string name = GetInput("Please enter your name:");
             int age = GetValidatedAge();
             string email = GetValidatedEmail();
+            int phone = GetValidatedPhone(); // Phone is now an integer
             string password = GetValidatedPassword();
 
             Login.AddUser(new User(email, password, GetRole()));
