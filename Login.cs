@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Arriba_Eats {
     class Login {
-        public static void ShowMenu() { // Renamed from Main to ShowMenu
+        public static void ShowMenu() {
             
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");

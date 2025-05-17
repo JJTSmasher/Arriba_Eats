@@ -42,11 +42,11 @@ namespace Arriba_Eats {
         protected string GetValidatedName() {
             while (true) {
                 Console.WriteLine("Please enter your name:");
-                string name = Console.ReadLine();
+                string nameInput = Console.ReadLine();
 
                 // Regex to validate the name
-                if (!string.IsNullOrEmpty(name) && Regex.IsMatch(name, @"^[a-zA-Z][a-zA-Z\s'-]*$")) {
-                    return name;
+                if (!string.IsNullOrEmpty(nameInput) && Regex.IsMatch(nameInput, @"^[a-zA-Z][a-zA-Z\s'-]*$")) {
+                    return nameInput;
                 }
 
                 Console.WriteLine("Invalid name.");
@@ -134,13 +134,15 @@ namespace Arriba_Eats {
         protected string name = string.Empty;
         protected string email = string.Empty;
         protected string password = string.Empty;
+        protected int phone;
+        protected int age;
 
         public virtual void Register() {
-            string name = GetValidatedName();
-            int age = GetValidatedAge();
-            string email = GetValidatedEmail();
-            int phone = GetValidatedPhone();
-            string password = GetValidatedPassword();
+            name = GetValidatedName();
+            age = GetValidatedAge();
+            email = GetValidatedEmail();
+            phone = GetValidatedPhone();
+            password = GetValidatedPassword();
 
             Login.AddUser(new User(email, password, GetRole(), name, phone, age));
             
