@@ -1,3 +1,0 @@
-namespace Arriba_Eats {
-
-}

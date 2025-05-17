@@ -53,16 +53,29 @@ namespace Arriba_Eats {
             string password = Console.ReadLine();
             
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) {
-                Console.WriteLine("Email or password cannot be empty. Returning to the login menu...");
+                Console.WriteLine("Email or password cannot be empty.");
                 return;
             }
 
             User user = IsValidUser(email, password);
             if (user != null) {
                 Console.WriteLine($"Welcome back, {user.Name}!");
-                // Proceed to role-specific menu ---------------
+                switch (user.Role.ToLower()) {
+                    case "customer":
+                        Customer.CustomerMenu(user.Name);
+                        return;
+                    case "deliverer":
+                        Deliverer.DelivererMenu();
+                        return;
+                    case "client":
+                        Client.ClientMenu();
+                        return;
+                    default:
+                        Console.WriteLine("No role");
+                        return;
+                }
             } else {
-                Console.WriteLine("Invalid email or password. Returning to the login menu...");
+                Console.WriteLine("Invalid email or password.");
             }
         }
 
