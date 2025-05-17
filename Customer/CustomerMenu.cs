@@ -1,6 +1,6 @@
 namespace Arriba_Eats {
     class CustomerMenu {
-        public static void CustomerMainMenu() {
+        public static void CustomerMainMenu(string name) {
             Console.WriteLine($"Welcome back, {name}!");
             while (true) {
                 Console.WriteLine("Please make a choice from the menu below:");

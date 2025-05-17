@@ -1,5 +1,5 @@
 namespace Arriba_Eats {
-    class Customer : User 
+    class Customer : DefaultUser 
     {
         public struct CustomerLocation 
         {

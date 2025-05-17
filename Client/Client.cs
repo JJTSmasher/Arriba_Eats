@@ -1,5 +1,5 @@
 namespace Arriba_Eats {
-    class Client : User 
+    class Client : DefaultUser 
     {
         public string restaurantName = "";
         public Dictionary<int, string> restaurantStyles = new Dictionary<int, string>(); // 1-6 as resturaunt styles

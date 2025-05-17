@@ -95,9 +95,9 @@ namespace Arriba_Eats {
             }
         }
 
-        string name;
-        string email;
-        string password;
+        protected string name = string.Empty;
+        protected string email = string.Empty;
+        protected string password = string.Empty;
 
         public virtual void Register() {
             string name = GetInput("Please enter your name:");

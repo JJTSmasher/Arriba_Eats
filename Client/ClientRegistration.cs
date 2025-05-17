@@ -17,7 +17,6 @@ namespace Arriba_Eats {
                 Console.WriteLine("Invalid choice. Please try again.");
             }
 
-            string restaurantStyle;
             string[] styles = { "Italian", "French", "Chinese", "Japanese", "American", "Australian" };
             string restaurantStyle = styles[styleChoice - 1];
 

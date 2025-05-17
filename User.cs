@@ -1,5 +1,5 @@
 namespace Arriba_Eats {
-    class User 
+    class DefaultUser 
     {
         public string name = "";
         public int age = 0;
