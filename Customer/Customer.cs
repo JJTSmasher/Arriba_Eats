@@ -171,7 +171,7 @@ namespace Arriba_Eats {
                                     }
                                     Console.WriteLine($"{menuIndex}: Complete order");
                                     Console.WriteLine($"{menuIndex + 1}: Cancel order");
-                                    Console.WriteLine($"Please enter a choice between 1 and {menuIndex}:");
+                                    Console.WriteLine($"Please enter a choice between 1 and {menuIndex+1}:");
 
                                     int menuChoice;
                                     while (!int.TryParse(Console.ReadLine(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
