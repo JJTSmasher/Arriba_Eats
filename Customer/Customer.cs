@@ -76,7 +76,6 @@ namespace Arriba_Eats {
                 y = c.Location.y
             }).ToList();
 
-
             Console.WriteLine("How would you like the list of restaurants ordered?");
             Console.WriteLine("1: Sorted alphabetically by name");
             Console.WriteLine("2: Sorted by distance");
@@ -110,9 +109,22 @@ namespace Arriba_Eats {
                     return;
             }
 
+            // Table header
+            Console.WriteLine();
+            Console.WriteLine("{0,-3}: {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}", 
+                "", "Restaurant Name", "Loc", "Dist", "Style", "Rating");
+
+            // Table rows
+            int index = 1;
             foreach (var r in restaurants) {
-                Console.WriteLine($"{r.Name} | Style: {r.Style} | Rating: {r.AverageRating:F1} | Location: {r.x},{r.y}");
+                double dist = Math.Sqrt(Math.Pow(r.x - customer.Location.x, 2) + Math.Pow(r.y - customer.Location.y, 2));
+                Console.WriteLine("{0,-3} {1,-20} {2,-10} {3,-13:F2} {4,-15} {5,-6:F1}",
+                    index, r.Name, $"{r.x},{r.y}", dist, r.Style, r.AverageRating);
+                index++;
             }
+
+            // Return to previous menu row
+            Console.WriteLine("{0,-3}: {1}", index, "Return to the previous menu");
         }
 
 
