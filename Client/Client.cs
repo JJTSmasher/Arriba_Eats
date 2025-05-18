@@ -104,6 +104,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Invalid price.");
             }
 
+            menu.Add(new MenuItem(itemName, itemPrice));
             Console.WriteLine($"Successfully added {itemName} (${itemPrice:F2}) to menu.");
         }
 
