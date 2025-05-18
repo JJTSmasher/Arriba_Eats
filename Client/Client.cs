@@ -98,7 +98,7 @@ namespace Arriba_Eats {
             while (true) {
                 Console.WriteLine("Please enter the price of the new item (without the $):");
                 string priceInput = Console.ReadLine();
-                if (decimal.TryParse(priceInput, out itemPrice) || itemPrice > 0 | itemPrice < 1000 ) {
+                if (decimal.TryParse(priceInput, out itemPrice) && itemPrice > 0 && itemPrice <= 999.99m ) {
                     break;
                 }
                 Console.WriteLine("Invalid price.");
