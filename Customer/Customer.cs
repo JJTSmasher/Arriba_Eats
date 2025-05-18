@@ -107,12 +107,17 @@ namespace Arriba_Eats {
                     restaurants = restaurants
                         .OrderBy(r => {
                             int idx = Array.IndexOf(styleOrder, r.Style);
-                            return idx == -1 ? int.MaxValue : idx; // Unknown styles go last
+                            return idx == -1 ? int.MaxValue : idx;
                         })
+                        .ThenBy(r => r.Name)
                         .ToList();
                     break;
                 case 4:
-                    restaurants = restaurants.OrderBy(r => r.AverageRating).ToList();
+                    restaurants = restaurants
+                        .OrderBy(r => r.AverageRating == 0 ? 1 : 0)
+                        .ThenByDescending(r => r.AverageRating)
+                        .ThenBy(r => r.Name)
+                        .ToList();
                     break;
                 case 5:
                     return;
