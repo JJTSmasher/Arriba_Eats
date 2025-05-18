@@ -26,19 +26,19 @@ namespace Arriba_Eats {
                         break;
                     case 2:
                         client.AddMenuItem();
-                        return;
+                        break;
                     case 3:
                         client.CurrentOrders();
-                        return;
+                        break;
                     case 4:
                         client.StartCookingOrder();
-                        return;
+                        break;
                     case 5:
                         client.FinishCookingOrder();
-                        return;
+                        break;
                     case 6:
                         client.HandleDelivererArrived();
-                        return;
+                        break;
                     case 7:
                         Console.WriteLine("You are now logged out.");
                         return;
