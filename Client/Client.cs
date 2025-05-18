@@ -25,19 +25,19 @@ namespace Arriba_Eats {
                         client.ShowData();
                         break;
                     case 2:
-
+                        client.AddMenuItem();
                         return;
                     case 3:
-
+                        client.CurrentOrders();
                         return;
                     case 4:
-
+                        client.StartCookingOrder();
                         return;
                     case 5:
-                        
+                        client.FinishCookingOrder();
                         return;
                     case 6:
-
+                        client.HandleDelivererArrived();
                         return;
                     case 7:
                         Console.WriteLine("You are now logged out.");
@@ -64,6 +64,68 @@ namespace Arriba_Eats {
 
             Console.WriteLine($"Restaurant location: {Location.x},{Location.y}");
         }
+
+        public struct MenuItem {
+            public string Name;
+            public decimal Price;
+            public MenuItem(string name, decimal price) {
+                Name = name;
+                Price = price;
+            }
+        }
+
+        private List<MenuItem> menu = new List<MenuItem>();
+
+        private void AddMenuItem() {
+            Console.WriteLine("This is your restaurant's current menu:");
+            foreach (var item in menu) {
+                Console.WriteLine($"{item.Name} - ${item.Price:F2}");
+            }
+
+            // Get item name
+            string itemName;
+            while (true) {
+                Console.WriteLine("Please enter the name of the new item (blank to cancel):");
+                itemName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(itemName)) {
+                    Console.WriteLine("Cancelled adding menu item.");
+                    return;
+                }
+                break;
+            }
+            
+            // Get item price
+            decimal itemPrice;
+            while (true) {
+                Console.WriteLine("Please enter the price of the new item (without the $):");
+                string priceInput = Console.ReadLine();
+                if (decimal.TryParse(priceInput, out itemPrice) && itemPrice > 0) {
+                    break;
+                }
+                Console.WriteLine("Invalid price.");
+            }
+
+            Console.WriteLine($"Successfully added {itemName} (${itemPrice:F2}) to menu.");
+        }
+
+        private void CurrentOrders() {
+            Console.WriteLine("");
+        }
+
+        private void StartCookingOrder() {
+            Console.WriteLine("");
+        }
+
+        private void FinishCookingOrder() {
+            Console.WriteLine("");
+        }
+
+        private void HandleDelivererArrived() {
+            Console.WriteLine("");
+        }
+
+        
+
         public struct RestaurantLocation {
             public int x;
             public int y;
@@ -74,7 +136,6 @@ namespace Arriba_Eats {
         }
 
         public RestaurantLocation Location { get; set; }
-
         public string restaurantName = "";
         public Dictionary<int, string> restaurantStyles = new Dictionary<int, string>(); // 1-6 as restaurant styles
         public decimal restaurantRating = 0;
