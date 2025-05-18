@@ -184,7 +184,7 @@ namespace Arriba_Eats {
                                             int orderNumber = customer.Orders.Count + 1;
                                             Order newOrder = new Order(orderNumber, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
                                             customer.Orders.Add(newOrder);
-                                            Console.WriteLine($"Your order has been placed. Your order number is #{Order.GlobalOrderCount}.");
+                                            Console.WriteLine($"Your order has been placed. Your order number is #{orderNumber}.");
                                         }
                                         ordering = false;
                                     }
