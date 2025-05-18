@@ -227,7 +227,7 @@ namespace Arriba_Eats {
                 return;
             }
             foreach (var order in customer.Orders) {
-                Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName}: {order.Status}:");
+                Console.WriteLine($"Order #{Order.GlobalOrderCount} from {order.RestaurantName}: {order.Status}");
                 var grouped = order.Items.GroupBy(i => i.Name);
                 foreach (var group in grouped) {
                     decimal itemTotal = group.Count() * group.First().Price;

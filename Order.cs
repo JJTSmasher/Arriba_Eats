@@ -6,7 +6,7 @@ namespace Arriba_Eats {
         public string RestaurantName { get; set; }
         public List<MenuItem> Items { get; set; }
         public decimal Total { get; set; }
-        public string Status { get; set; } = "Placed";
+        public string Status { get; set; } = "Ordered";
 
         public Order(int orderId, string restaurantName, List<MenuItem> items, decimal total)
         {
@@ -14,7 +14,7 @@ namespace Arriba_Eats {
             RestaurantName = restaurantName;
             Items = items;
             Total = total;
-            Status = "Placed";
+            Status = "Ordered";
             GlobalOrderCount++;
         }
     }
