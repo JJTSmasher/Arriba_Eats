@@ -65,14 +65,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"Restaurant location: {Location.x},{Location.y}");
         }
 
-        public struct MenuItem {
-            public string Name;
-            public decimal Price;
-            public MenuItem(string name, decimal price) {
-                Name = name;
-                Price = price;
-            }
-        }
+        
 
         private List<MenuItem> menu = new List<MenuItem>();
 

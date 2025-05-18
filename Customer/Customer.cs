@@ -126,6 +126,99 @@ namespace Arriba_Eats {
 
             // Return to previous menu row
             Console.WriteLine("{0,-3}: {1}", index, "Return to the previous menu");
+            Console.WriteLine($"Please enter a choice between 1 and {index}:");
+
+            // Get user selection
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > index) {
+                Console.WriteLine("Invalid choice.");
+            }
+
+            if (selection == index) {
+                // Return to previous menu
+                return;
+            } else {
+                // Show menu for the selected restaurant
+                var selectedRestaurant = restaurants[selection - 1];
+                while (true) {
+                    Console.WriteLine($"\nPlacing order from {selectedRestaurant.Name}");
+                    Console.WriteLine("1: See this restaurant's menu and place an order");
+                    Console.WriteLine("2: See reviews for this restaurant");
+                    Console.WriteLine("3: Return to main menu");
+                    Console.WriteLine("Please enter a choice between 1 and 3:");
+
+                    int subChoice;
+                    while (!int.TryParse(Console.ReadLine(), out subChoice) || subChoice < 1 || subChoice > 3) {
+                        Console.WriteLine("Invalid choice. Please enter 1, 2, or 3:");
+                    }
+
+                    switch (subChoice) {
+                        case 1:
+                            List<MenuItem> order = new List<MenuItem>();
+                            decimal orderTotal = 0m;
+                            bool ordering = true;
+                            while (ordering)
+                            {
+                                Console.WriteLine($"\nCurrent order total: ${orderTotal:F2}");
+                                if (selectedRestaurant.MenuItems != null && selectedRestaurant.MenuItems.Count > 0) {
+                                    int menuIndex = 1;
+                                    foreach (var item in selectedRestaurant.MenuItems) {
+                                        Console.WriteLine($"{menuIndex}: ${item.Price:F2} {item.Name}");
+                                        menuIndex++;
+                                    }
+                                    Console.WriteLine($"{menuIndex}. Complete order");
+                                    Console.WriteLine($"{menuIndex + 1}. Cancel order");
+
+                                    int menuChoice;
+                                    while (!int.TryParse(Console.ReadLine(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
+                                        Console.WriteLine("Invalid choice.");
+                                    }
+
+                                    if (menuChoice == menuIndex) {
+                                        // Complete order
+                                        if (order.Count == 0) {
+                                            Console.WriteLine("You have not selected any items.");
+                                        } else {
+                                            Console.WriteLine("Order placed! Your items:");
+                                            var grouped = order.GroupBy(i => i.Name);
+                                            foreach (var group in grouped) {
+                                                decimal itemTotal = group.Count() * group.First().Price;
+                                                Console.WriteLine($"- {group.Key} x{group.Count()} (${itemTotal:F2})");
+                                            }
+                                            Console.WriteLine($"Total: ${orderTotal:F2}");
+                                        }
+                                        ordering = false;
+                                    }
+                                    else if (menuChoice == menuIndex + 1) {
+                                        Console.WriteLine("Order cancelled.");
+                                        ordering = false;
+                                    } else {
+                                        var selectedItem = selectedRestaurant.MenuItems[menuChoice - 1];
+                                        Console.WriteLine("Please enter quantity (0 to cancel):");
+                                        int quantity;
+                                        while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 1) {
+                                            Console.WriteLine("Invalid quantity.");
+                                        }
+                                        for (int i = 0; i < quantity; i++) {
+                                            order.Add(selectedItem);
+                                            orderTotal += selectedItem.Price;
+                                        }
+                                        Console.WriteLine($"Added {quantity}x {selectedItem.Name} to order.");
+                                    }
+                                } else {
+                                    Console.WriteLine("No items available");
+                                    ordering = false;
+                                }
+                            }
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+                            return;
+                    }
+                }
+            }
         }
 
 
