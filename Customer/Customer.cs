@@ -27,7 +27,7 @@ namespace Arriba_Eats {
                         RestaurantSort(customer);
                         break;
                     case 3:
-                        ViewOrders();
+                        ViewOrders(customer);
                         break;
                     case 4:
                         RateRestaurant();
@@ -61,7 +61,7 @@ namespace Arriba_Eats {
         public CustomerLocation Location { get; set; }
 
         // Add this to store all orders for the customer
-        private List<List<MenuItem>> orders = new List<List<MenuItem>>();
+        public List<List<MenuItem>> orders = new List<List<MenuItem>>();
 
         private static void RestaurantSort(Customer customer) {
             // Get all clients
@@ -171,7 +171,7 @@ namespace Arriba_Eats {
                                     }
                                     Console.WriteLine($"{menuIndex}: Complete order");
                                     Console.WriteLine($"{menuIndex + 1}: Cancel order");
-                                    Console.WriteLine("Please enter a choice between 1 and 3:");
+                                    Console.WriteLine($"Please enter a choice between 1 and {menuIndex}:");
 
                                     int menuChoice;
                                     while (!int.TryParse(Console.ReadLine(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
@@ -196,7 +196,7 @@ namespace Arriba_Eats {
                                         Console.WriteLine($"Adding {selectedItem.Name} to order.");
                                         Console.WriteLine("Please enter quantity (0 to cancel):");
                                         int quantity;
-                                        while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 1) {
+                                        while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0) {
                                             Console.WriteLine("Invalid quantity.");
                                         }
                                         for (int i = 0; i < quantity; i++) {
@@ -222,9 +222,24 @@ namespace Arriba_Eats {
         }
 
 
-        private static void ViewOrders() {
-            Console.WriteLine("You have not placed any orders."); // CHANGE WHEN ORDERS ADDED
-
+        private static void ViewOrders(Customer customer) {
+            if (customer.orders.Count == 0) {
+                Console.WriteLine("You have not placed any orders.");
+                return;
+            }
+            Console.WriteLine("Your previous orders:");
+            int orderNum = 1;
+            foreach (var order in customer.orders) {
+                Console.WriteLine($"Order #{orderNum}:");
+                var grouped = order.GroupBy(i => i.Name);
+                foreach (var group in grouped) {
+                    decimal itemTotal = group.Count() * group.First().Price;
+                    Console.WriteLine($"- {group.Key} x{group.Count()} (${itemTotal:F2})");
+                }
+                decimal total = order.Sum(i => i.Price);
+                Console.WriteLine($"Total: ${total:F2}\n");
+                orderNum++;
+            }
         }
 
         private static void RateRestaurant() { // CHANGE WHEN ORDERS ADDED
