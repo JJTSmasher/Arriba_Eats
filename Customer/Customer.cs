@@ -181,7 +181,7 @@ namespace Arriba_Eats {
                                         if (order.Count == 0) {
                                             Console.WriteLine("You have not selected any items.");
                                         } else {
-                                            int orderNumber = customer.Orders.Count + Order.GlobalOrderCount;
+                                            int orderNumber = customer.Orders.Count + Order.GlobalOrderCount + 1;
                                             Order newOrder = new Order(orderNumber, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
                                             customer.Orders.Add(newOrder);
                                             Console.WriteLine($"Your order has been placed. Your order number is #{orderNumber}.");
