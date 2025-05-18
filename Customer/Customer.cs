@@ -216,7 +216,7 @@ namespace Arriba_Eats {
 
                             break;
                         case 3:
-                            break;
+                            return;
                     }
                 }
             }
