@@ -67,7 +67,7 @@ namespace Arriba_Eats {
 
         
 
-        private List<MenuItem> menu = new List<MenuItem>();
+        public List<MenuItem> menu = new List<MenuItem>();
 
         private void AddMenuItem() {
             Console.WriteLine("This is your restaurant's current menu:");

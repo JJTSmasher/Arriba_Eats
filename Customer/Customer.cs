@@ -73,7 +73,8 @@ namespace Arriba_Eats {
                 Style = c.restaurantStyles.Values.FirstOrDefault() ?? "",
                 AverageRating = (double)c.restaurantRating,
                 x = c.Location.x,
-                y = c.Location.y
+                y = c.Location.y,
+                MenuItems = c.menu != null ? [.. c.menu] : new List<MenuItem>()
             }).ToList();
 
             Console.WriteLine("How would you like the list of restaurants ordered?");
@@ -135,13 +136,12 @@ namespace Arriba_Eats {
             }
 
             if (selection == index) {
-                // Return to previous menu
                 return;
             } else {
                 // Show menu for the selected restaurant
                 var selectedRestaurant = restaurants[selection - 1];
                 while (true) {
-                    Console.WriteLine($"\nPlacing order from {selectedRestaurant.Name}");
+                    Console.WriteLine($"\nPlacing order from {selectedRestaurant.Name}.");
                     Console.WriteLine("1: See this restaurant's menu and place an order");
                     Console.WriteLine("2: See reviews for this restaurant");
                     Console.WriteLine("3: Return to main menu");
