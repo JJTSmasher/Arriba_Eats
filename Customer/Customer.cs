@@ -110,14 +110,14 @@ namespace Arriba_Eats {
             }
 
             // Table header
-            Console.WriteLine();
+            Console.WriteLine("You can order from the following restaurants:");
             Console.WriteLine("{0,-3} {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}", 
                 "", "Restaurant Name", "Loc", "Dist", "Style", "Rating");
 
             // Table rows
             int index = 1;
             foreach (var r in restaurants) {
-                double dist = (r.y - customer.Location.y) / (r.x - customer.Location.x);
+                double dist = Math.Sqrt(Math.Pow(r.x - customer.Location.x, 2) + Math.Pow(r.y - customer.Location.y, 2));
                 string ratingDisplay = r.AverageRating == 0 ? "-" : r.AverageRating.ToString("F1");
                 Console.WriteLine("{0,-3}: {1,-20} {2,-10} {3,-13:F2} {4,-15} {5,-6:F1}",
                     index, r.Name, $"{r.x},{r.y}", dist, r.Style, ratingDisplay);
