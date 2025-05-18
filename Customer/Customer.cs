@@ -97,15 +97,22 @@ namespace Arriba_Eats {
                     restaurants = restaurants.OrderBy(r => r.Name).ToList();
                     break;
                 case 2:
-                    restaurants = restaurants.OrderBy(r =>
-                        Math.Sqrt(Math.Pow(r.x - customer.Location.x, 2) + Math.Pow(r.y - customer.Location.y, 2))
-                    ).ToList();
+                    restaurants = restaurants
+                        .OrderBy(r => Math.Abs(r.x - customer.Location.x) + Math.Abs(r.y - customer.Location.y))
+                        .ThenBy(r => r.Name)
+                        .ToList();
                     break;
                 case 3:
-                    restaurants = restaurants.OrderBy(r => r.Style).ToList();
+                    string[] styleOrder = ["Italian", "French", "Chinese", "Japanese", "American", "Australian"];
+                    restaurants = restaurants
+                        .OrderBy(r => {
+                            int idx = Array.IndexOf(styleOrder, r.Style);
+                            return idx == -1 ? int.MaxValue : idx; // Unknown styles go last
+                        })
+                        .ToList();
                     break;
                 case 4:
-                    restaurants = restaurants.OrderByDescending(r => r.AverageRating).ToList();
+                    restaurants = restaurants.OrderBy(r => r.AverageRating).ToList();
                     break;
                 case 5:
                     return;
