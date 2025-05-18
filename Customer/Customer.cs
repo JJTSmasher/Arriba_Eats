@@ -198,11 +198,15 @@ namespace Arriba_Eats {
                                         while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0) {
                                             Console.WriteLine("Invalid quantity.");
                                         }
-                                        for (int i = 0; i < quantity; i++) {
-                                            order.Add(selectedItem);
-                                            orderTotal += selectedItem.Price;
+                                        if (quantity == 0) {
+                                            return;
+                                        } else {
+                                            for (int i = 0; i < quantity; i++) {
+                                                order.Add(selectedItem);
+                                                orderTotal += selectedItem.Price;
+                                            }
+                                            Console.WriteLine($"Added {quantity}x {selectedItem.Name} to order.");
                                         }
-                                        Console.WriteLine($"Added {quantity}x {selectedItem.Name} to order.");
                                     }
                                 } else {
                                     Console.WriteLine("No items available");
