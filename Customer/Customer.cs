@@ -158,7 +158,6 @@ namespace Arriba_Eats {
                             List<MenuItem> order = new List<MenuItem>();
                             decimal orderTotal = 0m;
                             bool ordering = true;
-                            int orderCount = 0;
                             while (ordering)
                             {
                                 Console.WriteLine($"\nCurrent order total: ${orderTotal:F2}");
@@ -185,8 +184,7 @@ namespace Arriba_Eats {
                                             int orderNumber = customer.Orders.Count + 1;
                                             Order newOrder = new Order(orderNumber, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
                                             customer.Orders.Add(newOrder);
-                                            Console.WriteLine($"Your order has been placed. Your order number is #{orderCount}.");
-                                            orderCount++;
+                                            Console.WriteLine($"Your order has been placed. Your order number is #{Order.GlobalOrderCount}.");
                                         }
                                         ordering = false;
                                     }
