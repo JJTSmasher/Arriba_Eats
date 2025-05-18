@@ -79,7 +79,7 @@ namespace Arriba_Eats {
         private void AddMenuItem() {
             Console.WriteLine("This is your restaurant's current menu:");
             foreach (var item in menu) {
-                Console.WriteLine($"{item.Name} - ${item.Price:F2}");
+                Console.WriteLine($"  ${item.Price:F2} {item.Name}");
             }
 
             // Get item name
@@ -88,7 +88,6 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter the name of the new item (blank to cancel):");
                 itemName = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(itemName)) {
-                    Console.WriteLine("Cancelled adding menu item.");
                     return;
                 }
                 break;

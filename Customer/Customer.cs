@@ -60,13 +60,23 @@ namespace Arriba_Eats {
         }
         public CustomerLocation Location { get; set; }
 
-        private static List<Restaurant> restaurants = new List<Restaurant> {
-            new Restaurant { Name = "Pizza Place", Style = "Italian", AverageRating = 4.5, x = 5, y = 10 },
-            new Restaurant { Name = "Sushi World", Style = "Japanese", AverageRating = 4.8, x = 12, y = 3 },
-            new Restaurant { Name = "Burger Barn", Style = "American", AverageRating = 4.2, x = 8, y = 8 }
-        };
-
         private static void RestaurantSort(Customer customer) {
+            // Get all clients
+            List<Client> clients = Login.users
+                .OfType<Client>()
+                .Where(c => !string.IsNullOrEmpty(c.restaurantName))
+                .ToList();
+
+            // Build list of Restaurant objects
+            List<Restaurant> restaurants = clients.Select(c => new Restaurant {
+                Name = c.restaurantName,
+                Style = c.restaurantStyles.Values.FirstOrDefault() ?? "",
+                AverageRating = (double)c.restaurantRating,
+                x = c.Location.x,
+                y = c.Location.y
+            }).ToList();
+
+
             Console.WriteLine("How would you like the list of restaurants ordered?");
             Console.WriteLine("1: Sorted alphabetically by name");
             Console.WriteLine("2: Sorted by distance");
@@ -79,32 +89,32 @@ namespace Arriba_Eats {
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5) {
                 Console.WriteLine("Invalid choice.");
             }
-            
-            List<Restaurant> sorted = new List<Restaurant>(restaurants);
 
+            // Sort based on user input
             switch (choice) {
                 case 1:
-                    sorted = sorted.OrderBy(r => r.Name).ToList();
+                    restaurants = restaurants.OrderBy(r => r.Name).ToList();
                     break;
                 case 2:
-                    sorted = sorted.OrderBy(r =>
+                    restaurants = restaurants.OrderBy(r =>
                         Math.Sqrt(Math.Pow(r.x - customer.Location.x, 2) + Math.Pow(r.y - customer.Location.y, 2))
                     ).ToList();
                     break;
                 case 3:
-                    sorted = sorted.OrderBy(r => r.Style).ToList();
+                    restaurants = restaurants.OrderBy(r => r.Style).ToList();
                     break;
                 case 4:
-                    sorted = sorted.OrderByDescending(r => r.AverageRating).ToList();
+                    restaurants = restaurants.OrderByDescending(r => r.AverageRating).ToList();
                     break;
                 case 5:
                     return;
             }
 
-            foreach (var r in sorted) {
+            foreach (var r in restaurants) {
                 Console.WriteLine($"{r.Name} | Style: {r.Style} | Rating: {r.AverageRating:F1} | Location: {r.x},{r.y}");
             }
         }
+
 
         private static void ViewOrders() {
             Console.WriteLine("You have not placed any orders."); // CHANGE WHEN ORDERS ADDED
