@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Arriba_Eats {
     class Login {
-        public static List<User> users = new List<User>();
+        public static List<User> users = [];
         public static void ShowMenu() {
             
             while (true) {

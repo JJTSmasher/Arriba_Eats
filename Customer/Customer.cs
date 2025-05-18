@@ -60,6 +60,9 @@ namespace Arriba_Eats {
         }
         public CustomerLocation Location { get; set; }
 
+        // Add this to store all orders for the customer
+        private List<List<MenuItem>> orders = new List<List<MenuItem>>();
+
         private static void RestaurantSort(Customer customer) {
             // Get all clients
             List<Client> clients = Login.users
@@ -180,8 +183,9 @@ namespace Arriba_Eats {
                                         if (order.Count == 0) {
                                             Console.WriteLine("You have not selected any items.");
                                         } else {
-                                            Console.WriteLine($"Your order has been placed. Your order number is #1.");
-
+                                            customer.orders.Add([.. order]);
+                                            int orderNumber = customer.orders.Count;
+                                            Console.WriteLine($"Your order has been placed. Your order number is #{orderNumber}.");
                                         }
                                         ordering = false;
                                     }
