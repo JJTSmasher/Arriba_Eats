@@ -1,3 +1,4 @@
+using System.Globalization;
 namespace Arriba_Eats {
     class Client : User {
         public Client(string email, string password, string role, string name, string phone, int age)
@@ -98,7 +99,8 @@ namespace Arriba_Eats {
             while (true) {
                 Console.WriteLine("Please enter the price of the new item (without the $):");
                 string priceInput = Console.ReadLine();
-                if (decimal.TryParse(priceInput, out itemPrice) && itemPrice > 0) {
+                if (decimal.TryParse(priceInput, NumberStyles.Number, CultureInfo.InvariantCulture, out itemPrice) && itemPrice > 0)
+                { // something something, local numbers, something
                     break;
                 }
                 Console.WriteLine("Invalid price.");
