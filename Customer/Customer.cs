@@ -199,7 +199,6 @@ namespace Arriba_Eats {
                                             Console.WriteLine("Invalid quantity.");
                                         }
                                         if (quantity == 0) {
-                                            return;
                                         } else {
                                             for (int i = 0; i < quantity; i++) {
                                                 order.Add(selectedItem);
