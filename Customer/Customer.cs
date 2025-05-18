@@ -24,13 +24,13 @@ namespace Arriba_Eats {
                         Customer.ShowData(customer);
                         break;
                     case 2:
-
+                        RestaurantSort();
                         break;
                     case 3:
-
+                        ViewOrders();
                         break;
                     case 4:
-
+                        RateRestaurant();
                         break;
                     case 5:
                         Console.WriteLine("You are now logged out.");
@@ -58,9 +58,36 @@ namespace Arriba_Eats {
                 this.y = y;
             }
         }
-
         public CustomerLocation Location { get; set; }
 
+        private static void RestaurantSort() {
+            Console.WriteLine("How would you like the list of restaurants ordered?");
+            Console.WriteLine("1: Sorted alphabetically by name");
+            Console.WriteLine("2: Sorted by distance");
+            Console.WriteLine("3: Sorted by style");
+            Console.WriteLine("4: Sorted by average rating");
+            Console.WriteLine("5: Return to the previous menu");
+            Console.WriteLine("Please enter a choice between 1 and 5:");
+        }
+
+        private static void ViewOrders() {
+            Console.WriteLine("You have not placed any orders."); // CHANGE WHEN ORDERS ADDED
+
+        }
+
+        private static void RateRestaurant() { // CHANGE WHEN ORDERS ADDED
+            Console.WriteLine("Select a previous order to rate the restaurant it came from:");
+            Console.WriteLine("1: Return to the previous menu");
+            Console.WriteLine("Please enter a choice between 1 and 1:");
+            while (true) {
+                string input = Console.ReadLine();
+                if (input == "1") {
+                    return;
+                }
+                Console.WriteLine("Invalid choice.");
+            }
+
+        }
 
         public int ordersMade = 0;
         public decimal moneySpent = 0;
