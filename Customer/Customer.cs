@@ -59,9 +59,7 @@ namespace Arriba_Eats {
             }
         }
         public CustomerLocation Location { get; set; }
-
-        // Add this to store all orders for the customer
-        public List<List<MenuItem>> orders = new List<List<MenuItem>>();
+        public List<Order> Orders { get; } = new List<Order>();
 
         private static void RestaurantSort(Customer customer) {
             // Get all clients
@@ -183,8 +181,9 @@ namespace Arriba_Eats {
                                         if (order.Count == 0) {
                                             Console.WriteLine("You have not selected any items.");
                                         } else {
-                                            customer.orders.Add([.. order]);
-                                            int orderNumber = customer.orders.Count;
+                                            int orderNumber = customer.Orders.Count + 1;
+                                            Order newOrder = new Order(orderNumber, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
+                                            customer.Orders.Add(newOrder);
                                             Console.WriteLine($"Your order has been placed. Your order number is #{orderNumber}.");
                                         }
                                         ordering = false;
@@ -223,27 +222,27 @@ namespace Arriba_Eats {
 
 
         private static void ViewOrders(Customer customer) {
-            if (customer.orders.Count == 0) {
+            if (customer.Orders.Count == 0) {
                 Console.WriteLine("You have not placed any orders.");
                 return;
             }
             Console.WriteLine("Your previous orders:");
-            int orderNum = 1;
-            foreach (var order in customer.orders) {
-                Console.WriteLine($"Order #{orderNum}:");
-                var grouped = order.GroupBy(i => i.Name);
+            foreach (var order in customer.Orders) {
+                Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName} at {order.PlacedAt}:");
+                var grouped = order.Items.GroupBy(i => i.Name);
                 foreach (var group in grouped) {
                     decimal itemTotal = group.Count() * group.First().Price;
                     Console.WriteLine($"- {group.Key} x{group.Count()} (${itemTotal:F2})");
                 }
-                decimal total = order.Sum(i => i.Price);
-                Console.WriteLine($"Total: ${total:F2}\n");
-                orderNum++;
+                Console.WriteLine($"Total: ${order.Total:F2} | Status: {order.Status}\n");
             }
         }
 
         private static void RateRestaurant() { // CHANGE WHEN ORDERS ADDED
             Console.WriteLine("Select a previous order to rate the restaurant it came from:");
+
+            
+
             Console.WriteLine("1: Return to the previous menu");
             Console.WriteLine("Please enter a choice between 1 and 1:");
             while (true) {

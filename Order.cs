@@ -1,13 +1,11 @@
 namespace Arriba_Eats {
-    class Order : Customer {
-        public int orderID = 0;
-        public string order = ""; // Placeholder for order details
-        public Dictionary<int, string> orderCookStatus = new Dictionary<int, string>();
-        public bool orderTaken; // Indicates if the order is claimed by a driver
-
-        // Constructor for the Order class
-        public Order(string email, string password, string role, string name, string phone, int age)
-            : base(email, password, role, name, phone, age) {
-        }
+    public class Order(int orderId, string restaurantName, List<MenuItem> items, decimal total)
+    {
+        public int OrderID { get; set; } = orderId;
+        public string RestaurantName { get; set; } = restaurantName;
+        public List<MenuItem> Items { get; set; } = items;
+        public decimal Total { get; set; } = total;
+        public string Status { get; set; } = "Placed";
+        public DateTime PlacedAt { get; set; } = DateTime.Now;
     }
 }
