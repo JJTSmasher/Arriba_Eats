@@ -140,8 +140,8 @@ namespace Arriba_Eats {
             } else {
                 // Show menu for the selected restaurant
                 var selectedRestaurant = restaurants[selection - 1];
+                Console.WriteLine($"\nPlacing order from {selectedRestaurant.Name}.");
                 while (true) {
-                    Console.WriteLine($"\nPlacing order from {selectedRestaurant.Name}.");
                     Console.WriteLine("1: See this restaurant's menu and place an order");
                     Console.WriteLine("2: See reviews for this restaurant");
                     Console.WriteLine("3: Return to main menu");
@@ -166,8 +166,9 @@ namespace Arriba_Eats {
                                         Console.WriteLine($"{menuIndex}: ${item.Price:F2} {item.Name}");
                                         menuIndex++;
                                     }
-                                    Console.WriteLine($"{menuIndex}. Complete order");
-                                    Console.WriteLine($"{menuIndex + 1}. Cancel order");
+                                    Console.WriteLine($"{menuIndex + 1}: Complete order");
+                                    Console.WriteLine($"{menuIndex + 2}: Cancel order");
+                                    Console.WriteLine("Please enter a choice between 1 and 3:");
 
                                     int menuChoice;
                                     while (!int.TryParse(Console.ReadLine(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
@@ -179,7 +180,7 @@ namespace Arriba_Eats {
                                         if (order.Count == 0) {
                                             Console.WriteLine("You have not selected any items.");
                                         } else {
-                                            Console.WriteLine("Order placed! Your items:");
+                                            Console.WriteLine($"Order placed! Your items:");
                                             var grouped = order.GroupBy(i => i.Name);
                                             foreach (var group in grouped) {
                                                 decimal itemTotal = group.Count() * group.First().Price;
