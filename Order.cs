@@ -6,6 +6,5 @@ namespace Arriba_Eats {
         public List<MenuItem> Items { get; set; } = items;
         public decimal Total { get; set; } = total;
         public string Status { get; set; } = "Placed";
-        public DateTime PlacedAt { get; set; } = DateTime.Now;
     }
 }

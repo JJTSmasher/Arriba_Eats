@@ -158,6 +158,7 @@ namespace Arriba_Eats {
                             List<MenuItem> order = new List<MenuItem>();
                             decimal orderTotal = 0m;
                             bool ordering = true;
+                            int orderCount = 0;
                             while (ordering)
                             {
                                 Console.WriteLine($"\nCurrent order total: ${orderTotal:F2}");
@@ -184,7 +185,8 @@ namespace Arriba_Eats {
                                             int orderNumber = customer.Orders.Count + 1;
                                             Order newOrder = new Order(orderNumber, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
                                             customer.Orders.Add(newOrder);
-                                            Console.WriteLine($"Your order has been placed. Your order number is #{orderNumber}.");
+                                            Console.WriteLine($"Your order has been placed. Your order number is #{orderCount}.");
+                                            orderCount++;
                                         }
                                         ordering = false;
                                     }
@@ -214,7 +216,7 @@ namespace Arriba_Eats {
 
                             break;
                         case 3:
-                            return;
+                            break;
                     }
                 }
             }
@@ -226,22 +228,20 @@ namespace Arriba_Eats {
                 Console.WriteLine("You have not placed any orders.");
                 return;
             }
-            Console.WriteLine("Your previous orders:");
             foreach (var order in customer.Orders) {
-                Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName} at {order.PlacedAt}:");
+                Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName}: {order.Status}:");
                 var grouped = order.Items.GroupBy(i => i.Name);
                 foreach (var group in grouped) {
                     decimal itemTotal = group.Count() * group.First().Price;
-                    Console.WriteLine($"- {group.Key} x{group.Count()} (${itemTotal:F2})");
+                    Console.WriteLine($"{group.Count()} x {group.Key}");
                 }
-                Console.WriteLine($"Total: ${order.Total:F2} | Status: {order.Status}\n");
             }
         }
 
         private static void RateRestaurant() { // CHANGE WHEN ORDERS ADDED
             Console.WriteLine("Select a previous order to rate the restaurant it came from:");
 
-            
+
 
             Console.WriteLine("1: Return to the previous menu");
             Console.WriteLine("Please enter a choice between 1 and 1:");
