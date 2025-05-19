@@ -90,7 +90,7 @@ namespace Arriba_Eats {
                     bool taken = Login.users
                         .OfType<Deliverer>()
                         .Any(d => d.orderDeliverStatus.ContainsKey(order.OrderID) && d.orderDeliverStatus[order.OrderID] != "Delivered" && d.orderDeliverStatus[order.OrderID] != "Completed");
-                    if (!taken && order.Status == "Ordered") {
+                    if (!taken && (order.Status == "Ordered" || order.Status == "Cooking" || order.Status == "Cooked")) {
                         var client = Login.users
                             .OfType<Client>()
                             .FirstOrDefault(c => c.restaurantName == order.RestaurantName);
