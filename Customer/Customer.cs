@@ -275,7 +275,7 @@ namespace Arriba_Eats {
                     !Login.Reviews.Any(r =>
                         r.CustomerEmail == customer.Email &&
                         r.RestaurantName == o.RestaurantName &&
-                        r.Comment.Contains($"Order#{o.OrderID}")))
+                        r.OrderID == o.OrderID))
                 .ToList();
 
             Console.WriteLine("Select a previous order to rate the restaurant it came from:");
@@ -318,7 +318,14 @@ namespace Arriba_Eats {
             Console.WriteLine("Please enter a comment to accompany this rating:");
             string comment = Console.ReadLine();
 
-            Login.Reviews.Add(new Review(selectedOrder.RestaurantName, customer.Name, customer.Email, rating, comment));
+            Login.Reviews.Add(new Review(
+                selectedOrder.RestaurantName,
+                customer.Name,
+                customer.Email,
+                selectedOrder.OrderID,
+                rating,
+                comment
+            ));
             Client.UpdateRestaurantRating(selectedOrder.RestaurantName);
             Console.WriteLine($"Thank you for rating {selectedOrder.RestaurantName}.");
         }
