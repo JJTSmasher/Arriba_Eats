@@ -222,11 +222,6 @@ namespace Arriba_Eats {
                 .Where(x => x.Deliverer != null)
                 .ToList();
 
-            if (waitingOrders.Count == 0) {
-                Console.WriteLine("There are no deliverers currently waiting to collect orders.");
-                return;
-            }
-
             Console.WriteLine("These deliverers have arrived and are waiting to collect orders.");
             Console.WriteLine("Select an order to indicate that the deliverer has collected it:");
             int idx = 1;
