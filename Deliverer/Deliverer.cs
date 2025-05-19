@@ -24,8 +24,8 @@ namespace Arriba_Eats {
                         deliverer.ShowData();
                         break;
                     case 2:
-
-                        return;
+                        deliverer.AvailableOrders();
+                        break;
                     case 3:
 
                         return;
@@ -53,6 +53,75 @@ namespace Arriba_Eats {
                     Console.WriteLine($"Order ID: {order.Key}, Status: {order.Value}");
                 }
             }
+        }
+
+        private void AvailableOrders() {
+            if (orderDeliverStatus.Any(kv => kv.Value != "Delivered" && kv.Value != "Completed")) {
+                Console.WriteLine("You have already selected an order for delivery.");
+                return;
+            }
+
+            int delivererX, delivererY;
+            while (true) {
+                Console.WriteLine("Please enter your location (in the form of X,Y):");
+                string input = Console.ReadLine();
+                var parts = input.Split(',');
+                if (parts.Length == 2 && int.TryParse(parts[0], out delivererX) && int.TryParse(parts[1], out delivererY)) {
+                    break;
+                }
+                Console.WriteLine("Invalid location.");
+            }
+
+            var availableOrders = new List<(Order order, Customer customer, Client client)>();
+            foreach (var user in Login.users.OfType<Customer>()) {
+                foreach (var order in user.Orders) {
+                    bool taken = Login.users
+                        .OfType<Deliverer>()
+                        .Any(d => d.orderDeliverStatus.ContainsKey(order.OrderID) && d.orderDeliverStatus[order.OrderID] != "Delivered" && d.orderDeliverStatus[order.OrderID] != "Completed");
+                    if (!taken && order.Status == "Ordered") {
+                        var client = Login.users
+                            .OfType<Client>()
+                            .FirstOrDefault(c => c.restaurantName == order.RestaurantName);
+                        if (client != null) {
+                            availableOrders.Add((order, user, client));
+                        }
+                    }
+                }
+            }
+
+            if (availableOrders.Count == 0) {
+                Console.WriteLine("There are no orders available for delivery at this time.");
+                return;
+            }
+
+            Console.WriteLine("The following orders are available for delivery. Select an order to accept it:");
+            Console.WriteLine("   {0,-6} {1,-20} {2,-8} {3,-15} {4,-8} {5,-4}", "Order", "Restaurant Name", "Loc", "Customer Name", "Loc", "Dist");
+            int idx = 1;
+            var orderChoices = new List<(int orderId, string restaurantName, int rx, int ry, string customerName, int cx, int cy, int dist)>();
+            foreach (var (order, customer, client) in availableOrders.OrderBy(o => o.order.OrderID)) {
+                int rx = client.Location.x;
+                int ry = client.Location.y;
+                int cx = customer.Location.x;
+                int cy = customer.Location.y;
+                int dist = Math.Abs(delivererX - rx) + Math.Abs(delivererY - ry) + Math.Abs(rx - cx) + Math.Abs(ry - cy);
+                orderChoices.Add((order.OrderID, client.restaurantName, rx, ry, customer.Name, cx, cy, dist));
+                Console.WriteLine($"{idx,-3}: {order.OrderID,-6} {client.restaurantName,-20} {rx},{ry,-6} {customer.Name,-15} {cx},{cy,-6} {dist,-4}");
+                idx++;
+            }
+            Console.WriteLine($"{idx,-3}: Return to the previous menu");
+            Console.WriteLine($"Please enter a choice between 1 and {idx}:");
+
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+                Console.WriteLine("Invalid choice.");
+            }
+            if (selection == idx) {
+                return;
+            }
+
+            var chosen = orderChoices[selection - 1];
+            orderDeliverStatus[chosen.orderId] = "Accepted";
+            Console.WriteLine($"Thanks for accepting the order. Please head to {chosen.restaurantName} at {chosen.rx},{chosen.ry} to pick it up.");
         }
         
         public Dictionary<int, string> orderDeliverStatus = new Dictionary<int, string>();
