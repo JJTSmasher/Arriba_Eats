@@ -270,14 +270,12 @@ namespace Arriba_Eats {
                 return;
             }
 
-            var ratedOrderIds = Login.Reviews
-                .Where(r => r.CustomerName == customer.Name)
-                .Select(r => r.RestaurantName + "|" + r.Comment)
-                .ToHashSet();
-
             var unratedOrders = customer.Orders
                 .Where(o => o.Status == "Delivered" &&
-                    !Login.Reviews.Any(r => r.CustomerName == customer.Name && r.RestaurantName == o.RestaurantName && r.Comment.Contains($"Order#{o.OrderID}")))
+                    !Login.Reviews.Any(r =>
+                        r.CustomerEmail == customer.Email &&
+                        r.RestaurantName == o.RestaurantName &&
+                        r.Comment.Contains($"Order#{o.OrderID}")))
                 .ToList();
 
             Console.WriteLine("Select a previous order to rate the restaurant it came from:");
@@ -320,7 +318,7 @@ namespace Arriba_Eats {
             Console.WriteLine("Please enter a comment to accompany this rating:");
             string comment = Console.ReadLine();
 
-            Login.Reviews.Add(new Review(selectedOrder.RestaurantName, customer.Name, rating, comment));
+            Login.Reviews.Add(new Review(selectedOrder.RestaurantName, customer.Name, customer.Email, rating, comment));
             Client.UpdateRestaurantRating(selectedOrder.RestaurantName);
             Console.WriteLine($"Thank you for rating {selectedOrder.RestaurantName}.");
         }
