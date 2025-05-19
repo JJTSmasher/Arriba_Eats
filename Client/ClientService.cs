@@ -223,10 +223,7 @@ namespace Arriba_Eats {
                 .ToList();
             if (waitingOrders.Count == 0) {
                 Console.WriteLine("No deliverers have arrived to collect orders.");
-                return;
-            }
-
-            Console.WriteLine("DEBUG: Checking orders with status 'Cooked'");
+                            Console.WriteLine("DEBUG: Checking orders with status 'Cooked'");
             foreach (var customer in Login.users.OfType<Customer>()) {
                 foreach (var order in customer.Orders) {
                     if (order.RestaurantName == client.RestaurantName && order.Status == "Cooked") {
@@ -240,6 +237,10 @@ namespace Arriba_Eats {
                     Console.WriteLine($"Deliverer {deliverer.licencePlate} has Order #{kvp.Key} with status '{kvp.Value}'");
                 }
             }
+                return;
+            }
+
+
 
 
 
