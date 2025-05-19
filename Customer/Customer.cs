@@ -261,19 +261,13 @@ namespace Arriba_Eats {
 
             var ratedOrderIds = Login.Reviews
                 .Where(r => r.CustomerName == customer.Name)
-                .Select(r => r.RestaurantName + "|" + r.Comment) // Use a unique key if you store orderId in Review, otherwise just RestaurantName+OrderID
+                .Select(r => r.RestaurantName + "|" + r.Comment)
                 .ToHashSet();
 
             var unratedOrders = customer.Orders
                 .Where(o => o.Status == "Delivered" &&
                     !Login.Reviews.Any(r => r.CustomerName == customer.Name && r.RestaurantName == o.RestaurantName && r.Comment.Contains($"Order#{o.OrderID}")))
                 .ToList();
-
-            if (unratedOrders.Count == 0)
-            {
-                Console.WriteLine("You have no delivered orders left to rate.");
-                return;
-            }
 
             Console.WriteLine("Select a previous order to rate the restaurant it came from:");
             int idx = 1;
