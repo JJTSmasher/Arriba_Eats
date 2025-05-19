@@ -15,7 +15,7 @@ namespace Arriba_Eats {
             Items = items;
             Total = total;
             Status = "Ordered";
-            GlobalOrderCount++;
+            GlobalOrderCount = orderId;
         }
     }
 }
