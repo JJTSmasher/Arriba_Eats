@@ -211,7 +211,7 @@ namespace Arriba_Eats {
             var waitingOrders = Login.users
                 .OfType<Customer>()
                 .SelectMany(c => c.Orders, (c, o) => new { Customer = c, Order = o })
-                .Where(x => x.Order.RestaurantName == client.RestaurantName && x.Order.Status != "Being Delivered" && x.Order.Status != "Delivered")
+                .Where(x => x.Order.RestaurantName == client.RestaurantName && x.Order.Status == "Cooked")
                 .Select(x => {
                     var deliverer = Login.users
                         .OfType<Deliverer>()
