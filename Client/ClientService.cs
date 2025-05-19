@@ -217,8 +217,7 @@ namespace Arriba_Eats {
                     var deliverer = Login.users
                         .OfType<Deliverer>()
                         .FirstOrDefault(d =>
-                            d.orderDeliverStatus.ContainsKey(x.Order.OrderID) &&
-                            d.orderDeliverStatus[x.Order.OrderID] == "Arrived"
+                            d.orderDeliverStatus.ContainsKey(x.Order.OrderID)
                         );
                     return new { x.Customer, x.Order, Deliverer = deliverer };
                 })
@@ -226,7 +225,7 @@ namespace Arriba_Eats {
                 .ToList();
 
             if (waitingOrders.Count == 0) {
-                Console.WriteLine("No deliverers have arrived to collect orders.");
+
                             Console.WriteLine("DEBUG: Checking orders with status 'Cooked'");
             foreach (var customer in Login.users.OfType<Customer>()) {
                 foreach (var order in customer.Orders) {
