@@ -254,7 +254,21 @@ namespace Arriba_Eats {
             Console.WriteLine($"Order #{chosen.Order.OrderID} is now marked as being delivered.");
         }
 
-        
+        public static void UpdateRestaurantRating(string restaurantName)
+        {
+            var client = Login.users.OfType<Client>().FirstOrDefault(c => c.restaurantName == restaurantName);
+            if (client == null) return;
+
+            var reviews = Login.Reviews.Where(r => r.RestaurantName == restaurantName).ToList();
+            if (reviews.Count == 0)
+            {
+                client.restaurantRating = 0;
+            }
+            else
+            {
+                client.restaurantRating = (decimal)reviews.Average(r => r.Rating);
+            }
+        }
 
         public struct RestaurantLocation {
             public int x;

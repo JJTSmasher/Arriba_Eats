@@ -194,7 +194,7 @@ namespace Arriba_Eats {
                                             Console.WriteLine("You have not selected any items.");
                                         } else {
                                             int orderNumber = customer.Orders.Count + Order.GlobalOrderCount + 1;
-                                            Order newOrder = new Order(orderNumber, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
+                                            Order newOrder = new Order(Order.GlobalOrderCount + 1, selectedRestaurant.Name, new List<MenuItem>(order), orderTotal);
                                             customer.Orders.Add(newOrder);
                                             Console.WriteLine($"Your order has been placed. Your order number is #{orderNumber}.");
                                         }
@@ -250,7 +250,7 @@ namespace Arriba_Eats {
                     .FirstOrDefault(d => d.orderDeliverStatus.ContainsKey(order.OrderID) && d.orderDeliverStatus[order.OrderID] == "Delivered");
 
                 if (deliveredBy != null) {
-                    Console.WriteLine($"This order was delivered by {deliveredBy.Name} (Licence plate: {deliveredBy.licencePlate})");
+                    Console.WriteLine($"This order was delivered by {deliveredBy.Name} (licence plate: {deliveredBy.licencePlate})");
                 }
 
                 var grouped = order.Items.GroupBy(i => i.Name);
@@ -320,6 +320,7 @@ namespace Arriba_Eats {
             string comment = Console.ReadLine();
 
             Login.Reviews.Add(new Review(selectedOrder.RestaurantName, customer.Name, rating, comment));
+            Client.UpdateRestaurantRating(selectedOrder.RestaurantName);
             Console.WriteLine($"Thank you for rating {selectedOrder.RestaurantName}.");
         }
 
