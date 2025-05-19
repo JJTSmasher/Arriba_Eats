@@ -208,6 +208,7 @@ namespace Arriba_Eats {
         }
 
         private static void HandleDelivererArrived(Client client) {
+            
             var waitingOrders = Login.users
                 .OfType<Customer>()
                 .SelectMany(c => c.Orders, (c, o) => new { Customer = c, Order = o })
@@ -220,6 +221,10 @@ namespace Arriba_Eats {
                 })
                 .Where(x => x.Deliverer != null)
                 .ToList();
+            if (waitingOrders.Count == 0) {
+                Console.WriteLine("No deliverers have arrived to collect orders.");
+                return;
+            }
 
             Console.WriteLine("These deliverers have arrived and are waiting to collect orders.");
             Console.WriteLine("Select an order to indicate that the deliverer has collected it:");

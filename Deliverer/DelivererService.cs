@@ -97,11 +97,6 @@ namespace Arriba_Eats {
                 }
             }
 
-            /* if (availableOrders.Count == 0) {
-                Console.WriteLine("There are no orders available for delivery at this time.");
-                return;
-            } */
-
             Console.WriteLine("The following orders are available for delivery. Select an order to accept it:");
             Console.WriteLine("   {0,-6} {1,-20} {2,-8} {3,-15} {4,-8} {5,-4}", "Order", "Restaurant Name", "Loc", "Customer Name", "Loc", "Dist");
             int idx = 1;
