@@ -217,35 +217,13 @@ namespace Arriba_Eats {
                     var deliverer = Login.users
                         .OfType<Deliverer>()
                         .FirstOrDefault(d =>
-                            d.orderDeliverStatus.ContainsKey(x.Order.OrderID)
+                            d.orderDeliverStatus.ContainsKey(x.Order.OrderID) &&
+                            d.orderDeliverStatus[x.Order.OrderID] == "Accepted"
                         );
                     return new { x.Customer, x.Order, Deliverer = deliverer };
                 })
                 .Where(x => x.Deliverer != null)
                 .ToList();
-
-            if (waitingOrders.Count == 0) {
-
-                            Console.WriteLine("DEBUG: Checking orders with status 'Cooked'");
-            foreach (var customer in Login.users.OfType<Customer>()) {
-                foreach (var order in customer.Orders) {
-                    if (order.RestaurantName == client.RestaurantName && order.Status == "Cooked") {
-                        Console.WriteLine($"Order #{order.OrderID} is cooked.");
-                    }
-                }
-            }
-            Console.WriteLine("DEBUG: Checking deliverers with 'Arrived' status...");
-            foreach (var deliverer in Login.users.OfType<Deliverer>()) {
-                foreach (var kvp in deliverer.orderDeliverStatus) {
-                    Console.WriteLine($"Deliverer {deliverer.licencePlate} has Order #{kvp.Key} with status '{kvp.Value}'");
-                }
-            }
-                return;
-            }
-
-
-
-
 
             Console.WriteLine("These deliverers have arrived and are waiting to collect orders.");
             Console.WriteLine("Select an order to indicate that the deliverer has collected it:");
