@@ -5,6 +5,7 @@ using System.Linq;
 namespace Arriba_Eats {
     class Login {
         public static List<User> users = [];
+        public static List<Review> Reviews = [];
         public static void ShowMenu() {
             
             while (true) {
@@ -55,6 +56,7 @@ namespace Arriba_Eats {
             User user = IsValidUser(email, password);
             if (user != null) {
                 Console.WriteLine($"Welcome back, {user.Name}!");
+                User.CurrentUserEmail = user.Email;
                 switch (user.Role.ToLower()) {
                     case "customer":
                         Customer.CustomerMenu((Customer)user); // cast to Customer

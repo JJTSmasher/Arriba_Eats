@@ -6,6 +6,7 @@ namespace Arriba_Eats {
         public string Name { get; set; }
         public string Phone { get; set; }
         public int Age { get; set; }
+        public static string CurrentUserEmail { get; set; }
 
         public User(string email, string password, string role, string name, string phone, int age) {
             Email = email;

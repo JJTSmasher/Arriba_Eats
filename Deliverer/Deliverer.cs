@@ -27,11 +27,11 @@ namespace Arriba_Eats {
                         deliverer.AvailableOrders();
                         break;
                     case 3:
-
-                        return;
+                        deliverer.ArrivedAtRestaurant();
+                        break;
                     case 4:
-
-                        return;
+                        deliverer.MarkDeliveryComplete();
+                        break;
                     case 5:
                         Console.WriteLine("You are now logged out.");
                         return;
@@ -59,9 +59,9 @@ namespace Arriba_Eats {
                     if (order != null && customer != null && client != null) {
                         string clientLoc = $"{client.Location.x},{client.Location.y}";
                         string customerLoc = $"{customer.Location.x},{customer.Location.y}";
-                        
-                        Console.WriteLine($"Order: #{order.OrderID} from {client.restaurantName} at {clientLoc}");
-                        Console.WriteLine($"To be delivered to {customer.Name} at {customerLoc}");
+
+                        Console.WriteLine($"Order #{order.OrderID} from {client.restaurantName} at {clientLoc}.");
+                        Console.WriteLine($"To be delivered to {customer.Name} at {customerLoc}.");
                     }
                 }
             }
@@ -136,6 +136,72 @@ namespace Arriba_Eats {
             Console.WriteLine($"Thanks for accepting the order. Please head to {chosen.restaurantName} at {chosen.rx},{chosen.ry} to pick it up.");
         }
         
+        private void ArrivedAtRestaurant() {
+            var current = orderDeliverStatus.FirstOrDefault(kv => kv.Value == "Accepted" || kv.Value == "Arrived" || kv.Value == "Being Delivered");
+            if (current.Key == 0) {
+                Console.WriteLine("You have not yet accepted an order.");
+                return;
+            }
+            int orderId = current.Key;
+            string status = current.Value;
+
+            if (status == "Being Delivered") {
+                Console.WriteLine("You have already picked up this order.");
+                return;
+            }
+            if (status == "Arrived") {
+                Console.WriteLine("You already indicated that you have arrived at this restaurant.");
+                return;
+            }
+
+            var customer = Login.users.OfType<Customer>().FirstOrDefault(c => c.Orders.Any(o => o.OrderID == orderId));
+            var order = customer?.Orders.FirstOrDefault(o => o.OrderID == orderId);
+            var client = Login.users.OfType<Client>().FirstOrDefault(cl => cl.restaurantName == order?.RestaurantName);
+
+            if (order == null || customer == null || client == null) {
+                Console.WriteLine("Order information could not be found.");
+                return;
+            }
+
+            orderDeliverStatus[orderId] = "Arrived";
+            Console.WriteLine($"Thanks. We have informed {client.restaurantName} that you have arrived and are ready to pick up order #{order.OrderID}.");
+            Console.WriteLine("Please show the staff this screen as confirmation.");
+
+            if (order.Status == "Ordered" || order.Status == "Cooking") {
+                Console.WriteLine("The order is still being prepared, so please wait patiently until it is ready.");
+            }
+            Console.WriteLine($"When you have the order, please deliver it to {customer.Name} at {customer.Location.x},{customer.Location.y}.");
+
+            if (order.Status == "Ready") {
+                orderDeliverStatus[orderId] = "Being Delivered";
+            }
+        }
+
+        private void MarkDeliveryComplete() {
+            var current = orderDeliverStatus.FirstOrDefault(kv => kv.Value == "Being Delivered");
+            if (current.Key == 0) {
+                if (orderDeliverStatus.Any(kv => kv.Value == "Accepted" || kv.Value == "Arrived")) {
+                    Console.WriteLine("You have not yet picked up this order.");
+                } else {
+                    Console.WriteLine("You have not yet accepted an order.");
+                }
+                return;
+            }
+            int orderId = current.Key;
+
+            var customer = Login.users.OfType<Customer>().FirstOrDefault(c => c.Orders.Any(o => o.OrderID == orderId));
+            var order = customer?.Orders.FirstOrDefault(o => o.OrderID == orderId);
+
+            if (order == null || customer == null) {
+                Console.WriteLine("Order information could not be found.");
+                return;
+            }
+
+            Console.WriteLine("Thank you for making the delivery.");
+            order.Status = "Delivered";
+            orderDeliverStatus[orderId] = "Delivered";
+        }
+
         public Dictionary<int, string> orderDeliverStatus = new Dictionary<int, string>();
         public bool delivererStatus;
     }

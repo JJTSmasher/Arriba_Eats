@@ -226,7 +226,7 @@ namespace Arriba_Eats {
                             }
                             break;
                         case 2:
-
+                            SeeReviewsForRestaurant(selectedRestaurant.Name);
                             break;
                         case 3:
                             return;
@@ -251,21 +251,90 @@ namespace Arriba_Eats {
             }
         }
 
-        private static void RateRestaurant() { // CHANGE WHEN ORDERS ADDED
-            Console.WriteLine("Select a previous order to rate the restaurant it came from:");
-
-
-
-            Console.WriteLine("1: Return to the previous menu");
-            Console.WriteLine("Please enter a choice between 1 and 1:");
-            while (true) {
-                string input = Console.ReadLine();
-                if (input == "1") {
-                    return;
-                }
-                Console.WriteLine("Invalid choice.");
+        private static void RateRestaurant()
+        {
+            if (Login.users.OfType<Customer>().FirstOrDefault(c => c.Email == User.CurrentUserEmail) is not Customer customer)
+            {
+                Console.WriteLine("Unable to find customer profile.");
+                return;
             }
 
+            var ratedOrderIds = Login.Reviews
+                .Where(r => r.CustomerName == customer.Name)
+                .Select(r => r.RestaurantName + "|" + r.Comment) // Use a unique key if you store orderId in Review, otherwise just RestaurantName+OrderID
+                .ToHashSet();
+
+            var unratedOrders = customer.Orders
+                .Where(o => o.Status == "Delivered" &&
+                    !Login.Reviews.Any(r => r.CustomerName == customer.Name && r.RestaurantName == o.RestaurantName && r.Comment.Contains($"Order#{o.OrderID}")))
+                .ToList();
+
+            if (unratedOrders.Count == 0)
+            {
+                Console.WriteLine("You have no delivered orders left to rate.");
+                return;
+            }
+
+            Console.WriteLine("Select a previous order to rate the restaurant it came from:");
+            int idx = 1;
+            foreach (var order in unratedOrders)
+            {
+                Console.WriteLine($"{idx}: Order #{order.OrderID} from {order.RestaurantName}");
+                idx++;
+            }
+            Console.WriteLine($"{idx}: Return to the previous menu");
+            Console.WriteLine($"Please enter a choice between 1 and {idx}:");
+
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx)
+            {
+                Console.WriteLine("Invalid choice.");
+            }
+            if (selection == idx) return;
+
+            var selectedOrder = unratedOrders[selection - 1];
+            Console.WriteLine($"You are rating order #{selectedOrder.OrderID} from {selectedOrder.RestaurantName}:");
+            var grouped = selectedOrder.Items.GroupBy(i => i.Name);
+            foreach (var group in grouped)
+            {
+                Console.WriteLine($"{group.Count()} x {group.Key}");
+            }
+
+            int rating;
+            while (true)
+            {
+                Console.WriteLine("Please enter a rating for this restaurant (1-5, 0 to cancel):");
+                if (int.TryParse(Console.ReadLine(), out rating) && rating >= 0 && rating <= 5)
+                {
+                    break;
+                }
+                Console.WriteLine("Invalid rating.");
+            }
+            if (rating == 0) return;
+
+            Console.WriteLine("Please enter a comment to accompany this rating:");
+            string comment = Console.ReadLine();
+
+            Login.Reviews.Add(new Review(selectedOrder.RestaurantName, customer.Name, rating, comment));
+            Console.WriteLine($"Thank you for rating {selectedOrder.RestaurantName}.");
+        }
+
+        private static void SeeReviewsForRestaurant(string restaurantName) {
+            var reviews = Login.Reviews
+                .Where(r => r.RestaurantName == restaurantName)
+                .ToList();
+
+            if (reviews.Count == 0) {
+                Console.WriteLine("No reviews have been left for this restaurant.");
+                return;
+            }
+
+            foreach (var review in reviews) {
+                Console.WriteLine($"Reviewer: {review.CustomerName}");
+                Console.WriteLine($"Rating: {new string('*', review.Rating)}");
+                Console.WriteLine($"Comment: {review.Comment}");
+                Console.WriteLine();
+            }
         }
 
         public int ordersMade = 0;

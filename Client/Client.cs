@@ -102,19 +102,156 @@ namespace Arriba_Eats {
         }
 
         private void CurrentOrders() {
-            Console.WriteLine("");
+            var orders = Login.users
+                .OfType<Customer>()
+                .SelectMany(c => c.Orders, (c, o) => new { Customer = c, Order = o })
+                .Where(x => x.Order.RestaurantName == restaurantName && x.Order.Status != "Delivered")
+                .ToList();
+
+            if (orders.Count == 0) {
+                Console.WriteLine("Your restaurant has no current orders.");
+                return;
+            }
+
+            foreach (var entry in orders) {
+                Console.WriteLine($"Order #{entry.Order.OrderID} for {entry.Customer.Name}: {entry.Order.Status}");
+                var grouped = entry.Order.Items.GroupBy(i => i.Name);
+                foreach (var group in grouped) {
+                    Console.WriteLine($"{group.Count()} x {group.Key}");
+                }
+                Console.WriteLine();
+            }
         }
 
         private void StartCookingOrder() {
-            Console.WriteLine("");
+            var orders = Login.users
+                .OfType<Customer>()
+                .SelectMany(c => c.Orders, (c, o) => new { Customer = c, Order = o })
+                .Where(x => x.Order.RestaurantName == restaurantName && x.Order.Status == "Ordered")
+                .ToList();
+
+            if (orders.Count == 0) {
+                Console.WriteLine("There are no orders to start cooking.");
+                return;
+            }
+
+            Console.WriteLine("Select an order once you are ready to start cooking:");
+            int idx = 1;
+            foreach (var entry in orders) {
+                Console.WriteLine($"{idx}: Order #{entry.Order.OrderID} for {entry.Customer.Name}");
+                idx++;
+            }
+            Console.WriteLine($"{idx}: Return to the previous menu");
+            Console.WriteLine($"Please enter a choice between 1 and {idx}:");
+
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+                Console.WriteLine("Invalid choice.");
+            }
+            if (selection == idx) return;
+
+            var chosen = orders[selection - 1];
+            chosen.Order.Status = "Cooking";
+            Console.WriteLine($"Order #{chosen.Order.OrderID} is now marked as cooking. Please prepare the order, then mark it as finished cooking:");
+            var grouped = chosen.Order.Items.GroupBy(i => i.Name);
+            foreach (var group in grouped) {
+                Console.WriteLine($"{group.Count()} x {group.Key}");
+            }
+            Console.WriteLine();
         }
 
         private void FinishCookingOrder() {
-            Console.WriteLine("");
+            var orders = Login.users
+                .OfType<Customer>()
+                .SelectMany(c => c.Orders, (c, o) => new { Customer = c, Order = o })
+                .Where(x => x.Order.RestaurantName == restaurantName && x.Order.Status == "Cooking")
+                .ToList();
+
+            if (orders.Count == 0) {
+                Console.WriteLine("There are no orders to finish cooking.");
+                return;
+            }
+
+            Console.WriteLine("Select an order once you have finished preparing it:");
+            int idx = 1;
+            foreach (var entry in orders) {
+                Console.WriteLine($"{idx}: Order #{entry.Order.OrderID} for {entry.Customer.Name}");
+                idx++;
+            }
+            Console.WriteLine($"{idx}: Return to the previous menu");
+            Console.WriteLine($"Please enter a choice between 1 and {idx}:");
+
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+                Console.WriteLine("Invalid choice.");
+            }
+            if (selection == idx) return;
+
+            var chosen = orders[selection - 1];
+            chosen.Order.Status = "Cooked";
+            Console.WriteLine($"Order #{chosen.Order.OrderID} is now ready for collection.");
+
+            var deliverer = Login.users
+                .OfType<Deliverer>()
+                .FirstOrDefault(d => d.orderDeliverStatus.ContainsKey(chosen.Order.OrderID) && d.orderDeliverStatus[chosen.Order.OrderID] != "Delivered" && d.orderDeliverStatus[chosen.Order.OrderID] != "Completed");
+
+            if (deliverer == null) {
+                Console.WriteLine("No deliverer has been assigned yet.");
+            } else {
+                string delivererStatus = deliverer.orderDeliverStatus[chosen.Order.OrderID];
+                if (delivererStatus == "Arrived") {
+                    Console.WriteLine($"Please take it to the deliverer with licence plate {deliverer.licencePlate}, who is waiting to collect it.");
+                } else {
+                    Console.WriteLine($"The deliverer with licence plate {deliverer.licencePlate} will be arriving soon to collect it.");
+                }
+            }
+            Console.WriteLine();
         }
 
         private void HandleDelivererArrived() {
-            Console.WriteLine("");
+            var waitingOrders = Login.users
+                .OfType<Customer>()
+                .SelectMany(c => c.Orders, (c, o) => new { Customer = c, Order = o })
+                .Where(x => x.Order.RestaurantName == restaurantName && x.Order.Status != "Being Delivered" && x.Order.Status != "Delivered")
+                .Select(x => {
+                    var deliverer = Login.users
+                        .OfType<Deliverer>()
+                        .FirstOrDefault(d => d.orderDeliverStatus.ContainsKey(x.Order.OrderID) && d.orderDeliverStatus[x.Order.OrderID] == "Arrived");
+                    return new { x.Customer, x.Order, Deliverer = deliverer };
+                })
+                .Where(x => x.Deliverer != null)
+                .ToList();
+
+            if (waitingOrders.Count == 0) {
+                Console.WriteLine("There are no deliverers currently waiting to collect orders.");
+                return;
+            }
+
+            Console.WriteLine("These deliverers have arrived and are waiting to collect orders.");
+            Console.WriteLine("Select an order to indicate that the deliverer has collected it:");
+            int idx = 1;
+            foreach (var entry in waitingOrders) {
+                Console.WriteLine($"{idx}: Order #{entry.Order.OrderID} for {entry.Customer.Name} (Deliverer licence plate: {entry.Deliverer.licencePlate}) (Order status: {entry.Order.Status})");
+                idx++;
+            }
+            Console.WriteLine($"{idx}: Return to the previous menu");
+            Console.WriteLine($"Please enter a choice between 1 and {idx}:");
+
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+                Console.WriteLine("Invalid choice.");
+            }
+            if (selection == idx) return;
+
+            var chosen = waitingOrders[selection - 1];
+            if (chosen.Order.Status != "Cooked") {
+                Console.WriteLine("This order has not yet been cooked.");
+                return;
+            }
+
+            chosen.Order.Status = "Being Delivered";
+            chosen.Deliverer.orderDeliverStatus[chosen.Order.OrderID] = "Being Delivered";
+            Console.WriteLine($"Order #{chosen.Order.OrderID} is now marked as being delivered.");
         }
 
         
