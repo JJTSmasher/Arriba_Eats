@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Arriba_Eats {
     class Login {
@@ -59,13 +57,13 @@ namespace Arriba_Eats {
                 User.CurrentUserEmail = user.Email;
                 switch (user.Role.ToLower()) {
                     case "customer":
-                        Customer.CustomerMenu((Customer)user); // cast to Customer
+                        CustomerService.CustomerMenu((Customer)user); // cast to Customer
                         return;
                     case "client":
-                        Client.ClientMenu((Client)user); // cast to Client
+                        ClientService.ClientMenu((Client)user); // cast to Client
                         return;
                     case "deliverer":
-                        Deliverer.DelivererMenu((Deliverer)user); // cast to Deliverer
+                        DelivererService.DelivererMenu((Deliverer)user); // cast to Deliverer
                         return;
                     default:
                         Console.WriteLine("Unknown role. Returning to the main menu.");

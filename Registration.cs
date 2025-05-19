@@ -34,12 +34,12 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetInput(string prompt) {
+        protected static string GetInput(string prompt) {
             Console.WriteLine(prompt);
             return Console.ReadLine();
         }
 
-        protected string GetValidatedName() {
+        protected static string GetValidatedName() {
             while (true) {
                 Console.WriteLine("Please enter your name:");
                 string nameInput = Console.ReadLine();
@@ -53,7 +53,7 @@ namespace Arriba_Eats {
             }
         }
 
-        protected int GetValidatedAge() {
+        protected static int GetValidatedAge() {
             while (true) {
                 Console.WriteLine("Please enter your age (18-100):");
                 if (int.TryParse(Console.ReadLine(), out int age) && age >= 18 && age <= 100) {
@@ -63,7 +63,7 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetValidatedEmail() {
+        protected static string GetValidatedEmail() {
             while (true) {
                 Console.WriteLine("Please enter your email address:");
                 string email = Console.ReadLine();
@@ -81,7 +81,7 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetValidatedPhone() {
+        protected static string GetValidatedPhone() {
             while (true) {
                 Console.WriteLine("Please enter your mobile phone number:");
                 string phone = Console.ReadLine();
@@ -92,7 +92,7 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetValidatedPassword() {
+        protected static string GetValidatedPassword() {
             while (true) {
                 Console.WriteLine("Your password must:");
                 Console.WriteLine("- be at least 8 characters long");
@@ -117,7 +117,7 @@ namespace Arriba_Eats {
             }
         }
 
-        protected string GetValidatedLocation() {
+        protected static string GetValidatedLocation() {
             while (true) {
                 Console.WriteLine("Please enter your location (in the form of X,Y) :");
                 string location = Console.ReadLine();

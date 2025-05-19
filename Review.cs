@@ -1,19 +1,11 @@
 namespace Arriba_Eats {
-    public class Review {
-        public string RestaurantName { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerEmail { get; set; }
-        public int OrderID { get; set; }
-        public int Rating { get; set; } // 1-5
-        public string Comment { get; set; }
-
-        public Review(string restaurantName, string customerName, string customerEmail, int orderId, int rating, string comment) {
-            RestaurantName = restaurantName;
-            CustomerName = customerName;
-            CustomerEmail = customerEmail;
-            OrderID = orderId;
-            Rating = rating;
-            Comment = comment;
-        }
+    public class Review(string restaurantName, string customerName, string customerEmail, int orderId, int rating, string comment)
+    {
+        public string RestaurantName { get; set; } = restaurantName;
+        public string CustomerName { get; set; } = customerName;
+        public string CustomerEmail { get; set; } = customerEmail;
+        public int OrderID { get; set; } = orderId;
+        public int Rating { get; set; } = rating;
+        public string Comment { get; set; } = comment;
     }
 }

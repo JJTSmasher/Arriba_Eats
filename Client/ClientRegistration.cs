@@ -30,10 +30,11 @@ namespace Arriba_Eats {
             int y = int.Parse(coordinates[1]);
 
             Client client = new Client(email, password, GetRole(), name, phone, age) {
-                restaurantName = restaurantName,
-                Location = new Client.RestaurantLocation(x, y)
+                RestaurantName = restaurantName,
+                Style = restaurantStyle,
+                Location = new RestaurantLocation(x, y)
             };
-            client.restaurantStyles.Add(styleChoice, restaurantStyle);
+            client.RestaurantStyles.Add(styleChoice, restaurantStyle);
 
             Login.AddUser(client);
 

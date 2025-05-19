@@ -6,7 +6,7 @@ namespace Arriba_Eats {
             base.Register();
             string licencePlate = GetValidatedLicencePlate();
 
-            Deliverer deliverer = new Deliverer(email, password, GetRole(), name, phone, age) {
+            Deliverer deliverer = new(email, password, GetRole(), name, phone, age) {
                 licencePlate = licencePlate
             };
             Login.AddUser(deliverer);
@@ -15,7 +15,7 @@ namespace Arriba_Eats {
             Login.ShowMenu();
         }
 
-        private string GetValidatedLicencePlate() {
+        private static string GetValidatedLicencePlate() {
             while (true) {
                 Console.WriteLine("Please enter your licence plate:");
                 string? licencePlate = Console.ReadLine();

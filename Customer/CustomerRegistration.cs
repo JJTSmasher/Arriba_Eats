@@ -10,7 +10,7 @@ namespace Arriba_Eats {
             int x = int.Parse(coordinates[0]);
             int y = int.Parse(coordinates[1]);
 
-            Customer customer = new Customer(email, password, GetRole(), name, phone, age) {
+            Customer customer = new(email, password, GetRole(), name, phone, age) {
                 Location = new Customer.CustomerLocation(x, y) // Parse the string into a CustomerLocation struct
             };
 

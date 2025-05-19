@@ -1,23 +1,12 @@
 namespace Arriba_Eats {
-    class User {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
-        public int Age { get; set; }
+    class User(string email, string password, string role, string name, string phone, int age)
+    {
+        public string Email { get; set; } = email;
+        public string Password { get; set; } = password;
+        public string Role { get; set; } = role;
+        public string Name { get; set; } = name;
+        public string Phone { get; set; } = phone;
+        public int Age { get; set; } = age;
         public static string CurrentUserEmail { get; set; }
-
-        public User(string email, string password, string role, string name, string phone, int age) {
-            Email = email;
-            Password = password;
-            Role = role;
-            Name = name;
-            Phone = phone;
-            Age = age;
-        }
-
-        
-
     }
 }
