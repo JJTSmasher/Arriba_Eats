@@ -48,9 +48,20 @@ namespace Arriba_Eats {
             Console.WriteLine($"Licence plate: {licencePlate}");
 
             if (orderDeliverStatus.Count > 0) {
-                Console.WriteLine("Current Delivery Status:");
-                foreach (var order in orderDeliverStatus) {
-                    Console.WriteLine($"Order ID: {order.Key}, Status: {order.Value}");
+                Console.WriteLine("Current delivery:");
+                foreach (var kv in orderDeliverStatus) {
+                    int orderId = kv.Key;
+                    string status = kv.Value;
+                    
+                    var customer = Login.users.OfType<Customer>().FirstOrDefault(c => c.Orders.Any(o => o.OrderID == orderId));
+                    var order = customer?.Orders.FirstOrDefault(o => o.OrderID == orderId);
+                    var client = Login.users.OfType<Client>().FirstOrDefault(cl => cl.restaurantName == order?.RestaurantName);
+
+                    if (order != null && customer != null && client != null) {
+                        Console.WriteLine($"Order: #{order.OrderID} from {client.restaurantName} at {client.Location}");
+                        Console.WriteLine($"To be delivered to {customer.Name} at {customer.Location}");
+                        Console.WriteLine($"Status: {status}");
+                    }
                 }
             }
         }
