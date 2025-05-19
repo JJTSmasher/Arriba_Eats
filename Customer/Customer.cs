@@ -243,6 +243,18 @@ namespace Arriba_Eats {
             }
             foreach (var order in customer.Orders) {
                 Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName}: {order.Status}");
+
+                // Find the deliverer for this order, if any
+                var deliveredBy = Login.users
+                    .OfType<Deliverer>()
+                    .FirstOrDefault(d => d.orderDeliverStatus.ContainsKey(order.OrderID) && d.orderDeliverStatus[order.OrderID] == "Delivered");
+
+                if (deliveredBy != null) {
+                    Console.WriteLine($"This order was delivered by {deliveredBy.Name} (Licence plate: {deliveredBy.licencePlate})");
+                } else {
+                    Console.WriteLine("This order has not yet been delivered.");
+                }
+
                 var grouped = order.Items.GroupBy(i => i.Name);
                 foreach (var group in grouped) {
                     decimal itemTotal = group.Count() * group.First().Price;
