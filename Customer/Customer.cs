@@ -251,8 +251,6 @@ namespace Arriba_Eats {
 
                 if (deliveredBy != null) {
                     Console.WriteLine($"This order was delivered by {deliveredBy.Name} (Licence plate: {deliveredBy.licencePlate})");
-                } else {
-                    Console.WriteLine("This order has not yet been delivered.");
                 }
 
                 var grouped = order.Items.GroupBy(i => i.Name);
