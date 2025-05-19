@@ -162,10 +162,6 @@ namespace Arriba_Eats {
                 Console.WriteLine("The order is still being prepared, so please wait patiently until it is ready.");
             }
             Console.WriteLine($"When you have the order, please deliver it to {customer.Name} at {customer.Location.x},{customer.Location.y}.");
-
-            if (order.Status == "Cooked") {
-                deliverer.orderDeliverStatus[orderId] = "Being Delivered";
-            }
         }
 
         private static void MarkDeliveryComplete(Deliverer deliverer) {

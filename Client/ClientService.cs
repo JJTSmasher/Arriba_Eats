@@ -220,10 +220,7 @@ namespace Arriba_Eats {
                             d.orderDeliverStatus.ContainsKey(x.Order.OrderID) &&
                             d.orderDeliverStatus[x.Order.OrderID] == "Arrived"
                         );
-                            if (deliverer == null)
-                                Console.WriteLine($"DEBUG: No deliverer found for order {x.Order.OrderID}");
-                            else
-                                Console.WriteLine($"DEBUG: Deliverer {deliverer.licencePlate} found for order {x.Order.OrderID}");
+
                     return new { x.Customer, x.Order, Deliverer = deliverer };
                 })
                 .Where(x => x.Deliverer != null)
