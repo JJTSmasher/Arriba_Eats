@@ -10,11 +10,13 @@ namespace Arriba_Eats {
                 Console.WriteLine("5: Log out");
                 Console.WriteLine("Please enter a choice between 1 and 5:");
 
+                // Validate user input.
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 5) {
                     Console.WriteLine("Invalid choice.");
                     continue;
                 }
 
+                // Handle menu selection.
                 switch (choice) {
                     case 1:
                         ShowData(deliverer);
@@ -35,6 +37,7 @@ namespace Arriba_Eats {
             }
         }
 
+        // Displays the deliverer information and current delivery details.
         private static void ShowData(Deliverer deliverer) {
             Console.WriteLine("Your user details are as follows:");
             Console.WriteLine($"Name: {deliverer.Name}");
@@ -43,11 +46,13 @@ namespace Arriba_Eats {
             Console.WriteLine($"Mobile: {deliverer.Phone}");
             Console.WriteLine($"Licence plate: {deliverer.licencePlate}");
 
+            // Show current delivery information.
             if (deliverer.orderDeliverStatus.Count > 0) {
                 Console.WriteLine("Current delivery:");
                 foreach (var kv in deliverer.orderDeliverStatus) {
                     int orderId = kv.Key;
 
+                    // Find customer and order for this delivery.
                     var customer = Login.users.OfType<Customer>().FirstOrDefault(c => c.Orders.Any(o => o.OrderID == orderId));
                     var order = customer?.Orders.FirstOrDefault(o => o.OrderID == orderId);
                     var client = Login.users.OfType<Client>().FirstOrDefault(cl => cl.RestaurantName == order?.RestaurantName);
@@ -63,12 +68,15 @@ namespace Arriba_Eats {
             }
         }
 
+        // Lists all available orders for delivery and allows the deliverer to accept one.
         private static void AvailableOrders(Deliverer deliverer) {
+            // Prevent accepting a new order if one is already in progress.
             if (deliverer.orderDeliverStatus.Any(kv => kv.Value != "Delivered" && kv.Value != "Completed")) {
                 Console.WriteLine("You have already selected an order for delivery.");
                 return;
             }
 
+            // Prompt for deliverer's current location.
             int delivererX, delivererY;
             while (true) {
                 Console.WriteLine("Please enter your location (in the form of X,Y):");
@@ -80,6 +88,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Invalid location.");
             }
 
+            // Find all available orders that are not already taken.
             var availableOrders = new List<(Order order, Customer customer, Client client)>();
             foreach (var user in Login.users.OfType<Customer>()) {
                 foreach (var order in user.Orders) {
@@ -97,6 +106,7 @@ namespace Arriba_Eats {
                 }
             }
 
+            // Display available orders for selection.
             Console.WriteLine("The following orders are available for delivery. Select an order to accept it:");
             Console.WriteLine("   {0,-6} {1,-20} {2,-8} {3,-15} {4,-8} {5,-4}", "Order", "Restaurant Name", "Loc", "Customer Name", "Loc", "Dist");
             int idx = 1;
@@ -114,6 +124,7 @@ namespace Arriba_Eats {
             Console.WriteLine($"{idx,-3}: Return to the previous menu");
             Console.WriteLine($"Please enter a choice between 1 and {idx}:");
 
+            // Get user choice.
             int selection;
             while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
                 Console.WriteLine("Invalid choice.");
@@ -122,12 +133,15 @@ namespace Arriba_Eats {
                 return;
             }
 
+            // Mark the chosen order as accepted by this deliverer.
             var chosen = orderChoices[selection - 1];
             deliverer.orderDeliverStatus[chosen.orderId] = "Accepted";
             Console.WriteLine($"Thanks for accepting the order. Please head to {chosen.restaurantName} at {chosen.rx},{chosen.ry} to pick it up.");
         }
 
+        // Allows the deliverer to indicate they have arrived at the restaurant.
         private static void ArrivedAtRestaurant(Deliverer deliverer) {
+            // Find the current order in progress.
             var current = deliverer.orderDeliverStatus.FirstOrDefault(kv => kv.Value == "Accepted" || kv.Value == "Arrived" || kv.Value == "Being Delivered");
             if (current.Key == 0) {
                 Console.WriteLine("You have not yet accepted an order.");
@@ -136,6 +150,7 @@ namespace Arriba_Eats {
             int orderId = current.Key;
             string status = current.Value;
 
+            // Prevent marking as arrived if already picked up or already marked as arrived.
             if (status == "Being Delivered") {
                 Console.WriteLine("You have already picked up this order.");
                 return;
@@ -145,6 +160,7 @@ namespace Arriba_Eats {
                 return;
             }
 
+            // Find the customer, order, and client for this delivery.
             var customer = Login.users.OfType<Customer>().FirstOrDefault(c => c.Orders.Any(o => o.OrderID == orderId));
             var order = customer?.Orders.FirstOrDefault(o => o.OrderID == orderId);
             var client = Login.users.OfType<Client>().FirstOrDefault(cl => cl.RestaurantName == order?.RestaurantName);
@@ -154,17 +170,21 @@ namespace Arriba_Eats {
                 return;
             }
 
+            // Mark the deliverer's status as "Arrived".
             deliverer.orderDeliverStatus[orderId] = "Arrived";
             Console.WriteLine($"Thanks. We have informed {client.RestaurantName} that you have arrived and are ready to pick up order #{order.OrderID}.");
             Console.WriteLine("Please show the staff this screen as confirmation.");
 
+            // Notify if the order is not ready yet.
             if (order.Status == "Ordered" || order.Status == "Cooking") {
                 Console.WriteLine("The order is still being prepared, so please wait patiently until it is ready.");
             }
             Console.WriteLine($"When you have the order, please deliver it to {customer.Name} at {customer.Location.x},{customer.Location.y}.");
         }
 
+        // Allows the deliverer to mark the delivery as complete.
         private static void MarkDeliveryComplete(Deliverer deliverer) {
+            // Find the current order being delivered.
             var current = deliverer.orderDeliverStatus.FirstOrDefault(kv => kv.Value == "Being Delivered");
             if (current.Key == 0) {
                 if (deliverer.orderDeliverStatus.Any(kv => kv.Value == "Accepted" || kv.Value == "Arrived")) {
@@ -176,6 +196,7 @@ namespace Arriba_Eats {
             }
             int orderId = current.Key;
 
+            // Find the customer and order for this delivery.
             var customer = Login.users.OfType<Customer>().FirstOrDefault(c => c.Orders.Any(o => o.OrderID == orderId));
             var order = customer?.Orders.FirstOrDefault(o => o.OrderID == orderId);
 
@@ -184,6 +205,7 @@ namespace Arriba_Eats {
                 return;
             }
 
+            // Mark the order and deliverer's status as delivered.
             Console.WriteLine("Thank you for making the delivery.");
             order.Status = "Delivered";
             deliverer.orderDeliverStatus[orderId] = "Delivered";

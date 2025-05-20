@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Arriba_Eats {
@@ -12,11 +11,13 @@ namespace Arriba_Eats {
                 Console.WriteLine("4: Return to the previous menu");
                 Console.WriteLine("Please enter a choice between 1 and 4:");
 
+                // Validate menu input.
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 4) {
                     Console.WriteLine("Invalid choice.");
                     continue;
                 }
 
+                // Handle user type selection.
                 switch (choice) {
                     case 1:
                         new Customer_Registration().Register();
@@ -34,17 +35,20 @@ namespace Arriba_Eats {
             }
         }
 
+        // Prompts the user for input with prompt.
         protected static string GetInput(string prompt) {
             Console.WriteLine(prompt);
             return Console.ReadLine();
         }
 
+        // Prompts for and validates the user's name.
         protected static string GetValidatedName() {
             while (true) {
                 Console.WriteLine("Please enter your name:");
                 string nameInput = Console.ReadLine();
 
-                // Regex to validate the name
+                // Name must start with a letter 
+                // and can include spaces, hyphens, and apostrophes.
                 if (!string.IsNullOrEmpty(nameInput) && Regex.IsMatch(nameInput, @"^[a-zA-Z][a-zA-Z\s'-]*$")) {
                     return nameInput;
                 }
@@ -53,6 +57,8 @@ namespace Arriba_Eats {
             }
         }
 
+        // Prompts for and validates the user's age 
+        // must be 18-100.
         protected static int GetValidatedAge() {
             while (true) {
                 Console.WriteLine("Please enter your age (18-100):");
@@ -63,24 +69,26 @@ namespace Arriba_Eats {
             }
         }
 
+        // Prompts for and validates the user email address.
         protected static string GetValidatedEmail() {
             while (true) {
                 Console.WriteLine("Please enter your email address:");
                 string email = Console.ReadLine();
 
-                // Validate email format
+                // Validate email format and check for uniqueness.
                 if (!string.IsNullOrEmpty(email) && Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) {
-                    // Check if the email is already in use
                     if (!Login.IsEmailInUse(email)) {
                         return email;
                     }
                     Console.WriteLine("This email address is already in use.");
-                } else {
+                } else { // Error handling
                     Console.WriteLine("Invalid email address.");
                 }
             }
         }
 
+        // Prompts for and validates the user's phone number 
+        // must be 10 digits, starting with 0.
         protected static string GetValidatedPhone() {
             while (true) {
                 Console.WriteLine("Please enter your mobile phone number:");
@@ -92,6 +100,8 @@ namespace Arriba_Eats {
             }
         }
 
+        // Prompts for and validates the user's password 
+        // length, number, upper/lowercase.
         protected static string GetValidatedPassword() {
             while (true) {
                 Console.WriteLine("Your password must:");
@@ -102,6 +112,7 @@ namespace Arriba_Eats {
                 Console.WriteLine("Please enter a password:");
                 string password = Console.ReadLine();
 
+                // Check password requirements.
                 if (password.Length >= 8 &&
                     Regex.IsMatch(password, @"\d") &&
                     Regex.IsMatch(password, @"[a-z]") &&
@@ -117,6 +128,7 @@ namespace Arriba_Eats {
             }
         }
 
+        // Prompts for and validates a location in the form X,Y.
         protected static string GetValidatedLocation() {
             while (true) {
                 Console.WriteLine("Please enter your location (in the form of X,Y) :");
@@ -131,21 +143,25 @@ namespace Arriba_Eats {
             }
         }
 
+        // Store user registration data.
         protected string name = string.Empty;
         protected string email = string.Empty;
         protected string password = string.Empty;
         protected string phone;
         protected int age;
 
+        // Main registration method for a user 
+        // can be overridden by subclasses.
         public virtual void Register() {
             name = GetValidatedName();
             age = GetValidatedAge();
             email = GetValidatedEmail();
             phone = GetValidatedPhone();
             password = GetValidatedPassword();
-            
         }
         
+        // Returns the role string for this registration type 
+        // can be overridden.
         protected virtual string GetRole() {
             return "user";
         }

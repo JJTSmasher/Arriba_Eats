@@ -10,11 +10,13 @@ namespace Arriba_Eats {
                 Console.WriteLine("5: Log out");
                 Console.WriteLine("Please enter a choice between 1 and 5:");
 
+                // Validate user input.
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 5) {
                     Console.WriteLine("Invalid choice.");
                     continue;
                 }
 
+                // Handle menu selection.
                 switch (choice) {
                     case 1:
                         ShowData(customer);
@@ -35,6 +37,7 @@ namespace Arriba_Eats {
             }
         }
 
+        // Displays the customer information and order details.
         private static void ShowData(Customer customer) {
             Console.WriteLine("Your user details are as follows:");
             Console.WriteLine($"Name: {customer.Name}");
@@ -45,7 +48,9 @@ namespace Arriba_Eats {
             Console.WriteLine($"You've made {customer.ordersMade} order(s) and spent a total of ${customer.moneySpent:F2} here.");
         }
 
+        // Allows the customer to view and sort the list of restaurants, and place orders.
         private static void RestaurantSort(Customer customer) {
+            // Get all clients' restaurants with a valid name.
             List<Client> restaurants = [.. Login.users
                 .OfType<Client>()
                 .Where(c => !string.IsNullOrEmpty(c.RestaurantName))];
@@ -58,11 +63,13 @@ namespace Arriba_Eats {
             Console.WriteLine("5: Return to the previous menu");
             Console.WriteLine("Please enter a choice between 1 and 5:");
 
+            // Get and validate sorting choice.
             int choice;
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5) {
                 Console.WriteLine("Invalid choice.");
             }
 
+            // Sort the restaurant list based on user selection.
             switch (choice) {
                 case 1:
                     restaurants = [.. restaurants.OrderBy(r => r.RestaurantName)];
@@ -92,12 +99,12 @@ namespace Arriba_Eats {
                     return;
             }
 
-            // Table header
+            // Display the sorted restaurant table header.
             Console.WriteLine("You can order from the following restaurants:");
             Console.WriteLine("{0,-3} {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}",
                 "", "Restaurant Name", "Loc", "Dist", "Style", "Rating");
 
-            // Table rows
+            // Display each restaurant as a row in the table.
             int index = 1;
             foreach (var r in restaurants) {
                 int dist = Math.Abs(r.Location.x - customer.Location.x) + Math.Abs(r.Location.y - customer.Location.y);
@@ -108,11 +115,11 @@ namespace Arriba_Eats {
                 index++;
             }
 
-            // Return to previous menu row
+            // Display option to return to previous menu.
             Console.WriteLine("{0,-3}: {1}", index, "Return to the previous menu");
             Console.WriteLine($"Please enter a choice between 1 and {index}:");
 
-            // Get user selection
+            // Get user selection for a restaurant or return.
             int selection;
             while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > index) {
                 Console.WriteLine("Invalid choice.");
@@ -121,7 +128,7 @@ namespace Arriba_Eats {
             if (selection == index) {
                 return;
             } else {
-                // Show menu for the selected restaurant
+                // Show menu for the selected restaurant.
                 var selectedRestaurant = restaurants[selection - 1];
                 Console.WriteLine($"\nPlacing order from {selectedRestaurant.RestaurantName}.");
                 while (true) {
@@ -137,6 +144,7 @@ namespace Arriba_Eats {
 
                     switch (subChoice) {
                         case 1:
+                            // Begin order placement process.
                             List<MenuItem> order = [];
                             decimal orderTotal = 0m;
                             bool ordering = true;
@@ -182,6 +190,7 @@ namespace Arriba_Eats {
                                             Console.WriteLine("Invalid quantity.");
                                         }
                                         if (quantity == 0) {
+                                            // Item is not added.
                                         } else {
                                             for (int i = 0; i < quantity; i++) {
                                                 order.Add(selectedItem);
@@ -197,6 +206,7 @@ namespace Arriba_Eats {
                             }
                             break;
                         case 2:
+                            // Show reviews for the selected restaurant.
                             SeeReviewsForRestaurant(selectedRestaurant.RestaurantName);
                             break;
                         case 3:
@@ -206,6 +216,7 @@ namespace Arriba_Eats {
             }
         }
 
+        // Displays all orders placed by the customer and their status.
         private static void ViewOrders(Customer customer) {
             if (customer.Orders.Count == 0) {
                 Console.WriteLine("You have not placed any orders.");
@@ -214,7 +225,7 @@ namespace Arriba_Eats {
             foreach (var order in customer.Orders) {
                 Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName}: {order.Status}");
 
-                // Find the deliverer for this order, if any
+                // Find the deliverer for this order.
                 var deliveredBy = Login.users
                     .OfType<Deliverer>()
                     .FirstOrDefault(d => d.orderDeliverStatus.ContainsKey(order.OrderID) && d.orderDeliverStatus[order.OrderID] == "Delivered");
@@ -231,14 +242,17 @@ namespace Arriba_Eats {
             }
         }
 
+        // Allows the customer to rate a restaurant after receiving a delivered order.
         private static void RateRestaurant()
         {
+            // Find the current customer by email.
             if (Login.users.OfType<Customer>().FirstOrDefault(c => c.Email == User.CurrentUserEmail) is not Customer customer)
             {
                 Console.WriteLine("Unable to find customer profile.");
                 return;
             }
 
+            // Find all delivered orders that have not yet been rated by this customer.
             var unratedOrders = customer.Orders
                 .Where(o => o.Status == "Delivered" &&
                     !Login.Reviews.Any(r =>
@@ -272,6 +286,7 @@ namespace Arriba_Eats {
                 Console.WriteLine($"{group.Count()} x {group.Key}");
             }
 
+            // Get rating from user.
             int rating;
             while (true)
             {
@@ -284,9 +299,11 @@ namespace Arriba_Eats {
             }
             if (rating == 0) return;
 
+            // Get comment from user.
             Console.WriteLine("Please enter a comment to accompany this rating:");
             string comment = Console.ReadLine();
 
+            // Add the review to the system.
             Login.Reviews.Add(new Review(
                 selectedOrder.RestaurantName,
                 customer.Name,
@@ -295,10 +312,12 @@ namespace Arriba_Eats {
                 rating,
                 comment
             ));
+            // Update the restaurant's average rating.
             ClientService.UpdateRestaurantRating(selectedOrder.RestaurantName);
             Console.WriteLine($"Thank you for rating {selectedOrder.RestaurantName}.");
         }
 
+        // Displays all reviews for a given restaurant.
         private static void SeeReviewsForRestaurant(string restaurantName) {
             var reviews = Login.Reviews
                 .Where(r => r.RestaurantName == restaurantName)
