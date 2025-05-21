@@ -10,14 +10,8 @@ namespace Arriba_Eats {
                 UIFunctions.DisplayString("5: Log out");
                 UIFunctions.DisplayString("Please enter a choice between 1 and 5:");
 
-                // Validate user input.
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 5) {
-                    UIFunctions.DisplayString("Invalid choice.");
-                    continue;
-                }
-
                 // Handle menu selection.
-                switch (choice) {
+                switch (UIFunctions.GetChoice(1, 5)) {
                     case 1:
                         ShowData(customer);
                         break;
@@ -63,14 +57,8 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString("5: Return to the previous menu");
             UIFunctions.DisplayString("Please enter a choice between 1 and 5:");
 
-            // Get and validate sorting choice.
-            int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5) {
-                UIFunctions.DisplayString("Invalid choice.");
-            }
-
             // Sort the restaurant list based on user selection.
-            switch (choice) {
+            switch (UIFunctions.GetChoice(1, 5)) {
                 case 1:
                     restaurants = [.. restaurants.OrderBy(r => r.RestaurantName)];
                     break;
@@ -137,12 +125,7 @@ namespace Arriba_Eats {
                     UIFunctions.DisplayString("3: Return to main menu");
                     UIFunctions.DisplayString("Please enter a choice between 1 and 3:");
 
-                    int subChoice;
-                    while (!int.TryParse(Console.ReadLine(), out subChoice) || subChoice < 1 || subChoice > 3) {
-                        UIFunctions.DisplayString("Invalid choice. Please enter 1, 2, or 3:");
-                    }
-
-                    switch (subChoice) {
+                    switch (UIFunctions.GetChoice(1, 5)) {
                         case 1:
                             // Begin order placement process.
                             List<MenuItem> order = [];

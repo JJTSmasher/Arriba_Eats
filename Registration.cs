@@ -11,14 +11,8 @@ namespace Arriba_Eats {
                 UIFunctions.DisplayString("4: Return to the previous menu");
                 UIFunctions.DisplayString("Please enter a choice between 1 and 4:");
 
-                // Validate menu input.
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 4) {
-                    UIFunctions.DisplayString("Invalid choice.");
-                    continue;
-                }
-
                 // Handle user type selection.
-                switch (choice) {
+                switch (UIFunctions.GetChoice(1, 5)) {
                     case 1:
                         new Customer_Registration().Register();
                         return;

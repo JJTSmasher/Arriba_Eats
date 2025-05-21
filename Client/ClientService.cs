@@ -20,14 +20,8 @@ namespace Arriba_Eats {
                 UIFunctions.DisplayString("7: Log out");
                 UIFunctions.DisplayString("Please enter a choice between 1 and 7:");
 
-                // Validate user input.
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 7) {
-                    UIFunctions.DisplayString("Invalid choice.");
-                    continue;
-                }
-
                 // Handle menu selection.
-                switch (choice) {
+                switch (UIFunctions.GetChoice(1, 7)) {
                     case 1:
                         ShowData(client);
                         break;
