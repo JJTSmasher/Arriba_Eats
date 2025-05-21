@@ -2,17 +2,17 @@ namespace Arriba_Eats {
     static class CustomerService {
         public static void CustomerMenu(Customer customer) {
             while (true) {
-                Console.WriteLine("Please make a choice from the menu below:");
-                Console.WriteLine("1: Display your user information");
-                Console.WriteLine("2: Select a list of restaurants to order from");
-                Console.WriteLine("3: See the status of your orders");
-                Console.WriteLine("4: Rate a restaurant you've ordered from");
-                Console.WriteLine("5: Log out");
-                Console.WriteLine("Please enter a choice between 1 and 5:");
+                UIFunctions.DisplayString("Please make a choice from the menu below:");
+                UIFunctions.DisplayString("1: Display your user information");
+                UIFunctions.DisplayString("2: Select a list of restaurants to order from");
+                UIFunctions.DisplayString("3: See the status of your orders");
+                UIFunctions.DisplayString("4: Rate a restaurant you've ordered from");
+                UIFunctions.DisplayString("5: Log out");
+                UIFunctions.DisplayString("Please enter a choice between 1 and 5:");
 
                 // Validate user input.
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 5) {
-                    Console.WriteLine("Invalid choice.");
+                    UIFunctions.DisplayString("Invalid choice.");
                     continue;
                 }
 
@@ -31,7 +31,7 @@ namespace Arriba_Eats {
                         RateRestaurant();
                         break;
                     case 5:
-                        Console.WriteLine("You are now logged out.");
+                        UIFunctions.DisplayString("You are now logged out.");
                         return;
                 }
             }
@@ -39,13 +39,13 @@ namespace Arriba_Eats {
 
         // Displays the customer information and order details.
         private static void ShowData(Customer customer) {
-            Console.WriteLine("Your user details are as follows:");
-            Console.WriteLine($"Name: {customer.Name}");
-            Console.WriteLine($"Age: {customer.Age}");
-            Console.WriteLine($"Email: {customer.Email}");
-            Console.WriteLine($"Mobile: {customer.Phone}");
-            Console.WriteLine($"Location: {customer.Location.x},{customer.Location.y}");
-            Console.WriteLine($"You've made {customer.ordersMade} order(s) and spent a total of ${customer.moneySpent:F2} here.");
+            UIFunctions.DisplayString("Your user details are as follows:");
+            UIFunctions.DisplayString($"Name: {customer.Name}");
+            UIFunctions.DisplayString($"Age: {customer.Age}");
+            UIFunctions.DisplayString($"Email: {customer.Email}");
+            UIFunctions.DisplayString($"Mobile: {customer.Phone}");
+            UIFunctions.DisplayString($"Location: {customer.Location.x},{customer.Location.y}");
+            UIFunctions.DisplayString($"You've made {customer.ordersMade} order(s) and spent a total of ${customer.moneySpent:F2} here.");
         }
 
         // Allows the customer to view and sort the list of restaurants, and place orders.
@@ -55,18 +55,18 @@ namespace Arriba_Eats {
                 .OfType<Client>()
                 .Where(c => !string.IsNullOrEmpty(c.RestaurantName))];
 
-            Console.WriteLine("How would you like the list of restaurants ordered?");
-            Console.WriteLine("1: Sorted alphabetically by name");
-            Console.WriteLine("2: Sorted by distance");
-            Console.WriteLine("3: Sorted by style");
-            Console.WriteLine("4: Sorted by average rating");
-            Console.WriteLine("5: Return to the previous menu");
-            Console.WriteLine("Please enter a choice between 1 and 5:");
+            UIFunctions.DisplayString("How would you like the list of restaurants ordered?");
+            UIFunctions.DisplayString("1: Sorted alphabetically by name");
+            UIFunctions.DisplayString("2: Sorted by distance");
+            UIFunctions.DisplayString("3: Sorted by style");
+            UIFunctions.DisplayString("4: Sorted by average rating");
+            UIFunctions.DisplayString("5: Return to the previous menu");
+            UIFunctions.DisplayString("Please enter a choice between 1 and 5:");
 
             // Get and validate sorting choice.
             int choice;
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5) {
-                Console.WriteLine("Invalid choice.");
+                UIFunctions.DisplayString("Invalid choice.");
             }
 
             // Sort the restaurant list based on user selection.
@@ -100,9 +100,9 @@ namespace Arriba_Eats {
             }
 
             // Display the sorted restaurant table header.
-            Console.WriteLine("You can order from the following restaurants:");
-            Console.WriteLine("{0,-3} {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}",
-                "", "Restaurant Name", "Loc", "Dist", "Style", "Rating");
+            UIFunctions.DisplayString("You can order from the following restaurants:");
+            UIFunctions.DisplayString(string.Format("{0,-3} {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}",
+                "", "Restaurant Name", "Loc", "Dist", "Style", "Rating"));
 
             // Display each restaurant as a row in the table.
             int index = 1;
@@ -110,19 +110,19 @@ namespace Arriba_Eats {
                 int dist = Math.Abs(r.Location.x - customer.Location.x) + Math.Abs(r.Location.y - customer.Location.y);
                 string style = r.RestaurantStyles.Values.FirstOrDefault() ?? r.Style ?? "";
                 string ratingDisplay = r.RestaurantRating == 0 ? "-" : r.RestaurantRating.ToString("F1");
-                Console.WriteLine("{0,-3}: {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}",
-                    index, r.RestaurantName, $"{r.Location.x},{r.Location.y}", dist, style, ratingDisplay);
+                UIFunctions.DisplayString(string.Format("{0,-3}: {1,-20} {2,-10} {3,-13} {4,-15} {5,-6}",
+                    index, r.RestaurantName, $"{r.Location.x},{r.Location.y}", dist, style, ratingDisplay));
                 index++;
             }
 
             // Display option to return to previous menu.
-            Console.WriteLine("{0,-3}: {1}", index, "Return to the previous menu");
-            Console.WriteLine($"Please enter a choice between 1 and {index}:");
+            UIFunctions.DisplayString(string.Format("{0,-3}: {1}", index, "Return to the previous menu"));
+            UIFunctions.DisplayString($"Please enter a choice between 1 and {index}:");
 
             // Get user selection for a restaurant or return.
             int selection;
             while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > index) {
-                Console.WriteLine("Invalid choice.");
+                UIFunctions.DisplayString("Invalid choice.");
             }
 
             if (selection == index) {
@@ -130,16 +130,16 @@ namespace Arriba_Eats {
             } else {
                 // Show menu for the selected restaurant.
                 var selectedRestaurant = restaurants[selection - 1];
-                Console.WriteLine($"\nPlacing order from {selectedRestaurant.RestaurantName}.");
+                UIFunctions.DisplayString($"\nPlacing order from {selectedRestaurant.RestaurantName}.");
                 while (true) {
-                    Console.WriteLine("1: See this restaurant's menu and place an order");
-                    Console.WriteLine("2: See reviews for this restaurant");
-                    Console.WriteLine("3: Return to main menu");
-                    Console.WriteLine("Please enter a choice between 1 and 3:");
+                    UIFunctions.DisplayString("1: See this restaurant's menu and place an order");
+                    UIFunctions.DisplayString("2: See reviews for this restaurant");
+                    UIFunctions.DisplayString("3: Return to main menu");
+                    UIFunctions.DisplayString("Please enter a choice between 1 and 3:");
 
                     int subChoice;
                     while (!int.TryParse(Console.ReadLine(), out subChoice) || subChoice < 1 || subChoice > 3) {
-                        Console.WriteLine("Invalid choice. Please enter 1, 2, or 3:");
+                        UIFunctions.DisplayString("Invalid choice. Please enter 1, 2, or 3:");
                     }
 
                     switch (subChoice) {
@@ -150,32 +150,32 @@ namespace Arriba_Eats {
                             bool ordering = true;
                             while (ordering)
                             {
-                                Console.WriteLine($"\nCurrent order total: ${orderTotal:F2}");
+                                UIFunctions.DisplayString($"\nCurrent order total: ${orderTotal:F2}");
                                 if (selectedRestaurant.MenuItems != null && selectedRestaurant.MenuItems.Count > 0) {
                                     int menuIndex = 1;
                                     foreach (var item in selectedRestaurant.MenuItems) {
-                                        Console.WriteLine($"{menuIndex}: ${item.Price:F2} {item.Name}");
+                                        UIFunctions.DisplayString($"{menuIndex}: ${item.Price:F2} {item.Name}");
                                         menuIndex++;
                                     }
-                                    Console.WriteLine($"{menuIndex}: Complete order");
-                                    Console.WriteLine($"{menuIndex + 1}: Cancel order");
-                                    Console.WriteLine($"Please enter a choice between 1 and {menuIndex + 1}:");
+                                    UIFunctions.DisplayString($"{menuIndex}: Complete order");
+                                    UIFunctions.DisplayString($"{menuIndex + 1}: Cancel order");
+                                    UIFunctions.DisplayString($"Please enter a choice between 1 and {menuIndex + 1}:");
 
                                     int menuChoice;
                                     while (!int.TryParse(Console.ReadLine(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
-                                        Console.WriteLine("Invalid choice.");
+                                        UIFunctions.DisplayString("Invalid choice.");
                                     }
 
                                     if (menuChoice == menuIndex) {
                                         // Complete order
                                         if (order.Count == 0) {
-                                            Console.WriteLine("You have not selected any items.");
+                                            UIFunctions.DisplayString("You have not selected any items.");
                                         } else {
                                             Order newOrder = new(Order.GlobalOrderCount + 1, selectedRestaurant.RestaurantName, [.. order], orderTotal);
                                             customer.Orders.Add(newOrder);
                                             customer.ordersMade++;
                                             customer.moneySpent += orderTotal;
-                                            Console.WriteLine($"Your order has been placed. Your order number is #{newOrder.OrderID}.");
+                                            UIFunctions.DisplayString($"Your order has been placed. Your order number is #{newOrder.OrderID}.");
                                         }
                                         ordering = false;
                                     }
@@ -183,11 +183,11 @@ namespace Arriba_Eats {
                                         ordering = false;
                                     } else {
                                         var selectedItem = selectedRestaurant.MenuItems[menuChoice - 1];
-                                        Console.WriteLine($"Adding {selectedItem.Name} to order.");
-                                        Console.WriteLine("Please enter quantity (0 to cancel):");
+                                        UIFunctions.DisplayString($"Adding {selectedItem.Name} to order.");
+                                        UIFunctions.DisplayString("Please enter quantity (0 to cancel):");
                                         int quantity;
                                         while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0) {
-                                            Console.WriteLine("Invalid quantity.");
+                                            UIFunctions.DisplayString("Invalid quantity.");
                                         }
                                         if (quantity == 0) {
                                             // Item is not added.
@@ -196,11 +196,11 @@ namespace Arriba_Eats {
                                                 order.Add(selectedItem);
                                                 orderTotal += selectedItem.Price;
                                             }
-                                            Console.WriteLine($"Added {quantity}x {selectedItem.Name} to order.");
+                                            UIFunctions.DisplayString($"Added {quantity}x {selectedItem.Name} to order.");
                                         }
                                     }
                                 } else {
-                                    Console.WriteLine("No items available");
+                                    UIFunctions.DisplayString("No items available");
                                     ordering = false;
                                 }
                             }
@@ -219,11 +219,11 @@ namespace Arriba_Eats {
         // Displays all orders placed by the customer and their status.
         private static void ViewOrders(Customer customer) {
             if (customer.Orders.Count == 0) {
-                Console.WriteLine("You have not placed any orders.");
+                UIFunctions.DisplayString("You have not placed any orders.");
                 return;
             }
             foreach (var order in customer.Orders) {
-                Console.WriteLine($"Order #{order.OrderID} from {order.RestaurantName}: {order.Status}");
+                UIFunctions.DisplayString($"Order #{order.OrderID} from {order.RestaurantName}: {order.Status}");
 
                 // Find the deliverer for this order.
                 var deliveredBy = Login.users
@@ -231,13 +231,13 @@ namespace Arriba_Eats {
                     .FirstOrDefault(d => d.orderDeliverStatus.ContainsKey(order.OrderID) && d.orderDeliverStatus[order.OrderID] == "Delivered");
 
                 if (deliveredBy != null) {
-                    Console.WriteLine($"This order was delivered by {deliveredBy.Name} (licence plate: {deliveredBy.licencePlate})");
+                    UIFunctions.DisplayString($"This order was delivered by {deliveredBy.Name} (licence plate: {deliveredBy.licencePlate})");
                 }
 
                 var grouped = order.Items.GroupBy(i => i.Name);
                 foreach (var group in grouped) {
                     decimal itemTotal = group.Count() * group.First().Price;
-                    Console.WriteLine($"{group.Count()} x {group.Key}");
+                    UIFunctions.DisplayString($"{group.Count()} x {group.Key}");
                 }
             }
         }
@@ -248,7 +248,7 @@ namespace Arriba_Eats {
             // Find the current customer by email.
             if (Login.users.OfType<Customer>().FirstOrDefault(c => c.Email == User.CurrentUserEmail) is not Customer customer)
             {
-                Console.WriteLine("Unable to find customer profile.");
+                UIFunctions.DisplayString("Unable to find customer profile.");
                 return;
             }
 
@@ -261,46 +261,46 @@ namespace Arriba_Eats {
                         r.OrderID == o.OrderID))
                 .ToList();
 
-            Console.WriteLine("Select a previous order to rate the restaurant it came from:");
+            UIFunctions.DisplayString("Select a previous order to rate the restaurant it came from:");
             int idx = 1;
             foreach (var order in unratedOrders)
             {
-                Console.WriteLine($"{idx}: Order #{order.OrderID} from {order.RestaurantName}");
+                UIFunctions.DisplayString($"{idx}: Order #{order.OrderID} from {order.RestaurantName}");
                 idx++;
             }
-            Console.WriteLine($"{idx}: Return to the previous menu");
-            Console.WriteLine($"Please enter a choice between 1 and {idx}:");
+            UIFunctions.DisplayString($"{idx}: Return to the previous menu");
+            UIFunctions.DisplayString($"Please enter a choice between 1 and {idx}:");
 
             int selection;
             while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx)
             {
-                Console.WriteLine("Invalid choice.");
+                UIFunctions.DisplayString("Invalid choice.");
             }
             if (selection == idx) return;
 
             var selectedOrder = unratedOrders[selection - 1];
-            Console.WriteLine($"You are rating order #{selectedOrder.OrderID} from {selectedOrder.RestaurantName}:");
+            UIFunctions.DisplayString($"You are rating order #{selectedOrder.OrderID} from {selectedOrder.RestaurantName}:");
             var grouped = selectedOrder.Items.GroupBy(i => i.Name);
             foreach (var group in grouped)
             {
-                Console.WriteLine($"{group.Count()} x {group.Key}");
+                UIFunctions.DisplayString($"{group.Count()} x {group.Key}");
             }
 
             // Get rating from user.
             int rating;
             while (true)
             {
-                Console.WriteLine("Please enter a rating for this restaurant (1-5, 0 to cancel):");
+                UIFunctions.DisplayString("Please enter a rating for this restaurant (1-5, 0 to cancel):");
                 if (int.TryParse(Console.ReadLine(), out rating) && rating >= 0 && rating <= 5)
                 {
                     break;
                 }
-                Console.WriteLine("Invalid rating.");
+                UIFunctions.DisplayString("Invalid rating.");
             }
             if (rating == 0) return;
 
             // Get comment from user.
-            Console.WriteLine("Please enter a comment to accompany this rating:");
+            UIFunctions.DisplayString("Please enter a comment to accompany this rating:");
             string comment = Console.ReadLine();
 
             // Add the review to the system.
@@ -314,7 +314,7 @@ namespace Arriba_Eats {
             ));
             // Update the restaurant's average rating.
             ClientService.UpdateRestaurantRating(selectedOrder.RestaurantName);
-            Console.WriteLine($"Thank you for rating {selectedOrder.RestaurantName}.");
+            UIFunctions.DisplayString($"Thank you for rating {selectedOrder.RestaurantName}.");
         }
 
         // Displays all reviews for a given restaurant.
@@ -324,10 +324,10 @@ namespace Arriba_Eats {
                 .ToList();
 
             foreach (var review in reviews) {
-                Console.WriteLine($"Reviewer: {review.CustomerName}");
-                Console.WriteLine($"Rating: {new string('*', review.Rating)}");
-                Console.WriteLine($"Comment: {review.Comment}");
-                Console.WriteLine();
+                UIFunctions.DisplayString($"Reviewer: {review.CustomerName}");
+                UIFunctions.DisplayString($"Rating: {new string('*', review.Rating)}");
+                UIFunctions.DisplayString($"Comment: {review.Comment}");
+                UIFunctions.DisplayString("");
             }
         }
     }

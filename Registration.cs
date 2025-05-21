@@ -4,16 +4,16 @@ namespace Arriba_Eats {
     class Registration {
         public static void ShowMenu() {
             while (true) {
-                Console.WriteLine("Which type of user would you like to register as?");
-                Console.WriteLine("1: Customer");
-                Console.WriteLine("2: Deliverer");
-                Console.WriteLine("3: Client");
-                Console.WriteLine("4: Return to the previous menu");
-                Console.WriteLine("Please enter a choice between 1 and 4:");
+                UIFunctions.DisplayString("Which type of user would you like to register as?");
+                UIFunctions.DisplayString("1: Customer");
+                UIFunctions.DisplayString("2: Deliverer");
+                UIFunctions.DisplayString("3: Client");
+                UIFunctions.DisplayString("4: Return to the previous menu");
+                UIFunctions.DisplayString("Please enter a choice between 1 and 4:");
 
                 // Validate menu input.
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 4) {
-                    Console.WriteLine("Invalid choice.");
+                    UIFunctions.DisplayString("Invalid choice.");
                     continue;
                 }
 
@@ -29,7 +29,7 @@ namespace Arriba_Eats {
                         new Client_Registration().Register();
                         return;
                     case 4:
-                        Console.WriteLine("Returning to the previous menu.");
+                        UIFunctions.DisplayString("Returning to the previous menu.");
                         return;
                 }
             }
@@ -37,14 +37,14 @@ namespace Arriba_Eats {
 
         // Prompts the user for input with prompt.
         protected static string GetInput(string prompt) {
-            Console.WriteLine(prompt);
+            UIFunctions.DisplayString(prompt);
             return Console.ReadLine();
         }
 
         // Prompts for and validates the user's name.
         protected static string GetValidatedName() {
             while (true) {
-                Console.WriteLine("Please enter your name:");
+                UIFunctions.DisplayString("Please enter your name:");
                 string nameInput = Console.ReadLine();
 
                 // Name must start with a letter 
@@ -53,7 +53,7 @@ namespace Arriba_Eats {
                     return nameInput;
                 }
 
-                Console.WriteLine("Invalid name.");
+                UIFunctions.DisplayString("Invalid name.");
             }
         }
 
@@ -61,18 +61,18 @@ namespace Arriba_Eats {
         // must be 18-100.
         protected static int GetValidatedAge() {
             while (true) {
-                Console.WriteLine("Please enter your age (18-100):");
+                UIFunctions.DisplayString("Please enter your age (18-100):");
                 if (int.TryParse(Console.ReadLine(), out int age) && age >= 18 && age <= 100) {
                     return age;
                 }
-                Console.WriteLine("Invalid age.");
+                UIFunctions.DisplayString("Invalid age.");
             }
         }
 
         // Prompts for and validates the user email address.
         protected static string GetValidatedEmail() {
             while (true) {
-                Console.WriteLine("Please enter your email address:");
+                UIFunctions.DisplayString("Please enter your email address:");
                 string email = Console.ReadLine();
 
                 // Validate email format and check for uniqueness.
@@ -80,9 +80,9 @@ namespace Arriba_Eats {
                     if (!Login.IsEmailInUse(email)) {
                         return email;
                     }
-                    Console.WriteLine("This email address is already in use.");
+                    UIFunctions.DisplayString("This email address is already in use.");
                 } else { // Error handling
-                    Console.WriteLine("Invalid email address.");
+                    UIFunctions.DisplayString("Invalid email address.");
                 }
             }
         }
@@ -91,12 +91,12 @@ namespace Arriba_Eats {
         // must be 10 digits, starting with 0.
         protected static string GetValidatedPhone() {
             while (true) {
-                Console.WriteLine("Please enter your mobile phone number:");
+                UIFunctions.DisplayString("Please enter your mobile phone number:");
                 string phone = Console.ReadLine();
                 if (!string.IsNullOrEmpty(phone) && Regex.IsMatch(phone, @"^0\d{9}$")) {
                     return phone;
                 }
-                Console.WriteLine("Invalid phone number.");
+                UIFunctions.DisplayString("Invalid phone number.");
             }
         }
 
@@ -104,12 +104,12 @@ namespace Arriba_Eats {
         // length, number, upper/lowercase.
         protected static string GetValidatedPassword() {
             while (true) {
-                Console.WriteLine("Your password must:");
-                Console.WriteLine("- be at least 8 characters long");
-                Console.WriteLine("- contain a number");
-                Console.WriteLine("- contain a lowercase letter");
-                Console.WriteLine("- contain an uppercase letter");
-                Console.WriteLine("Please enter a password:");
+                UIFunctions.DisplayString("Your password must:");
+                UIFunctions.DisplayString("- be at least 8 characters long");
+                UIFunctions.DisplayString("- contain a number");
+                UIFunctions.DisplayString("- contain a lowercase letter");
+                UIFunctions.DisplayString("- contain an uppercase letter");
+                UIFunctions.DisplayString("Please enter a password:");
                 string password = Console.ReadLine();
 
                 // Check password requirements.
@@ -117,13 +117,13 @@ namespace Arriba_Eats {
                     Regex.IsMatch(password, @"\d") &&
                     Regex.IsMatch(password, @"[a-z]") &&
                     Regex.IsMatch(password, @"[A-Z]")) {
-                    Console.WriteLine("Please confirm your password:");
+                    UIFunctions.DisplayString("Please confirm your password:");
                     if (Console.ReadLine() == password) {
                         return password;
                     }
-                    Console.WriteLine("Passwords do not match.");
+                    UIFunctions.DisplayString("Passwords do not match.");
                 } else {
-                    Console.WriteLine("Invalid password.");
+                    UIFunctions.DisplayString("Invalid password.");
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace Arriba_Eats {
         // Prompts for and validates a location in the form X,Y.
         protected static string GetValidatedLocation() {
             while (true) {
-                Console.WriteLine("Please enter your location (in the form of X,Y) :");
+                UIFunctions.DisplayString("Please enter your location (in the form of X,Y) :");
                 string location = Console.ReadLine();
 
                 // Regex to validate the location format
@@ -139,7 +139,7 @@ namespace Arriba_Eats {
                     return location;
                 }
 
-                Console.WriteLine("Invalid location.");
+                UIFunctions.DisplayString("Invalid location.");
             }
         }
 

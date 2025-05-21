@@ -18,7 +18,7 @@ namespace Arriba_Eats {
             // Add the new customer to the system.
             Login.AddUser(customer);
 
-            Console.WriteLine($"You have been successfully registered as a customer, {name}!");
+            UIFunctions.DisplayString($"You have been successfully registered as a customer, {name}!");
 
             // Show the main menu after registration.
             Login.ShowMenu();

@@ -16,7 +16,7 @@ namespace Arriba_Eats {
             // Add the new deliverer to the system.
             Login.AddUser(deliverer);
 
-            Console.WriteLine($"You have been successfully registered as a deliverer, {name}!");
+            UIFunctions.DisplayString($"You have been successfully registered as a deliverer, {name}!");
 
             // Show the main menu after registration.
             Login.ShowMenu();
@@ -25,14 +25,14 @@ namespace Arriba_Eats {
         // Prompts the user for a valid licence plate and validates the input.
         private static string GetValidatedLicencePlate() {
             while (true) {
-                Console.WriteLine("Please enter your licence plate:");
+                UIFunctions.DisplayString("Please enter your licence plate:");
                 string? licencePlate = Console.ReadLine();
                 // Licence plate specifications
                 // Must be 1-8 characters, uppercase letters, numbers, or spaces.
                 if (!string.IsNullOrEmpty(licencePlate) && Regex.IsMatch(licencePlate, @"^(?!\s*$)[A-Z0-9 ]{1,8}$")) {
                     return licencePlate;
                 }
-                Console.WriteLine("Invalid licence plate.");
+                UIFunctions.DisplayString("Invalid licence plate.");
             }
         }
 

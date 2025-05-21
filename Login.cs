@@ -8,15 +8,15 @@ namespace Arriba_Eats {
         // Displays the main menu for login and registration.
         public static void ShowMenu() {
             while (true) {
-                Console.WriteLine("Please make a choice from the menu below:");
-                Console.WriteLine("1: Login as a registered user");
-                Console.WriteLine("2: Register as a new user");
-                Console.WriteLine("3: Exit");
-                Console.WriteLine("Please enter a choice between 1 and 3:");
+                UIFunctions.DisplayString("Please make a choice from the menu below:");
+                UIFunctions.DisplayString("1: Login as a registered user");
+                UIFunctions.DisplayString("2: Register as a new user");
+                UIFunctions.DisplayString("3: Exit");
+                UIFunctions.DisplayString("Please enter a choice between 1 and 3:");
 
                 // Validate user input.
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 3) {
-                    Console.WriteLine("Invalid choice.");
+                    UIFunctions.DisplayString("Invalid choice.");
                     continue;
                 }
 
@@ -29,7 +29,7 @@ namespace Arriba_Eats {
                         Registration.ShowMenu(); // Call the Registration menu
                         return;
                     case 3:
-                        Console.WriteLine("Thank you for using Arriba Eats!");
+                        UIFunctions.DisplayString("Thank you for using Arriba Eats!");
                         return; // Exit the program
                 }
             }
@@ -47,20 +47,20 @@ namespace Arriba_Eats {
 
         // Handles user authentication and role-based menu redirection.
         public static void Authenticate() {
-            Console.WriteLine("Email:");
+            UIFunctions.DisplayString("Email:");
             string email = Console.ReadLine();
-            Console.WriteLine("Password:");
+            UIFunctions.DisplayString("Password:");
             string password = Console.ReadLine();
             
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) {
-                Console.WriteLine("Email or password cannot be empty.");
+                UIFunctions.DisplayString("Email or password cannot be empty.");
                 return;
             }
 
             // Validate user credentials.
             User user = IsValidUser(email, password);
             if (user != null) {
-                Console.WriteLine($"Welcome back, {user.Name}!");
+                UIFunctions.DisplayString($"Welcome back, {user.Name}!");
                 User.CurrentUserEmail = user.Email;
                 // Redirect to the appropriate menu based on user role.
                 switch (user.Role.ToLower()) {
@@ -74,11 +74,11 @@ namespace Arriba_Eats {
                         DelivererService.DelivererMenu((Deliverer)user);
                         return;
                     default:
-                        Console.WriteLine("Unknown role. Returning to the main menu.");
+                        UIFunctions.DisplayString("Unknown role. Returning to the main menu.");
                         return;
                 }
             } else {
-                Console.WriteLine("Invalid email or password.");
+                UIFunctions.DisplayString("Invalid email or password.");
             }
         }
 

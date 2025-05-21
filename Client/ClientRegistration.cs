@@ -56,14 +56,14 @@ namespace Arriba_Eats {
         // Prompts the user for a valid restaurant name.
         protected static string GetValidatedRName() {
             while (true) {
-                Console.WriteLine("Please enter your restaurant's name:");
+                UIFunctions.DisplayString("Please enter your restaurant's name:");
                 string RestaurantName = Console.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(RestaurantName)) {
                     return RestaurantName;
                 }
 
-                Console.WriteLine("Invalid restaurant name.");
+                UIFunctions.DisplayString("Invalid restaurant name.");
             }
         }
     }
