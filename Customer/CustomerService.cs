@@ -109,7 +109,7 @@ namespace Arriba_Eats {
 
             // Get user selection for a restaurant or return.
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > index) {
+            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > index) {
                 UIFunctions.DisplayString("Invalid choice.");
             }
 
@@ -145,7 +145,7 @@ namespace Arriba_Eats {
                                     UIFunctions.DisplayString($"Please enter a choice between 1 and {menuIndex + 1}:");
 
                                     int menuChoice;
-                                    while (!int.TryParse(Console.ReadLine(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
+                                    while (!int.TryParse(UIFunctions.ReadString(), out menuChoice) || menuChoice < 1 || menuChoice > menuIndex + 1) {
                                         UIFunctions.DisplayString("Invalid choice.");
                                     }
 
@@ -169,7 +169,7 @@ namespace Arriba_Eats {
                                         UIFunctions.DisplayString($"Adding {selectedItem.Name} to order.");
                                         UIFunctions.DisplayString("Please enter quantity (0 to cancel):");
                                         int quantity;
-                                        while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0) {
+                                        while (!int.TryParse(UIFunctions.ReadString(), out quantity) || quantity < 0) {
                                             UIFunctions.DisplayString("Invalid quantity.");
                                         }
                                         if (quantity == 0) {
@@ -255,7 +255,7 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Please enter a choice between 1 and {idx}:");
 
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx)
+            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx)
             {
                 UIFunctions.DisplayString("Invalid choice.");
             }
@@ -274,7 +274,7 @@ namespace Arriba_Eats {
             while (true)
             {
                 UIFunctions.DisplayString("Please enter a rating for this restaurant (1-5, 0 to cancel):");
-                if (int.TryParse(Console.ReadLine(), out rating) && rating >= 0 && rating <= 5)
+                if (int.TryParse(UIFunctions.ReadString(), out rating) && rating >= 0 && rating <= 5)
                 {
                     break;
                 }
@@ -284,7 +284,7 @@ namespace Arriba_Eats {
 
             // Get comment from user.
             UIFunctions.DisplayString("Please enter a comment to accompany this rating:");
-            string comment = Console.ReadLine();
+            string comment = UIFunctions.ReadString();
 
             // Add the review to the system.
             Login.Reviews.Add(new Review(

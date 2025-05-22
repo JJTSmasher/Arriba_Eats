@@ -18,7 +18,7 @@ namespace Arriba_Eats {
 
             // Get and validate the style choice.
             int styleChoice;
-            while (!int.TryParse(Console.ReadLine(), out styleChoice) || styleChoice < 1 || styleChoice > 6) {
+            while (!int.TryParse(UIFunctions.ReadString(), out styleChoice) || styleChoice < 1 || styleChoice > 6) {
                 Console.WriteLine("Invalid choice. Please try again.");
             }
 
@@ -57,7 +57,7 @@ namespace Arriba_Eats {
         protected static string GetValidatedRName() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your restaurant's name:");
-                string RestaurantName = Console.ReadLine();
+                string RestaurantName = UIFunctions.ReadString();
 
                 if (!string.IsNullOrWhiteSpace(RestaurantName)) {
                     return RestaurantName;

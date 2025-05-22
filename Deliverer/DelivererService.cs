@@ -76,7 +76,7 @@ namespace Arriba_Eats {
             int delivererX, delivererY;
             while (true) {
                 UIFunctions.DisplayString("Please enter your location (in the form of X,Y):");
-                string input = Console.ReadLine();
+                string input = UIFunctions.ReadString();
                 var parts = input.Split(',');
                 if (parts.Length == 2 && int.TryParse(parts[0], out delivererX) && int.TryParse(parts[1], out delivererY)) {
                     break;
@@ -122,7 +122,7 @@ namespace Arriba_Eats {
 
             // Get user choice.
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
                 UIFunctions.DisplayString("Invalid choice.");
             }
             if (selection == idx) {

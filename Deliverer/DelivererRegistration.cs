@@ -26,7 +26,7 @@ namespace Arriba_Eats {
         private static string GetValidatedLicencePlate() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your licence plate:");
-                string? licencePlate = Console.ReadLine();
+                string? licencePlate = UIFunctions.ReadString();
                 // Licence plate specifications
                 // Must be 1-8 characters, uppercase letters, numbers, or spaces.
                 if (!string.IsNullOrEmpty(licencePlate) && Regex.IsMatch(licencePlate, @"^(?!\s*$)[A-Z0-9 ]{1,8}$")) {

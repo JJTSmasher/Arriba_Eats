@@ -15,7 +15,7 @@ namespace Arriba_Eats {
                 UIFunctions.DisplayString("Please enter a choice between 1 and 3:");
 
                 // Validate user input.
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 3) {
+                if (!int.TryParse(UIFunctions.ReadString(), out int choice) || choice < 1 || choice > 3) {
                     UIFunctions.DisplayString("Invalid choice.");
                     continue;
                 }
@@ -48,9 +48,9 @@ namespace Arriba_Eats {
         // Handles user authentication and role-based menu redirection.
         public static void Authenticate() {
             UIFunctions.DisplayString("Email:");
-            string email = Console.ReadLine();
+            string email = UIFunctions.ReadString();
             UIFunctions.DisplayString("Password:");
-            string password = Console.ReadLine();
+            string password = UIFunctions.ReadString();
             
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) {
                 UIFunctions.DisplayString("Email or password cannot be empty.");

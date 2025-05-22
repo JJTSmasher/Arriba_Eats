@@ -79,7 +79,7 @@ namespace Arriba_Eats {
             string itemName;
             while (true) {
                 UIFunctions.DisplayString("Please enter the name of the new item (blank to cancel):");
-                itemName = Console.ReadLine();
+                itemName = UIFunctions.ReadString();
                 if (string.IsNullOrWhiteSpace(itemName)) {
                     return;
                 }
@@ -90,7 +90,7 @@ namespace Arriba_Eats {
             decimal itemPrice;
             while (true) {
                 UIFunctions.DisplayString("Please enter the price of the new item (without the $):");
-                string priceInput = Console.ReadLine();
+                string priceInput = UIFunctions.ReadString();
                 if (decimal.TryParse(priceInput, out itemPrice) && itemPrice > 0 && itemPrice <= 999.99m) {
                     break;
                 }
@@ -153,7 +153,7 @@ namespace Arriba_Eats {
 
             // Get user choice.
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
                 UIFunctions.DisplayString("Invalid choice.");
             }
             if (selection == idx) return;
@@ -195,7 +195,7 @@ namespace Arriba_Eats {
 
             // Get user choice.
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
                 UIFunctions.DisplayString("Invalid choice.");
             }
             if (selection == idx) return;
@@ -255,7 +255,7 @@ namespace Arriba_Eats {
 
             // Get user choice.
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection) || selection < 1 || selection > idx) {
+            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
                 UIFunctions.DisplayString("Invalid choice.");
             }
             if (selection == idx) return;
