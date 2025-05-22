@@ -1,5 +1,11 @@
 namespace Arriba_Eats {
+    /// <summary>
+    /// Handles the registration process for a restaurant client.
+    /// </summary>
     class Client_Registration : Registration {
+        /// <summary>
+        /// Main registration method for a client. Collects and validates all required information.
+        /// </summary>
         public override void Register() {
             base.Register(); // Call base registration for common user info.
 
@@ -48,12 +54,16 @@ namespace Arriba_Eats {
             Login.ShowMenu(); // Show the main menu after registration.
         }
 
-        // Returns the role string for this registration type.
+        /// <summary>
+        /// Returns the role for this registration type.
+        /// </summary>
         protected override string GetRole() {
             return "client";
         }
 
-        // Prompts the user for a valid restaurant name.
+        /// <summary>
+        /// Prompts the user for a valid restaurant name and validates the input.
+        /// </summary>
         protected static string GetValidatedRName() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your restaurant's name:");

@@ -1,12 +1,20 @@
 namespace Arriba_Eats {
-    // MenuItem struct containing item name and price.
+    /// <summary>
+    /// Represents a menu item with a name and price.
+    /// </summary>
     public struct MenuItem(string name, decimal price)
     {
         public string Name = name;
         public decimal Price = price;
     }
 
+    /// <summary>
+    /// Provides services and menu actions for clients.
+    /// </summary>
     static class ClientService {
+        /// <summary>
+        /// Main menu loop for the client.
+        /// </summary>
         public static void ClientMenu(Client client) {
             while (true) {
                 // Display menu options.
@@ -47,7 +55,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Displays the client user and restaurant information.
+        /// <summary>
+        /// Displays the client user and restaurant information.
+        /// </summary>
         private static void ShowData(Client client) {
             UIFunctions.DisplayString("Your user details are as follows:");
             UIFunctions.DisplayString($"Name: {client.Name}");
@@ -68,7 +78,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Restaurant location: {client.Location.x},{client.Location.y}");
         }
 
-        // add new item to restaurant.
+        /// <summary>
+        /// Adds a new item to the restaurant's menu.
+        /// </summary>
         private static void AddMenuItem(Client client) {
             UIFunctions.DisplayString("This is your restaurant's current menu:");
             foreach (var item in client.MenuItems) {
@@ -102,7 +114,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Successfully added {itemName} (${itemPrice:F2}) to menu.");
         }
 
-        // Displays all current orders for the client's restaurant.
+        /// <summary>
+        /// Displays all current orders for the client's restaurant.
+        /// </summary>
         private static void CurrentOrders(Client client) {
             // Get all orders for this restaurant that are not delivered.
             var orders = Login.users
@@ -127,7 +141,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Allows the client to mark an order as "Cooking".
+        /// <summary>
+        /// Allows the client to mark an order as "Cooking".
+        /// </summary>
         private static void StartCookingOrder(Client client) {
             // Get all orders for this restaurant that are "Ordered".
             var orders = Login.users
@@ -169,7 +185,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString("");
         }
 
-        // Allows the client to mark an order as "Cooked".
+        /// <summary>
+        /// Allows the client to mark an order as "Cooked".
+        /// </summary>
         private static void FinishCookingOrder(Client client) {
             // Get all orders for this restaurant that are "Cooking".
             var orders = Login.users
@@ -223,7 +241,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString("");
         }
 
-        // Allows the client to handle orders that the deliverer has arrived to collect.
+        /// <summary>
+        /// Allows the client to handle orders that the deliverer has arrived to collect.
+        /// </summary>
         private static void HandleDelivererArrived(Client client) {
             // Find all orders that are "Cooked" and have a deliverer with status "Arrived".
             var waitingOrders = Login.users
@@ -272,7 +292,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Order #{chosen.Order.OrderID} is now marked as being delivered.");
         }
 
-        // Updates the restaurant's average rating based on reviews.
+        /// <summary>
+        /// Updates the restaurant's average rating based on reviews.
+        /// </summary>
         public static void UpdateRestaurantRating(string restaurantName) {
             var client = Login.users.OfType<Client>().FirstOrDefault(c => c.RestaurantName == restaurantName);
             if (client == null) return;

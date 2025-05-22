@@ -1,5 +1,11 @@
 namespace Arriba_Eats {
+    /// <summary>
+    /// Provides menus and actions for customers.
+    /// </summary>
     static class CustomerService {
+        /// <summary>
+        /// Main menu loop for the customer.
+        /// </summary>
         public static void CustomerMenu(Customer customer) {
             while (true) {
                 UIFunctions.DisplayString("Please make a choice from the menu below:");
@@ -31,7 +37,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Displays the customer information and order details.
+        /// <summary>
+        /// Displays the customer information and order details.
+        /// </summary>
         private static void ShowData(Customer customer) {
             UIFunctions.DisplayString("Your user details are as follows:");
             UIFunctions.DisplayString($"Name: {customer.Name}");
@@ -42,7 +50,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"You've made {customer.ordersMade} order(s) and spent a total of ${customer.moneySpent:F2} here.");
         }
 
-        // Allows the customer to view and sort the list of restaurants, and place orders.
+        /// <summary>
+        /// Allows the customer to view and sort the list of restaurants, and place orders.
+        /// </summary>
         private static void RestaurantSort(Customer customer) {
             // Get all clients' restaurants with a valid name.
             List<Client> restaurants = [.. Login.users
@@ -108,10 +118,7 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Please enter a choice between 1 and {index}:");
 
             // Get user selection for a restaurant or return.
-            int selection;
-            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > index) {
-                UIFunctions.DisplayString("Invalid choice.");
-            }
+            int selection = UIFunctions.GetChoice(1, index);
 
             if (selection == index) {
                 return;
@@ -199,7 +206,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Displays all orders placed by the customer and their status.
+        /// <summary>
+        /// Displays all orders placed by the customer and their status.
+        /// </summary>
         private static void ViewOrders(Customer customer) {
             if (customer.Orders.Count == 0) {
                 UIFunctions.DisplayString("You have not placed any orders.");
@@ -225,7 +234,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Allows the customer to rate a restaurant after receiving a delivered order.
+        /// <summary>
+        /// Allows the customer to rate a restaurant after receiving a delivered order.
+        /// </summary>
         private static void RateRestaurant()
         {
             // Find the current customer by email.
@@ -300,7 +311,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Thank you for rating {selectedOrder.RestaurantName}.");
         }
 
-        // Displays all reviews for a given restaurant.
+        /// <summary>
+        /// Displays all reviews for a given restaurant.
+        /// </summary>
         private static void SeeReviewsForRestaurant(string restaurantName) {
             var reviews = Login.Reviews
                 .Where(r => r.RestaurantName == restaurantName)

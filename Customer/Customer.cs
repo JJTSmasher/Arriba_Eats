@@ -1,7 +1,9 @@
 namespace Arriba_Eats {
-    class Customer(string email, string password, string role, string name, string phone, int age) 
-        : User(email, password, role, name, phone, age) 
+    // User properties, applied to each customer
+    class Customer(string email, string password, string role, string name, string phone, int age)
+        : User(email, password, role, name, phone, age)
     {
+        // Properties relating to each customer
         public struct CustomerLocation(int x, int y)
         {
             public int x = x;

@@ -1,7 +1,13 @@
 using System.Text.RegularExpressions;
 
 namespace Arriba_Eats {
+    /// <summary>
+    /// Base class for user registration, provides shared validation and menu logic.
+    /// </summary>
     class Registration {
+        /// <summary>
+        /// Shows the registration menu for selecting user type.
+        /// </summary>
         public static void ShowMenu() {
             while (true) {
                 UIFunctions.DisplayString("Which type of user would you like to register as?");
@@ -29,7 +35,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Prompts for and validates the user's name.
+        /// <summary>
+        /// Prompts for and validates the user's name.
+        /// </summary>
         protected static string GetValidatedName() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your name:");
@@ -45,8 +53,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Prompts for and validates the user's age 
-        // must be 18-100.
+        /// <summary>
+        /// Prompts for and validates the user's age.
+        /// </summary>
         protected static int GetValidatedAge() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your age (18-100):");
@@ -57,7 +66,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Prompts for and validates the user email address.
+        /// <summary>
+        /// Prompts for and validates the user email address.
+        /// </summary>
         protected static string GetValidatedEmail() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your email address:");
@@ -75,8 +86,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Prompts for and validates the user's phone number 
-        // must be 10 digits, starting with 0.
+        /// <summary>
+        /// Prompts for and validates the user's phone number.
+        /// </summary>
         protected static string GetValidatedPhone() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your mobile phone number:");
@@ -88,8 +100,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Prompts for and validates the user's password 
-        // length, number, upper/lowercase.
+        /// <summary>
+        /// Prompts for and validates the user's password.
+        /// </summary>
         protected static string GetValidatedPassword() {
             while (true) {
                 UIFunctions.DisplayString("Your password must:");
@@ -116,7 +129,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Prompts for and validates a location in the form X,Y.
+        /// <summary>
+        /// Prompts for and validates a location in the form X,Y.
+        /// </summary>
         protected static string GetValidatedLocation() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your location (in the form of X,Y) :");
@@ -138,8 +153,9 @@ namespace Arriba_Eats {
         protected string phone;
         protected int age;
 
-        // Main registration method for a user 
-        // can be overridden by subclasses.
+        /// <summary>
+        /// Main registration method for a user. Can be overridden by subclasses.
+        /// </summary>
         public virtual void Register() {
             name = GetValidatedName();
             age = GetValidatedAge();
@@ -148,8 +164,9 @@ namespace Arriba_Eats {
             password = GetValidatedPassword();
         }
         
-        // Returns the role string for this registration type 
-        // can be overridden.
+        /// <summary>
+        /// Returns the role string for this registration type. Can be overridden.
+        /// </summary>
         protected virtual string GetRole() {
             return "user";
         }

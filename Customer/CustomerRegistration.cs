@@ -1,5 +1,11 @@
 namespace Arriba_Eats {
+    /// <summary>
+    /// Handles the registration process for a customer user.
+    /// </summary>
     class Customer_Registration : Registration {
+        /// <summary>
+        /// Customer registration, collect and validates all required information.
+        /// </summary>
         public override void Register() {
             base.Register(); // Call base registration for common user info.
 
@@ -24,7 +30,9 @@ namespace Arriba_Eats {
             Login.ShowMenu();
         }
 
-        // Returns the role string for this registration type.
+        /// <summary>
+        /// Returns the role for this registration type.
+        /// </summary>
         protected override string GetRole() {
             return "customer";
         }

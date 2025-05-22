@@ -1,7 +1,13 @@
 using System.Text.RegularExpressions;
 
 namespace Arriba_Eats {
+    /// <summary>
+    /// Handles the registration process for a deliverer user.
+    /// </summary>
     class Deliverer_Registration : Registration {
+        /// <summary>
+        /// Deliverer registration, collect and validates all required information.
+        /// </summary>
         public override void Register() {
             base.Register(); // Call base registration for common user info.
 
@@ -22,7 +28,9 @@ namespace Arriba_Eats {
             Login.ShowMenu();
         }
 
-        // Prompts the user for a valid licence plate and validates the input.
+        /// <summary>
+        /// Prompts the user for a valid licence plate and validates the input.
+        /// </summary>
         private static string GetValidatedLicencePlate() {
             while (true) {
                 UIFunctions.DisplayString("Please enter your licence plate:");
@@ -36,7 +44,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Returns the role string for this registration type.
+        /// <summary>
+        /// Returns the role for this registration type.
+        /// </summary>
         protected override string GetRole() {
             return "deliverer";
         }

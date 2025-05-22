@@ -1,5 +1,11 @@
 namespace Arriba_Eats {
+    /// <summary>
+    /// Provides services and menu actions for deliverer users.
+    /// </summary>
     static class DelivererService {
+        /// <summary>
+        /// Main menu loop for deliverer.
+        /// </summary>
         public static void DelivererMenu(Deliverer deliverer) {
             while (true) {
                 UIFunctions.DisplayString("Please make a choice from the menu below:");
@@ -33,7 +39,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Displays the deliverer information and current delivery details.
+        /// <summary>
+        /// Displays the deliverer information and current delivery details.
+        /// </summary>
         private static void ShowData(Deliverer deliverer) {
             UIFunctions.DisplayString("Your user details are as follows:");
             UIFunctions.DisplayString($"Name: {deliverer.Name}");
@@ -64,7 +72,9 @@ namespace Arriba_Eats {
             }
         }
 
-        // Lists all available orders for delivery and allows the deliverer to accept one.
+        /// <summary>
+        /// Lists all available orders for delivery and allows the deliverer to accept one.
+        /// </summary>
         private static void AvailableOrders(Deliverer deliverer) {
             // Prevent accepting a new order if one is already in progress.
             if (deliverer.orderDeliverStatus.Any(kv => kv.Value != "Delivered" && kv.Value != "Completed")) {
@@ -135,7 +145,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Thanks for accepting the order. Please head to {chosen.restaurantName} at {chosen.rx},{chosen.ry} to pick it up.");
         }
 
-        // Allows the deliverer to indicate they have arrived at the restaurant.
+        /// <summary>
+        /// Allows the deliverer to indicate they have arrived at the restaurant.
+        /// </summary>
         private static void ArrivedAtRestaurant(Deliverer deliverer) {
             // Find the current order in progress.
             var current = deliverer.orderDeliverStatus.FirstOrDefault(kv => kv.Value == "Accepted" || kv.Value == "Arrived" || kv.Value == "Being Delivered");
@@ -178,7 +190,9 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"When you have the order, please deliver it to {customer.Name} at {customer.Location.x},{customer.Location.y}.");
         }
 
-        // Allows the deliverer to mark the delivery as complete.
+        /// <summary>
+        /// Allows the deliverer to mark the delivery as complete.
+        /// </summary>
         private static void MarkDeliveryComplete(Deliverer deliverer) {
             // Find the current order being delivered.
             var current = deliverer.orderDeliverStatus.FirstOrDefault(kv => kv.Value == "Being Delivered");

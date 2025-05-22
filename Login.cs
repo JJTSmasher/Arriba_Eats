@@ -1,11 +1,11 @@
 namespace Arriba_Eats {
+    /// <summary>
+    /// Handles login, registration, and user authentication for the Arriba Eats system.
+    /// </summary>
     class Login {
-        // List of all registered users in the system.
-        public static List<User> users = [];
-        // List of all reviews in the system.
-        public static List<Review> Reviews = [];
-
-        // Displays the main menu for login and registration.
+        /// <summary>
+        /// Displays the main menu for login and registration.
+        /// </summary>
         public static void ShowMenu() {
             while (true) {
                 UIFunctions.DisplayString("Please make a choice from the menu below:");
@@ -35,17 +35,23 @@ namespace Arriba_Eats {
             }
         }
 
-        // Checks if an email is already in use by another user.
+        /// <summary>
+        /// Checks if an email is already in use by another user.
+        /// </summary>
         public static bool IsEmailInUse(string email) {
             return users.Any(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Adds a new user to the system.
+        /// <summary>
+        /// Adds a new user to the system.
+        /// </summary>
         public static void AddUser(User user) {
             users.Add(user);
         }
 
-        // Handles user authentication and role-based menu redirection.
+        /// <summary>
+        /// Handles user authentication and role-based menu redirection.
+        /// </summary>
         public static void Authenticate() {
             UIFunctions.DisplayString("Email:");
             string email = UIFunctions.ReadString();
@@ -82,9 +88,16 @@ namespace Arriba_Eats {
             }
         }
 
-        // Checks if the provided email and password match a registered user.
+        /// <summary>
+        /// Checks if the provided email and password match a registered user.
+        /// </summary>
         private static User IsValidUser(string email, string password) {
             return users.FirstOrDefault(user => user.Email == email && user.Password == password);
         }
+
+        // List of all registered users in the system.
+        public static List<User> users = [];
+        // List of all reviews in the system.
+        public static List<Review> Reviews = [];
     }
 }
