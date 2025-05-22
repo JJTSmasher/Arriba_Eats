@@ -168,10 +168,7 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Please enter a choice between 1 and {idx}:");
 
             // Get user choice.
-            int selection;
-            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
-                UIFunctions.DisplayString("Invalid choice.");
-            }
+            int selection = UIFunctions.GetChoice(1, idx);
             if (selection == idx) return;
 
             // Mark the chosen order as "Cooking".
@@ -212,10 +209,7 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Please enter a choice between 1 and {idx}:");
 
             // Get user choice.
-            int selection;
-            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
-                UIFunctions.DisplayString("Invalid choice.");
-            }
+            int selection = UIFunctions.GetChoice(1, idx);
             if (selection == idx) return;
 
             // Mark the chosen order as "Cooked".
@@ -274,10 +268,7 @@ namespace Arriba_Eats {
             UIFunctions.DisplayString($"Please enter a choice between 1 and {idx}:");
 
             // Get user choice.
-            int selection;
-            while (!int.TryParse(UIFunctions.ReadString(), out selection) || selection < 1 || selection > idx) {
-                UIFunctions.DisplayString("Invalid choice.");
-            }
+            int selection = UIFunctions.GetChoice(1, idx);
             if (selection == idx) return;
 
             var chosen = waitingOrders[selection - 1];

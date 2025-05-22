@@ -14,14 +14,8 @@ namespace Arriba_Eats {
                 UIFunctions.DisplayString("3: Exit");
                 UIFunctions.DisplayString("Please enter a choice between 1 and 3:");
 
-                // Validate user input.
-                if (!int.TryParse(UIFunctions.ReadString(), out int choice) || choice < 1 || choice > 3) {
-                    UIFunctions.DisplayString("Invalid choice.");
-                    continue;
-                }
-
                 // Handle menu selection.
-                switch (choice) {
+                switch (UIFunctions.GetChoice(1, 3)) {
                     case 1:
                         Authenticate();
                         break;

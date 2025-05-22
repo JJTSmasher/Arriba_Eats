@@ -23,10 +23,7 @@ namespace Arriba_Eats {
             Console.WriteLine("Please enter a choice between 1 and 6:");
 
             // Get and validate the style choice.
-            int styleChoice;
-            while (!int.TryParse(UIFunctions.ReadString(), out styleChoice) || styleChoice < 1 || styleChoice > 6) {
-                Console.WriteLine("Invalid choice. Please try again.");
-            }
+            int styleChoice = UIFunctions.GetChoice(1, 6);
 
             // Set the user choice to a style string.
             string[] styles = { "Italian", "French", "Chinese", "Japanese", "American", "Australian" };
